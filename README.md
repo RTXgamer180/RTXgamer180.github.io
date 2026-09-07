@@ -1,6 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xxx-jj_playz | Gaming</title>
+  <meta name="description" content="Welcome to xxx-jj_playz — gaming, chaos, and awesome videos.">
+  <style>
+    :root {
+      --bg: #080811;
+      --panel: #11111f;
+      --panel-2: #17172a;
+      --text: #f5f5ff;
+      --muted: #aaaac2;
+      --accent: #8b5cf6;
+      --accent-2: #22d3ee;
+      --border: rgba(255,255,255,.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       background: var(--bg);
       color: var(--text);
