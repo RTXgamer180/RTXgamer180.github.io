@@ -1,97 +1,80 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <meta
-    name="description"
-    content="JJ PLAYZ — A personal video library."
-  >
-
-  <meta
-    name="theme-color"
-    content="#08090d"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>JJ PLAYZ — Video Library</title>
-
-  <link
-    rel="manifest"
-    href="./manifest.json"
+  <meta
+    name="description"
+    content="JJ PLAYZ — a personal video library with favorites, history, watch later, progress tracking and more."
   >
+  <meta name="theme-color" content="#0b0d12">
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
+  <link rel="manifest" href="./manifest.json">
 
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
     rel="stylesheet"
   >
 
   <style>
-
-    /* =========================================================
-       JJ PLAYZ
-       FUNCTIONAL MEDIA DASHBOARD
-    ========================================================= */
-
     :root {
-      --bg: #08090d;
-      --bg-2: #0c0f15;
-      --panel: #11151d;
-      --panel-2: #171c25;
-
-      --text: #f5f7fa;
-      --muted: #9299a8;
-
+      --bg: #090b10;
+      --bg-2: #0e1118;
+      --panel: rgba(20, 24, 34, .82);
+      --panel-solid: #141822;
+      --panel-hover: #1a1f2c;
       --border: rgba(255,255,255,.09);
+      --border-strong: rgba(255,255,255,.16);
+
+      --text: #f4f6fb;
+      --muted: #9299aa;
+      --muted-2: #687080;
 
       --accent: #8b5cf6;
-      --accent-2: #6d28d9;
+      --accent-2: #a78bfa;
+      --accent-soft: rgba(139,92,246,.16);
 
-      --success: #22c55e;
-      --danger: #ef4444;
-      --warning: #f59e0b;
+      --success: #4ade80;
+      --warning: #fbbf24;
+      --danger: #fb7185;
 
-      --radius: 16px;
+      --radius: 18px;
+      --radius-sm: 12px;
 
-      --shadow:
-        0 20px 70px rgba(0,0,0,.35);
+      --shadow: 0 20px 70px rgba(0,0,0,.35);
+
+      --max: 1450px;
     }
 
-    body.light {
-      --bg: #f3f4f7;
+    [data-theme="light"] {
+      --bg: #f4f6fa;
       --bg-2: #ffffff;
-      --panel: #ffffff;
-      --panel-2: #f0f1f4;
+      --panel: rgba(255,255,255,.9);
+      --panel-solid: #ffffff;
+      --panel-hover: #f0f2f7;
+      --border: rgba(0,0,0,.08);
+      --border-strong: rgba(0,0,0,.14);
+      --text: #11131a;
+      --muted: #697080;
+      --muted-2: #9299a7;
+      --shadow: 0 20px 70px rgba(0,0,0,.10);
+    }
 
-      --text: #111318;
-      --muted: #68707e;
-
-      --border: rgba(0,0,0,.10);
-
-      --shadow:
-        0 20px 60px rgba(0,0,0,.12);
+    [data-theme="amoled"] {
+      --bg: #000;
+      --bg-2: #000;
+      --panel: rgba(12,12,15,.94);
+      --panel-solid: #0c0c0f;
+      --panel-hover: #15151a;
+      --border: rgba(255,255,255,.08);
     }
 
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     html {
@@ -99,34 +82,14 @@
     }
 
     body {
+      margin: 0;
       min-height: 100vh;
-
       background:
-        radial-gradient(
-          circle at 10% 0%,
-          rgba(139,92,246,.10),
-          transparent 30%
-        ),
+        radial-gradient(circle at 15% 0%, rgba(139,92,246,.11), transparent 30%),
+        radial-gradient(circle at 85% 20%, rgba(59,130,246,.08), transparent 25%),
         var(--bg);
-
       color: var(--text);
-
-      font-family: Inter, sans-serif;
-
-      overflow-x: hidden;
-
-      transition:
-        background .25s,
-        color .25s;
-    }
-
-    body.no-motion *,
-    body.no-motion *::before,
-    body.no-motion *::after {
-      animation-duration: .001ms !important;
-      animation-iteration-count: 1 !important;
-      scroll-behavior: auto !important;
-      transition-duration: .001ms !important;
+      font-family: Inter, system-ui, sans-serif;
     }
 
     button,
@@ -139,5990 +102,3304 @@
       cursor: pointer;
     }
 
-    img {
-      display: block;
-      max-width: 100%;
-    }
-
     a {
       color: inherit;
       text-decoration: none;
     }
 
-    ::selection {
-      background: var(--accent);
-      color: white;
+    img {
+      max-width: 100%;
     }
 
-    ::-webkit-scrollbar {
-      width: 9px;
+    .app {
+      min-height: 100vh;
     }
 
-    ::-webkit-scrollbar-track {
-      background: var(--bg);
-    }
+    /* =========================
+       TOP BAR
+    ========================= */
 
-    ::-webkit-scrollbar-thumb {
-      background: var(--accent);
-      border-radius: 99px;
-    }
-
-    /* =========================================================
-       HEADER
-    ========================================================= */
-
-    header {
+    .topbar {
       position: sticky;
       top: 0;
-      z-index: 1000;
-
-      border-bottom:
-        1px solid var(--border);
-
-      background:
-        color-mix(
-          in srgb,
-          var(--bg) 88%,
-          transparent
-        );
-
-      backdrop-filter: blur(20px);
+      z-index: 100;
+      height: 72px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(9,11,16,.82);
+      backdrop-filter: blur(22px);
     }
 
-    .nav {
-      width: min(1500px, 94%);
-      min-height: 70px;
+    [data-theme="light"] .topbar {
+      background: rgba(255,255,255,.82);
+    }
 
+    .topbar-inner {
+      width: min(var(--max), calc(100% - 32px));
+      height: 100%;
       margin: auto;
-
       display: flex;
       align-items: center;
-      justify-content: space-between;
-
-      gap: 20px;
+      gap: 18px;
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 11px;
-
-      font-family:
-        "Space Grotesk",
-        sans-serif;
-
-      font-weight: 700;
-      white-space: nowrap;
+      min-width: max-content;
     }
 
-    .brand-logo,
-    .brand-fallback {
-      width: 40px;
-      height: 40px;
-
-      border-radius: 10px;
+    .brand-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      object-fit: cover;
+      border: 1px solid var(--border-strong);
+      background: var(--panel-solid);
     }
 
-    .brand-logo {
-      object-fit: contain;
-    }
-
-    .brand-fallback {
-      display: grid;
-      place-items: center;
-
-      background: var(--accent);
-      color: white;
-
+    .brand-name {
+      font-family: "Space Grotesk", sans-serif;
       font-weight: 800;
+      letter-spacing: -.04em;
+      font-size: 19px;
     }
 
-    .nav-actions {
+    .brand-sub {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: -2px;
+    }
+
+    .search-wrap {
+      flex: 1;
+      max-width: 700px;
+      margin: auto;
+      position: relative;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      height: 44px;
+      padding: 0 48px 0 44px;
+      border-radius: 13px;
+      border: 1px solid var(--border);
+      outline: none;
+      color: var(--text);
+      background: var(--panel);
+      transition: .2s;
+    }
+
+    .search-wrap input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .search-shortcut {
+      position: absolute;
+      right: 10px;
+      top: 9px;
+      padding: 4px 7px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .top-actions {
       display: flex;
       align-items: center;
       gap: 7px;
     }
 
-    .icon-button {
+    .icon-btn {
       width: 42px;
       height: 42px;
-
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      background: var(--panel);
       display: grid;
       place-items: center;
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 10px;
-
-      background: var(--panel);
-      color: var(--text);
-
       transition: .2s;
     }
 
-    .icon-button:hover {
-      background: var(--panel-2);
-      border-color: var(--accent);
+    .icon-btn:hover {
+      background: var(--panel-hover);
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
     }
 
-    /* =========================================================
-       MAIN
-    ========================================================= */
+    /* =========================
+       LAYOUT
+    ========================= */
 
-    main {
-      width: min(1500px, 94%);
+    .layout {
+      width: min(var(--max), calc(100% - 32px));
       margin: auto;
-    }
-
-    .page {
-      padding:
-        45px
-        0
-        100px;
-    }
-
-    /* =========================================================
-       PAGE TITLE
-    ========================================================= */
-
-    .page-title {
-      margin-bottom: 35px;
-    }
-
-    .page-title h1 {
-      font-family:
-        "Space Grotesk",
-        sans-serif;
-
-      font-size:
-        clamp(38px, 6vw, 70px);
-
-      letter-spacing: -3px;
-    }
-
-    .page-title p {
-      max-width: 720px;
-
-      margin-top: 13px;
-
-      color: var(--muted);
-
-      line-height: 1.7;
-    }
-
-    /* =========================================================
-       FEATURED
-    ========================================================= */
-
-    .featured {
-      position: relative;
-
-      min-height: 330px;
-
       display: grid;
-      grid-template-columns:
-        1.4fr
-        1fr;
-
-      overflow: hidden;
-
-      margin-bottom: 30px;
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 22px;
-
-      background: var(--panel);
-
-      box-shadow: var(--shadow);
+      grid-template-columns: 235px 1fr;
+      gap: 28px;
     }
 
-    .featured-image {
-      position: relative;
-
-      min-height: 330px;
-
-      overflow: hidden;
+    .sidebar {
+      position: sticky;
+      top: 94px;
+      align-self: start;
+      padding: 25px 0;
     }
 
-    .featured-image img {
+    .sidebar-section {
+      margin-bottom: 25px;
+    }
+
+    .sidebar-label {
+      color: var(--muted-2);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 0 12px 8px;
+    }
+
+    .nav-item {
       width: 100%;
-      height: 100%;
-
-      object-fit: cover;
-
-      transition:
-        transform .5s;
-    }
-
-    .featured:hover
-    .featured-image img {
-      transform: scale(1.03);
-    }
-
-    .featured-image::after {
-      content: "";
-
-      position: absolute;
-      inset: 0;
-
-      background:
-        linear-gradient(
-          90deg,
-          transparent,
-          var(--panel)
-        );
-    }
-
-    .featured-info {
-      position: relative;
-      z-index: 2;
-
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      align-items: center;
+      gap: 11px;
+      padding: 11px 12px;
+      border: 0;
+      border-radius: 11px;
+      color: var(--muted);
+      background: transparent;
+      text-align: left;
+      transition: .2s;
+    }
 
-      padding: 40px;
+    .nav-item:hover {
+      color: var(--text);
+      background: var(--panel);
+    }
+
+    .nav-item.active {
+      color: var(--text);
+      background: var(--accent-soft);
+    }
+
+    .nav-count {
+      margin-left: auto;
+      color: var(--muted-2);
+      font-size: 11px;
+    }
+
+    .content {
+      min-width: 0;
+      padding: 34px 0 90px;
+    }
+
+    /* =========================
+       PAGE HEADER
+    ========================= */
+
+    .page-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
     }
 
     .eyebrow {
-      color: var(--accent);
-
+      color: var(--accent-2);
+      text-transform: uppercase;
       font-size: 11px;
       font-weight: 800;
-
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
+      letter-spacing: .12em;
+      margin-bottom: 7px;
     }
 
-    .featured-info h2 {
-      margin-top: 10px;
-
-      font-family:
-        "Space Grotesk",
-        sans-serif;
-
-      font-size:
-        clamp(28px, 4vw, 46px);
-
-      line-height: 1.05;
+    h1 {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(30px, 4vw, 46px);
+      letter-spacing: -.055em;
     }
 
-    .featured-info p {
-      margin-top: 13px;
-
+    .page-description {
+      margin: 8px 0 0;
       color: var(--muted);
-
       line-height: 1.6;
+      max-width: 650px;
     }
-
-    .featured-buttons {
-      display: flex;
-      flex-wrap: wrap;
-
-      gap: 8px;
-
-      margin-top: 20px;
-    }
-
-    /* =========================================================
-       BUTTONS
-    ========================================================= */
-
-    .button {
-      min-height: 42px;
-
-      padding:
-        10px
-        14px;
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 10px;
-
-      background: var(--panel);
-      color: var(--text);
-
-      transition: .2s;
-    }
-
-    .button:hover {
-      background: var(--panel-2);
-      border-color: var(--accent);
-    }
-
-    .button.primary {
-      border-color: var(--accent);
-
-      background: var(--accent);
-
-      color: white;
-    }
-
-    .button.primary:hover {
-      background: var(--accent-2);
-    }
-
-    .button.danger {
-      color: var(--danger);
-    }
-
-    /* =========================================================
-       AD SLOT
-    ========================================================= */
-
-    .ad-slot {
-      position: relative;
-
-      min-height: 90px;
-
-      display: grid;
-      place-items: center;
-
-      margin:
-        25px
-        0;
-
-      border:
-        1px dashed var(--border);
-
-      border-radius: 12px;
-
-      background:
-        rgba(255,255,255,.015);
-
-      color: var(--muted);
-
-      font-size: 11px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .ad-slot.hidden {
-      display: none;
-    }
-
-    .ad-label {
-      position: absolute;
-
-      top: 8px;
-      left: 10px;
-
-      color: var(--muted);
-
-      font-size: 8px;
-      letter-spacing: 1px;
-    }
-
-    /* =========================================================
-       DASHBOARD STATS
-    ========================================================= */
 
     .stats {
-      display: grid;
-
-      grid-template-columns:
-        repeat(6, 1fr);
-
-      gap: 10px;
-
-      margin-bottom: 30px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .stat {
-      padding: 17px;
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 14px;
-
+      padding: 10px 13px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
       background: var(--panel);
+      min-width: 90px;
+    }
+
+    .stat-value {
+      font-weight: 800;
+      font-size: 17px;
     }
 
     .stat-label {
       color: var(--muted);
-
       font-size: 10px;
-      font-weight: 700;
-
-      letter-spacing: 1px;
+      margin-top: 2px;
     }
 
-    .stat-value {
-      display: block;
+    /* =========================
+       FILTER BAR
+    ========================= */
 
-      margin-top: 8px;
-
-      font-family:
-        "Space Grotesk",
-        sans-serif;
-
-      font-size: 25px;
-      font-weight: 700;
-    }
-
-    /* =========================================================
-       CONTINUE WATCHING
-    ========================================================= */
-
-    .section {
-      margin-bottom: 40px;
-    }
-
-    .section-heading {
+    .toolbar {
       display: flex;
-      align-items: end;
-      justify-content: space-between;
-
-      gap: 20px;
-
-      margin-bottom: 15px;
-    }
-
-    .section-heading h2 {
-      font-family:
-        "Space Grotesk",
-        sans-serif;
-
-      font-size: 25px;
-    }
-
-    .section-heading p {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .continue-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      gap: 14px;
-    }
-
-    .continue-item {
-      overflow: hidden;
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 14px;
-
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
       background: var(--panel);
+    }
 
-      cursor: pointer;
+    .filter-select {
+      height: 38px;
+      padding: 0 12px;
+      color: var(--text);
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+    }
 
+    .view-buttons {
+      margin-left: auto;
+      display: flex;
+      gap: 5px;
+    }
+
+    .small-btn {
+      height: 36px;
+      padding: 0 11px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--muted);
+      background: transparent;
+    }
+
+    .small-btn.active,
+    .small-btn:hover {
+      color: var(--text);
+      background: var(--accent-soft);
+      border-color: rgba(139,92,246,.35);
+    }
+
+    /* =========================
+       TAGS
+    ========================= */
+
+    .tags {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 25px;
+      scrollbar-width: thin;
+    }
+
+    .tag {
+      white-space: nowrap;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 12px;
       transition: .2s;
     }
 
-    .continue-item:hover {
-      transform: translateY(-2px);
-      border-color: var(--accent);
-    }
-
-    .continue-thumb {
-      position: relative;
-
-      aspect-ratio: 16/9;
-
-      overflow: hidden;
-    }
-
-    .continue-thumb img {
-      width: 100%;
-      height: 100%;
-
-      object-fit: cover;
-    }
-
-    .continue-info {
-      padding: 14px;
-    }
-
-    .continue-info strong {
-      display: block;
-
-      font-family:
-        "Space Grotesk",
-        sans-serif;
-    }
-
-    .continue-info span {
-      display: block;
-
-      margin-top: 5px;
-
-      color: var(--muted);
-
-      font-size: 11px;
-    }
-
-    /* =========================================================
-       LIBRARY CONTROLS
-    ========================================================= */
-
-    .library-controls {
-      display: grid;
-
-      grid-template-columns:
-        1fr
-        auto
-        auto;
-
-      gap: 9px;
-
-      margin-bottom: 15px;
-    }
-
-    .search-wrap {
-      position: relative;
-    }
-
-    .search {
-      width: 100%;
-      height: 47px;
-
-      padding:
-        0
-        45px
-        0
-        15px;
-
-      outline: none;
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 11px;
-
-      background: var(--panel);
+    .tag:hover,
+    .tag.active {
       color: var(--text);
+      background: var(--accent-soft);
+      border-color: rgba(139,92,246,.4);
     }
 
-    .search:focus {
-      border-color: var(--accent);
-    }
-
-    .search-clear {
-      position: absolute;
-
-      top: 50%;
-      right: 10px;
-
-      transform: translateY(-50%);
-
-      border: 0;
-
-      background: transparent;
-      color: var(--muted);
-
-      display: none;
-    }
-
-    .select {
-      height: 47px;
-
-      padding:
-        0
-        12px;
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 11px;
-
-      outline: none;
-
-      background: var(--panel);
-      color: var(--text);
-    }
-
-    .select:focus {
-      border-color: var(--accent);
-    }
-
-    /* =========================================================
-       TABS
-    ========================================================= */
-
-    .tabs {
-      display: flex;
-
-      gap: 6px;
-
-      overflow-x: auto;
-
-      margin-bottom: 22px;
-
-      padding-bottom: 4px;
-    }
-
-    .tab {
-      flex: 0 0 auto;
-
-      padding:
-        9px
-        13px;
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 9px;
-
-      background: var(--panel);
-      color: var(--muted);
-    }
-
-    .tab:hover,
-    .tab.active {
-      border-color: var(--accent);
-
-      background: var(--accent);
-
-      color: white;
-    }
-
-    /* =========================================================
-       TAG FILTERS
-    ========================================================= */
-
-    .tag-filter {
-      display: flex;
-
-      flex-wrap: wrap;
-
-      gap: 6px;
-
-      margin-bottom: 22px;
-    }
-
-    .tag-filter button {
-      padding:
-        7px
-        10px;
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 8px;
-
-      background: transparent;
-      color: var(--muted);
-
-      font-size: 11px;
-    }
-
-    .tag-filter button:hover,
-    .tag-filter button.active {
-      border-color: var(--accent);
-      color: var(--text);
-    }
-
-    /* =========================================================
+    /* =========================
        VIDEO GRID
-    ========================================================= */
+    ========================= */
 
     .video-grid {
       display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 20px;
+    }
 
-      grid-template-columns:
-        repeat(4, 1fr);
-
-      gap: 18px;
+    .video-grid.list {
+      grid-template-columns: 1fr;
     }
 
     .video-card {
-      overflow: hidden;
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 15px;
-
+      position: relative;
+      min-width: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       background: var(--panel);
-
-      transition:
-        transform .2s,
-        border-color .2s;
+      overflow: hidden;
+      transition: transform .22s, border-color .22s, background .22s;
     }
 
     .video-card:hover {
       transform: translateY(-3px);
+      border-color: var(--border-strong);
+      background: var(--panel-hover);
+    }
 
-      border-color:
-        rgba(139,92,246,.55);
+    .video-grid.list .video-card {
+      display: grid;
+      grid-template-columns: 280px 1fr;
     }
 
     .thumbnail {
       position: relative;
-
-      aspect-ratio: 16/9;
-
+      aspect-ratio: 16 / 9;
+      background: #08090d;
       overflow: hidden;
-
-      background: var(--panel-2);
-
-      cursor: pointer;
     }
 
     .thumbnail img {
       width: 100%;
       height: 100%;
-
+      display: block;
       object-fit: cover;
-
-      transition:
-        transform .3s;
+      transition: transform .4s;
     }
 
-    .video-card:hover
-    .thumbnail img {
-      transform: scale(1.04);
-    }
-
-    .placeholder {
-      width: 100%;
-      height: 100%;
-
-      display: grid;
-      place-items: center;
-
-      color: var(--muted);
-
-      font-size: 35px;
+    .video-card:hover .thumbnail img {
+      transform: scale(1.035);
     }
 
     .duration {
       position: absolute;
-
       right: 8px;
       bottom: 8px;
-
-      padding:
-        4px
-        6px;
-
-      border-radius: 5px;
-
-      background: rgba(0,0,0,.82);
-      color: white;
-
-      font-size: 10px;
+      padding: 4px 6px;
+      border-radius: 6px;
+      background: rgba(0,0,0,.78);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
     }
 
-    .progress-bar {
+    .progress-track {
       position: absolute;
-
       left: 0;
       right: 0;
       bottom: 0;
-
       height: 4px;
-
-      background:
-        rgba(255,255,255,.16);
+      background: rgba(255,255,255,.12);
     }
 
-    .progress-bar span {
-      display: block;
-
-      width: 0;
+    .progress-bar {
       height: 100%;
-
+      width: 0;
       background: var(--accent);
     }
 
-    .card-body {
-      padding: 15px;
-    }
-
-    .card-title {
-      font-family:
-        "Space Grotesk",
-        sans-serif;
-
-      font-size: 17px;
-
-      line-height: 1.35;
-    }
-
-    .card-description {
-      display: -webkit-box;
-
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-
-      overflow: hidden;
-
-      margin-top: 7px;
-
-      color: var(--muted);
-
-      font-size: 12px;
-
-      line-height: 1.55;
-    }
-
-    .meta {
+    .card-actions {
+      position: absolute;
+      top: 9px;
+      right: 9px;
       display: flex;
-      flex-wrap: wrap;
+      gap: 5px;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: .2s;
+    }
 
-      gap: 7px;
+    .video-card:hover .card-actions,
+    .card-actions:focus-within {
+      opacity: 1;
+      transform: none;
+    }
 
-      margin-top: 10px;
+    .card-action {
+      width: 32px;
+      height: 32px;
+      border: 0;
+      border-radius: 9px;
+      background: rgba(0,0,0,.72);
+      color: #fff;
+      backdrop-filter: blur(8px);
+    }
 
+    .card-action.active {
+      color: var(--accent-2);
+    }
+
+    .video-info {
+      padding: 14px;
+    }
+
+    .video-category {
+      color: var(--accent-2);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .video-title {
+      margin: 5px 0 7px;
+      font-size: 15px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .video-description {
       color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
 
+    .video-meta {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin-top: 11px;
+      color: var(--muted-2);
       font-size: 10px;
     }
 
-    .card-tags {
+    .video-tags {
       display: flex;
       flex-wrap: wrap;
-
-      gap: 4px;
-
-      margin-top: 10px;
+      gap: 5px;
+      margin-top: 11px;
     }
 
-    .card-tag {
-      padding:
-        4px
-        6px;
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 5px;
-
+    .mini-tag {
       color: var(--muted);
-
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 6px;
       font-size: 9px;
     }
 
-    .card-actions {
-      display: grid;
+    /* =========================
+       STATES
+    ========================= */
 
-      grid-template-columns:
-        1fr
-        1fr
-        1fr;
-
-      gap: 5px;
-
-      margin-top: 13px;
-    }
-
-    .small-button {
-      padding:
-        8px
-        5px;
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 8px;
-
-      background: transparent;
-      color: var(--text);
-
-      font-size: 10px;
-    }
-
-    .small-button:hover,
-    .small-button.active {
-      border-color: var(--accent);
-      background: var(--panel-2);
-    }
-
-    /* =========================================================
-       EMPTY / ERROR
-    ========================================================= */
-
-    .empty {
-      grid-column: 1/-1;
-
-      padding: 80px 20px;
-
-      border:
-        1px dashed var(--border);
-
-      border-radius: 16px;
-
+    .state {
+      padding: 65px 25px;
+      border: 1px dashed var(--border-strong);
+      border-radius: 20px;
       text-align: center;
-    }
-
-    .empty-icon {
-      margin-bottom: 15px;
-
-      font-size: 40px;
-    }
-
-    .empty h3 {
-      font-family:
-        "Space Grotesk",
-        sans-serif;
-    }
-
-    .empty p {
-      max-width: 600px;
-
-      margin:
-        9px
-        auto
-        0;
-
       color: var(--muted);
+    }
 
-      line-height: 1.7;
+    .state-icon {
+      font-size: 35px;
+      margin-bottom: 12px;
+    }
 
+    .state-title {
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .state p {
+      max-width: 550px;
+      margin: auto;
+      line-height: 1.6;
       font-size: 13px;
     }
 
-    /* =========================================================
-       MODAL
-    ========================================================= */
+    .hidden {
+      display: none !important;
+    }
 
-    .modal {
+    /* =========================
+       MODAL
+    ========================= */
+
+    .modal-layer {
       position: fixed;
       inset: 0;
-
-      z-index: 5000;
-
+      z-index: 500;
       display: none;
-
-      padding: 18px;
-
-      background:
-        rgba(0,0,0,.84);
-
-      backdrop-filter:
-        blur(12px);
+      background: rgba(0,0,0,.78);
+      backdrop-filter: blur(12px);
+      padding: 25px;
+      overflow-y: auto;
     }
 
-    .modal.open {
-      display: grid;
-      place-items: center;
-    }
-
-    .modal-box {
-      width: min(1250px, 100%);
-      max-height: 95vh;
-
-      overflow: auto;
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 18px;
-
-      background: var(--bg-2);
-
-      box-shadow: var(--shadow);
-    }
-
-    .modal-top {
+    .modal-layer.open {
       display: flex;
-
-      align-items: center;
-      justify-content: space-between;
-
-      min-height: 55px;
-
-      padding:
-        8px
-        13px;
-
-      border-bottom:
-        1px solid var(--border);
+      justify-content: center;
+      align-items: flex-start;
     }
 
-    .modal-top strong {
+    .player-modal {
+      width: min(1250px, 100%);
+      margin: 20px auto;
+      border: 1px solid var(--border-strong);
+      border-radius: 22px;
+      background: var(--panel-solid);
+      box-shadow: var(--shadow);
       overflow: hidden;
-
-      text-overflow: ellipsis;
-      white-space: nowrap;
-
-      font-family:
-        "Space Grotesk",
-        sans-serif;
-    }
-
-    .modal-close {
-      width: 38px;
-      height: 38px;
-
-      border: 0;
-
-      border-radius: 9px;
-
-      background: var(--panel);
-      color: var(--text);
     }
 
     .player-layout {
       display: grid;
-
-      grid-template-columns:
-        minmax(0, 1fr)
-        300px;
+      grid-template-columns: minmax(0,1fr) 300px;
     }
 
-    .player-area {
+    .player-main {
       min-width: 0;
-
-      background: #000;
     }
 
-    .player {
-      display: block;
-
+    .player-video {
       width: 100%;
-      max-height: 70vh;
-
+      aspect-ratio: 16 / 9;
+      display: block;
       background: #000;
     }
 
-    .player-controls-extra {
+    .player-controls {
       display: flex;
-      flex-wrap: wrap;
-
-      gap: 7px;
-
+      align-items: center;
+      gap: 6px;
       padding: 10px;
-
-      background: #080808;
+      border-bottom: 1px solid var(--border);
     }
 
-    .player-select {
-      padding:
-        7px
-        9px;
-
-      border:
-        1px solid rgba(255,255,255,.12);
-
-      border-radius: 7px;
-
-      background: #111;
-      color: white;
+    .player-controls button,
+    .player-controls select {
+      height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--bg-2);
+      color: var(--text);
+      padding: 0 10px;
     }
 
-    .player-button {
-      padding:
-        7px
-        10px;
-
-      border:
-        1px solid rgba(255,255,255,.12);
-
-      border-radius: 7px;
-
-      background: #111;
-      color: white;
+    .player-controls .spacer {
+      flex: 1;
     }
 
-    .modal-info {
+    .player-details {
       padding: 22px;
     }
 
-    .modal-info h2 {
-      font-family:
-        "Space Grotesk",
-        sans-serif;
-
-      font-size: 27px;
+    .player-details h2 {
+      margin: 5px 0 8px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 25px;
+      letter-spacing: -.035em;
     }
 
-    .modal-info p {
-      margin-top: 10px;
-
+    .player-details p {
       color: var(--muted);
-
       line-height: 1.7;
       font-size: 13px;
     }
 
-    .modal-meta {
+    .player-tags {
       display: flex;
       flex-wrap: wrap;
-
-      gap: 10px;
-
-      margin-top: 13px;
-
-      color: var(--muted);
-
-      font-size: 11px;
+      gap: 6px;
+      margin-top: 15px;
     }
 
-    .modal-actions {
-      display: flex;
-      flex-wrap: wrap;
-
-      gap: 7px;
-
-      margin-top: 18px;
+    .player-side {
+      border-left: 1px solid var(--border);
+      padding: 17px;
+      max-height: calc(100vh - 90px);
+      overflow-y: auto;
     }
 
-    /* =========================================================
-       RELATED
-    ========================================================= */
-
-    .related {
-      padding: 20px;
-
-      border-left:
-        1px solid var(--border);
-
-      background: var(--panel);
-    }
-
-    .related h3 {
+    .side-title {
+      font-weight: 800;
+      font-size: 13px;
       margin-bottom: 13px;
-
-      font-family:
-        "Space Grotesk",
-        sans-serif;
     }
 
-    .related-list {
+    .related-card {
       display: grid;
-
-      gap: 10px;
-    }
-
-    .related-item {
-      display: grid;
-
-      grid-template-columns: 95px 1fr;
-
+      grid-template-columns: 105px 1fr;
       gap: 9px;
-
-      padding: 7px;
-
-      border-radius: 9px;
-
-      cursor: pointer;
+      padding: 8px;
+      margin-bottom: 8px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      transition: .2s;
     }
 
-    .related-item:hover {
-      background: var(--panel-2);
+    .related-card:hover {
+      background: var(--panel-hover);
+      border-color: var(--border);
     }
 
     .related-thumb {
-      aspect-ratio: 16/9;
-
+      aspect-ratio: 16 / 9;
+      border-radius: 7px;
       overflow: hidden;
-
-      border-radius: 6px;
-
-      background: var(--bg);
+      background: #000;
     }
 
     .related-thumb img {
       width: 100%;
       height: 100%;
-
       object-fit: cover;
     }
 
     .related-title {
       font-size: 11px;
       line-height: 1.4;
+      font-weight: 700;
     }
 
-    /* =========================================================
-       SETTINGS
-    ========================================================= */
+    .related-meta {
+      color: var(--muted);
+      font-size: 9px;
+      margin-top: 4px;
+    }
 
-    .overlay {
+    /* =========================
+       SETTINGS
+    ========================= */
+
+    .drawer-backdrop {
       position: fixed;
       inset: 0;
-
-      z-index: 3000;
-
+      z-index: 700;
+      background: rgba(0,0,0,.5);
       display: none;
-
-      background:
-        rgba(0,0,0,.45);
     }
 
-    .overlay.open {
+    .drawer-backdrop.open {
       display: block;
     }
 
     .settings {
       position: fixed;
-
-      top: 0;
       right: 0;
+      top: 0;
       bottom: 0;
-
-      z-index: 4000;
-
-      width:
-        min(
-          430px,
-          94%
-        );
-
+      z-index: 701;
+      width: min(440px, 100%);
       padding: 25px;
-
+      background: var(--panel-solid);
+      border-left: 1px solid var(--border);
+      transform: translateX(100%);
+      transition: transform .25s ease;
       overflow-y: auto;
-
-      border-left:
-        1px solid var(--border);
-
-      background: var(--bg-2);
-
-      transform:
-        translateX(100%);
-
-      transition:
-        transform .25s;
     }
 
     .settings.open {
-      transform:
-        translateX(0);
+      transform: translateX(0);
     }
 
-    .settings-head {
+    .settings-header {
       display: flex;
-
-      align-items: center;
       justify-content: space-between;
-
+      align-items: center;
       margin-bottom: 25px;
     }
 
-    .settings-head h2 {
-      font-family:
-        "Space Grotesk",
-        sans-serif;
+    .settings-header h2 {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
     }
 
-    .settings-section {
-      padding:
-        20px
-        0;
-
-      border-bottom:
-        1px solid var(--border);
+    .setting-group {
+      padding: 17px 0;
+      border-bottom: 1px solid var(--border);
     }
 
-    .settings-section h3 {
-      margin-bottom: 14px;
-
-      font-family:
-        "Space Grotesk",
-        sans-serif;
+    .setting-label {
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 7px;
     }
 
-    .setting-row {
-      display: flex;
-
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 15px;
-
-      padding:
-        11px
-        0;
-    }
-
-    .setting-row small {
-      display: block;
-
-      margin-top: 4px;
-
+    .setting-help {
       color: var(--muted);
-
-      font-size: 10px;
+      font-size: 11px;
       line-height: 1.5;
+      margin-bottom: 12px;
     }
 
-    /* =========================================================
-       TOAST
-    ========================================================= */
-
-    .toast {
-      position: fixed;
-
-      left: 50%;
-      bottom: 22px;
-
-      z-index: 10000;
-
-      max-width: 90%;
-
-      padding:
-        11px
-        15px;
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 10px;
-
-      background: var(--panel);
+    .setting-control {
+      width: 100%;
+      height: 40px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--bg-2);
       color: var(--text);
+      padding: 0 10px;
+    }
 
-      box-shadow: var(--shadow);
+    .danger-btn {
+      width: 100%;
+      min-height: 40px;
+      border: 1px solid rgba(251,113,133,.3);
+      border-radius: 10px;
+      color: var(--danger);
+      background: rgba(251,113,133,.08);
+      margin-top: 7px;
+    }
 
-      transform:
-        translate(-50%, 30px);
+    .toggle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
 
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      flex: 0 0 auto;
+    }
+
+    .toggle input {
       opacity: 0;
+      width: 0;
+      height: 0;
+    }
 
-      pointer-events: none;
-
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: #303541;
       transition: .2s;
     }
 
-    .toast.show {
-      transform:
-        translate(-50%, 0);
-
-      opacity: 1;
-    }
-
-    /* =========================================================
-       LOADING
-    ========================================================= */
-
-    .loading {
-      grid-column: 1/-1;
-
-      padding: 80px;
-
-      text-align: center;
-
-      color: var(--muted);
-    }
-
-    .spinner {
-      width: 35px;
-      height: 35px;
-
-      margin:
-        0
-        auto
-        15px;
-
-      border:
-        3px solid var(--border);
-
-      border-top-color:
-        var(--accent);
-
+    .toggle-slider::before {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      top: 3px;
+      left: 3px;
       border-radius: 50%;
-
-      animation:
-        spin .8s linear infinite;
+      background: #fff;
+      transition: .2s;
     }
 
-    @keyframes spin {
+    .toggle input:checked + .toggle-slider {
+      background: var(--accent);
+    }
+
+    .toggle input:checked + .toggle-slider::before {
+      transform: translateX(20px);
+    }
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    .toast-container {
+      position: fixed;
+      z-index: 1000;
+      right: 18px;
+      bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: min(360px, calc(100% - 36px));
+    }
+
+    .toast {
+      padding: 13px 15px;
+      border: 1px solid var(--border-strong);
+      border-radius: 12px;
+      background: var(--panel-solid);
+      box-shadow: var(--shadow);
+      color: var(--text);
+      font-size: 12px;
+      animation: toast-in .25s ease;
+    }
+
+    @keyframes toast-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
       to {
-        transform: rotate(360deg);
+        opacity: 1;
+        transform: none;
       }
     }
 
-    /* =========================================================
-       MOBILE
-    ========================================================= */
+    /* =========================
+       MOBILE NAV
+    ========================= */
 
-    @media (max-width: 1200px) {
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      z-index: 150;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      padding: 7px;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      background: rgba(15,18,25,.92);
+      backdrop-filter: blur(20px);
+    }
 
+    .mobile-nav button {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 3px;
+      border-radius: 10px;
+      font-size: 10px;
+    }
+
+    .mobile-nav button.active {
+      color: var(--text);
+      background: var(--accent-soft);
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 1150px) {
       .video-grid {
-        grid-template-columns:
-          repeat(3, 1fr);
+        grid-template-columns: repeat(2, minmax(0,1fr));
       }
 
-      .stats {
-        grid-template-columns:
-          repeat(3, 1fr);
+      .layout {
+        grid-template-columns: 190px 1fr;
       }
-
     }
 
-    @media (max-width: 900px) {
-
-      .featured {
-        grid-template-columns: 1fr;
+    @media (max-width: 850px) {
+      .layout {
+        display: block;
       }
 
-      .featured-image {
-        min-height: 250px;
+      .sidebar {
+        display: none;
       }
 
-      .featured-image::after {
-        background:
-          linear-gradient(
-            0deg,
-            var(--panel),
-            transparent
-          );
+      .mobile-nav {
+        display: flex;
       }
 
-      .featured-info {
-        padding: 25px;
+      .content {
+        padding-bottom: 105px;
       }
 
       .player-layout {
-        grid-template-columns: 1fr;
+        display: block;
       }
 
-      .related {
+      .player-side {
         border-left: 0;
-
-        border-top:
-          1px solid var(--border);
+        border-top: 1px solid var(--border);
+        max-height: none;
       }
-
     }
 
-    @media (max-width: 700px) {
-
-      main,
-      .nav {
-        width: 94%;
+    @media (max-width: 650px) {
+      .topbar {
+        height: 64px;
       }
 
-      .page {
-        padding-top: 28px;
+      .topbar-inner {
+        width: min(100% - 18px, var(--max));
+      }
+
+      .brand-sub {
+        display: none;
+      }
+
+      .brand-name {
+        font-size: 16px;
+      }
+
+      .brand-avatar {
+        width: 36px;
+        height: 36px;
+      }
+
+      .search-wrap {
+        max-width: none;
+      }
+
+      .top-actions .icon-btn:nth-child(1) {
+        display: none;
+      }
+
+      .search-shortcut {
+        display: none;
+      }
+
+      .layout {
+        width: min(100% - 18px, var(--max));
+      }
+
+      .content {
+        padding-top: 23px;
+      }
+
+      .page-header {
+        display: block;
+      }
+
+      .stats {
+        margin-top: 18px;
+        justify-content: flex-start;
+      }
+
+      .stat {
+        flex: 1;
       }
 
       .video-grid {
         grid-template-columns: 1fr;
       }
 
-      .continue-grid {
-        grid-template-columns: 1fr;
+      .video-grid.list .video-card {
+        display: block;
       }
 
-      .stats {
-        grid-template-columns:
-          1fr
-          1fr;
+      .toolbar {
+        align-items: stretch;
       }
 
-      .library-controls {
-        grid-template-columns: 1fr;
+      .filter-select {
+        flex: 1;
+        min-width: 140px;
       }
 
-      .modal {
+      .view-buttons {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .view-buttons button {
+        flex: 1;
+      }
+
+      .modal-layer {
         padding: 0;
       }
 
-      .modal-box {
-        width: 100%;
-        height: 100%;
-
-        max-height: 100vh;
-
+      .player-modal {
+        margin: 0;
+        min-height: 100%;
         border-radius: 0;
       }
 
-      .player {
-        max-height: 55vh;
+      .player-controls {
+        overflow-x: auto;
       }
 
-      .page-title h1 {
-        letter-spacing: -2px;
+      .player-controls .spacer {
+        display: none;
       }
 
+      .player-details {
+        padding: 17px;
+      }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        animation: none !important;
+      }
+    }
   </style>
 </head>
 
 <body>
+<div class="app">
 
-<!-- =========================================================
-     HEADER
-========================================================= -->
+  <!-- =========================
+       TOP BAR
+  ========================== -->
 
-<header>
+  <header class="topbar">
+    <div class="topbar-inner">
 
-  <nav class="nav">
-
-    <a
-      href="./"
-      class="brand"
-      aria-label="JJ PLAYZ home"
-    >
-
-      <img
-        src="./assets/logo.png"
-        alt="JJ PLAYZ"
-        class="brand-logo"
-        id="brandLogo"
-      >
-
-      <span
-        class="brand-fallback"
-        id="brandFallback"
-        hidden
-      >
-        JJ
-      </span>
-
-      <span>JJ PLAYZ</span>
-
-    </a>
-
-    <div class="nav-actions">
-
-      <button
-        class="icon-button"
-        id="searchButton"
-        title="Search"
-        aria-label="Search"
-      >
-        🔎
-      </button>
-
-      <button
-        class="icon-button"
-        id="themeButton"
-        title="Theme"
-        aria-label="Theme"
-      >
-        ☾
-      </button>
-
-      <button
-        class="icon-button"
-        id="settingsButton"
-        title="Settings"
-        aria-label="Settings"
-      >
-        ⚙
-      </button>
-
-    </div>
-
-  </nav>
-
-</header>
-
-<!-- =========================================================
-     MAIN
-========================================================= -->
-
-<main>
-
-  <div class="page">
-
-    <!-- PAGE TITLE -->
-
-    <section class="page-title">
-
-      <h1>
-        Video Library
-      </h1>
-
-      <p>
-        Watch, organize and keep track of your JJ PLAYZ
-        videos. Your library preferences and playback
-        progress are stored locally in your browser.
-      </p>
-
-    </section>
-
-    <!-- FEATURED -->
-
-    <section
-      class="featured"
-      id="featured"
-      hidden
-    >
-
-      <div class="featured-image">
-
+      <a class="brand" href="./" aria-label="JJ PLAYZ home">
         <img
-          id="featuredImage"
-          alt=""
+          class="brand-avatar"
+          src="./assets/logo.png"
+          alt="JJ PLAYZ profile picture"
+          onerror="this.style.display='none'"
         >
-
-      </div>
-
-      <div class="featured-info">
-
-        <span class="eyebrow">
-          Featured
-        </span>
-
-        <h2 id="featuredTitle"></h2>
-
-        <p id="featuredDescription"></p>
-
-        <div class="featured-buttons">
-
-          <button
-            class="button primary"
-            id="featuredPlay"
-          >
-            ▶ Watch
-          </button>
-
-          <button
-            class="button"
-            id="featuredLater"
-          >
-            🔖 Watch Later
-          </button>
-
+        <div>
+          <div class="brand-name">JJ PLAYZ</div>
+          <div class="brand-sub">Personal video library</div>
         </div>
+      </a>
 
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search videos, tags, categories..."
+          autocomplete="off"
+          aria-label="Search videos"
+        >
+        <span class="search-shortcut">/</span>
       </div>
 
-    </section>
+      <div class="top-actions">
+        <button
+          class="icon-btn"
+          id="themeQuickBtn"
+          title="Toggle theme"
+          aria-label="Toggle theme"
+        >◐</button>
 
-    <!-- OPTIONAL AD -->
-
-    <div
-      class="ad-slot"
-      id="topAd"
-    >
-
-      <span class="ad-label">
-        Advertisement
-      </span>
-
-      <span>
-        Ad space
-      </span>
+        <button
+          class="icon-btn"
+          id="settingsBtn"
+          title="Settings"
+          aria-label="Settings"
+        >⚙</button>
+      </div>
 
     </div>
+  </header>
 
-    <!-- REAL LOCAL STATS -->
 
-    <section class="stats">
+  <!-- =========================
+       MAIN LAYOUT
+  ========================== -->
 
-      <div class="stat">
-        <span class="stat-label">
-          VIDEOS
-        </span>
-        <strong
-          class="stat-value"
-          id="statVideos"
-        >
-          0
-        </strong>
+  <div class="layout">
+
+    <aside class="sidebar">
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Library</div>
+
+        <button class="nav-item active" data-view="all">
+          <span>▦</span>
+          <span>All Videos</span>
+          <span class="nav-count" id="countAll">0</span>
+        </button>
+
+        <button class="nav-item" data-view="continue">
+          <span>▶</span>
+          <span>Continue Watching</span>
+          <span class="nav-count" id="countContinue">0</span>
+        </button>
+
+        <button class="nav-item" data-view="later">
+          <span>◷</span>
+          <span>Watch Later</span>
+          <span class="nav-count" id="countLater">0</span>
+        </button>
+
+        <button class="nav-item" data-view="favorites">
+          <span>★</span>
+          <span>Favorites</span>
+          <span class="nav-count" id="countFavorites">0</span>
+        </button>
+
+        <button class="nav-item" data-view="history">
+          <span>↺</span>
+          <span>History</span>
+          <span class="nav-count" id="countHistory">0</span>
+        </button>
       </div>
 
-      <div class="stat">
-        <span class="stat-label">
-          WATCHED
-        </span>
-        <strong
-          class="stat-value"
-          id="statWatched"
-        >
-          0
-        </strong>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Browse</div>
+
+        <button class="nav-item" data-view="categories">
+          <span>◈</span>
+          <span>Categories</span>
+        </button>
+
+        <button class="nav-item" data-view="liked">
+          <span>♥</span>
+          <span>Liked Videos</span>
+          <span class="nav-count" id="countLiked">0</span>
+        </button>
       </div>
 
-      <div class="stat">
-        <span class="stat-label">
-          FAVORITES
-        </span>
-        <strong
-          class="stat-value"
-          id="statFavorites"
-        >
-          0
-        </strong>
+      <div class="sidebar-section">
+        <div class="sidebar-label">System</div>
+
+        <button class="nav-item" id="openSettingsSide">
+          <span>⚙</span>
+          <span>Settings</span>
+        </button>
       </div>
 
-      <div class="stat">
-        <span class="stat-label">
-          WATCH LATER
-        </span>
-        <strong
-          class="stat-value"
-          id="statLater"
-        >
-          0
-        </strong>
-      </div>
+    </aside>
 
-      <div class="stat">
-        <span class="stat-label">
-          WATCH TIME
-        </span>
-        <strong
-          class="stat-value"
-          id="statWatchTime"
-        >
-          0m
-        </strong>
-      </div>
 
-      <div class="stat">
-        <span class="stat-label">
-          COMPLETED
-        </span>
-        <strong
-          class="stat-value"
-          id="statCompleted"
-        >
-          0
-        </strong>
-      </div>
+    <main class="content">
 
-    </section>
-
-    <!-- CONTINUE -->
-
-    <section
-      class="section"
-      id="continueSection"
-      hidden
-    >
-
-      <div class="section-heading">
-
+      <section class="page-header">
         <div>
-
-          <h2>
-            Continue Watching
-          </h2>
-
-          <p>
-            Pick up where you left off.
+          <div class="eyebrow">JJ PLAYZ</div>
+          <h1 id="pageTitle">Video Library</h1>
+          <p class="page-description" id="pageDescription">
+            Browse your videos, keep track of what you've watched, and build your own library.
           </p>
-
         </div>
 
-      </div>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-value" id="statVideos">0</div>
+            <div class="stat-label">Videos</div>
+          </div>
 
-      <div
-        class="continue-grid"
-        id="continueGrid"
-      ></div>
+          <div class="stat">
+            <div class="stat-value" id="statSaved">0</div>
+            <div class="stat-label">Saved</div>
+          </div>
 
-    </section>
-
-    <!-- LIBRARY -->
-
-    <section
-      class="section"
-      id="library"
-    >
-
-      <div class="section-heading">
-
-        <div>
-
-          <h2>
-            Library
-          </h2>
-
-          <p id="resultCount">
-            Loading...
-          </p>
-
+          <div class="stat">
+            <div class="stat-value" id="statWatched">0</div>
+            <div class="stat-label">Watched</div>
+          </div>
         </div>
+      </section>
 
-      </div>
 
-      <!-- TABS -->
+      <!-- FILTERS -->
 
-      <div class="tabs">
+      <div class="toolbar">
 
-        <button
-          class="tab active"
-          data-view="all"
-        >
-          All
-        </button>
-
-        <button
-          class="tab"
-          data-view="favorites"
-        >
-          ❤️ Favorites
-        </button>
-
-        <button
-          class="tab"
-          data-view="later"
-        >
-          🔖 Watch Later
-        </button>
-
-        <button
-          class="tab"
-          data-view="history"
-        >
-          🕘 History
-        </button>
-
-        <button
-          class="tab"
-          data-view="unfinished"
-        >
-          ▶ Continue
-        </button>
-
-        <button
-          class="tab"
-          data-view="completed"
-        >
-          ✓ Completed
-        </button>
-
-      </div>
-
-      <!-- SEARCH -->
-
-      <div class="library-controls">
-
-        <div class="search-wrap">
-
-          <input
-            type="search"
-            id="search"
-            class="search"
-            placeholder="Search titles, descriptions, categories or tags..."
-            autocomplete="off"
-          >
-
-          <button
-            class="search-clear"
-            id="clearSearch"
-            aria-label="Clear search"
-          >
-            ✕
-          </button>
-
-        </div>
-
-        <select
-          class="select"
-          id="categoryFilter"
-        >
-
-          <option value="all">
-            All categories
-          </option>
-
+        <select id="categoryFilter" class="filter-select">
+          <option value="all">All categories</option>
         </select>
 
-        <select
-          class="select"
-          id="sortFilter"
-        >
-
-          <option value="newest">
-            Newest
-          </option>
-
-          <option value="oldest">
-            Oldest
-          </option>
-
-          <option value="title">
-            Title A-Z
-          </option>
-
-          <option value="title-desc">
-            Title Z-A
-          </option>
-
-          <option value="views">
-            Most viewed
-          </option>
-
-          <option value="likes">
-            Most liked
-          </option>
-
-          <option value="duration">
-            Longest
-          </option>
-
+        <select id="sortSelect" class="filter-select">
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="title">Title A–Z</option>
+          <option value="views">Most views</option>
+          <option value="duration">Longest</option>
+          <option value="shortest">Shortest</option>
         </select>
 
+        <button class="small-btn" id="clearFilters">
+          Reset filters
+        </button>
+
+        <div class="view-buttons">
+          <button class="small-btn active" id="gridView">Grid</button>
+          <button class="small-btn" id="listView">List</button>
+        </div>
+
       </div>
+
 
       <!-- TAGS -->
 
-      <div
-        class="tag-filter"
-        id="tagFilter"
-      ></div>
+      <div class="tags" id="tagBar"></div>
 
-      <!-- VIDEO GRID -->
 
-      <div
-        class="video-grid"
-        id="videoGrid"
-      >
+      <!-- CONTENT -->
 
-        <div class="loading">
-
-          <div class="spinner"></div>
-
-          Loading video library...
-
-        </div>
-
+      <div id="loadingState" class="state">
+        <div class="state-icon">◌</div>
+        <div class="state-title">Loading library</div>
+        <p>Reading your local videos.json file...</p>
       </div>
 
-    </section>
+      <div id="errorState" class="state hidden">
+        <div class="state-icon">!</div>
+        <div class="state-title">Couldn't load the library</div>
+        <p id="errorText">
+          Make sure videos.json exists next to index.html and contains valid JSON.
+        </p>
+      </div>
 
-    <!-- OPTIONAL SECOND AD -->
+      <div id="emptyState" class="state hidden">
+        <div class="state-icon">⌕</div>
+        <div class="state-title">Nothing found</div>
+        <p>
+          Try a different search, category, tag, or library filter.
+        </p>
+      </div>
 
-    <div
-      class="ad-slot"
-      id="bottomAd"
-    >
+      <div class="video-grid" id="videoGrid"></div>
 
-      <span class="ad-label">
-        Advertisement
-      </span>
-
-      <span>
-        Ad space
-      </span>
-
-    </div>
-
+    </main>
   </div>
 
-</main>
 
-<!-- =========================================================
-     VIDEO MODAL
-========================================================= -->
+  <!-- =========================
+       MOBILE NAV
+  ========================== -->
 
-<div
-  class="modal"
-  id="videoModal"
-  aria-hidden="true"
->
+  <nav class="mobile-nav">
 
-  <div class="modal-box">
+    <button class="active" data-view="all">
+      <div>▦</div>
+      Library
+    </button>
 
-    <div class="modal-top">
+    <button data-view="continue">
+      <div>▶</div>
+      Continue
+    </button>
 
-      <strong
-        id="modalHeader"
-      >
-        JJ PLAYZ
-      </strong>
+    <button data-view="later">
+      <div>◷</div>
+      Later
+    </button>
 
-      <button
-        class="modal-close"
-        id="closeModal"
-        aria-label="Close video"
-      >
-        ✕
-      </button>
+    <button data-view="favorites">
+      <div>★</div>
+      Favorites
+    </button>
 
-    </div>
+    <button id="mobileSettings">
+      <div>⚙</div>
+      Settings
+    </button>
 
-    <div class="player-layout">
+  </nav>
 
-      <!-- PLAYER -->
 
-      <div class="player-area">
+  <!-- =========================
+       VIDEO PLAYER
+  ========================== -->
 
-        <video
-          id="videoPlayer"
-          class="player"
-          controls
-          playsinline
-          preload="metadata"
-        ></video>
+  <div class="modal-layer" id="playerModal">
 
-        <div class="player-controls-extra">
+    <div class="player-modal">
 
-          <select
-            class="player-select"
-            id="speedSelect"
-            title="Playback speed"
-          >
+      <div class="player-layout">
 
-            <option value="0.5">
-              0.5x
-            </option>
+        <div class="player-main">
 
-            <option value="0.75">
-              0.75x
-            </option>
+          <video
+            id="player"
+            class="player-video"
+            controls
+            playsinline
+            preload="metadata"
+          ></video>
 
-            <option value="1" selected>
-              1x
-            </option>
+          <div class="player-controls">
 
-            <option value="1.25">
-              1.25x
-            </option>
+            <button id="prevVideo" title="Previous video">←</button>
+            <button id="nextVideo" title="Next video">→</button>
 
-            <option value="1.5">
-              1.5x
-            </option>
+            <select id="speedSelect" title="Playback speed">
+              <option value="0.5">0.5×</option>
+              <option value="0.75">0.75×</option>
+              <option value="1" selected>1×</option>
+              <option value="1.25">1.25×</option>
+              <option value="1.5">1.5×</option>
+              <option value="1.75">1.75×</option>
+              <option value="2">2×</option>
+            </select>
 
-            <option value="1.75">
-              1.75x
-            </option>
+            <button id="muteBtn" title="Mute / unmute">Mute</button>
 
-            <option value="2">
-              2x
-            </option>
+            <div class="spacer"></div>
 
-          </select>
+            <button id="likeBtn">♥ Like</button>
+            <button id="laterBtn">◷ Later</button>
+            <button id="favoriteBtn">★ Favorite</button>
+            <button id="shareBtn">Share</button>
+            <button id="downloadBtn">Download</button>
+            <button id="theaterBtn">Theater</button>
+            <button id="fullscreenBtn">Fullscreen</button>
+            <button id="closePlayer">Close</button>
 
-          <button
-            class="player-button"
-            id="previousVideo"
-          >
-            ← Previous
-          </button>
+          </div>
 
-          <button
-            class="player-button"
-            id="nextVideo"
-          >
-            Next →
-          </button>
+          <div class="player-details">
 
-          <button
-            class="player-button"
-            id="pipButton"
-          >
-            ▣ PiP
-          </button>
+            <div class="video-category" id="playerCategory"></div>
 
-        </div>
+            <h2 id="playerTitle">Video</h2>
 
-        <div class="modal-info">
+            <div class="video-meta" id="playerMeta"></div>
 
-          <h2 id="modalTitle"></h2>
+            <p id="playerDescription"></p>
 
-          <div
-            class="modal-meta"
-            id="modalMeta"
-          ></div>
-
-          <p id="modalDescription"></p>
-
-          <div
-            class="card-tags"
-            id="modalTags"
-          ></div>
-
-          <div class="modal-actions">
-
-            <button
-              class="button primary"
-              id="modalFavorite"
-            >
-              ☆ Favorite
-            </button>
-
-            <button
-              class="button"
-              id="modalLater"
-            >
-              🔖 Watch Later
-            </button>
-
-            <button
-              class="button"
-              id="modalShare"
-            >
-              ↗ Share
-            </button>
-
-            <button
-              class="button"
-              id="modalCopyLink"
-            >
-              🔗 Copy Link
-            </button>
-
-            <button
-              class="button"
-              id="modalDownload"
-            >
-              ↓ Download
-            </button>
-
-            <button
-              class="button"
-              id="modalFullscreen"
-            >
-              ⛶ Fullscreen
-            </button>
+            <div class="player-tags" id="playerTags"></div>
 
           </div>
 
         </div>
 
+
+        <aside class="player-side">
+
+          <div class="side-title">
+            Related videos
+          </div>
+
+          <div id="relatedVideos"></div>
+
+        </aside>
+
       </div>
-
-      <!-- RELATED -->
-
-      <aside class="related">
-
-        <h3>
-          Related Videos
-        </h3>
-
-        <div
-          class="related-list"
-          id="relatedList"
-        ></div>
-
-      </aside>
 
     </div>
-
   </div>
 
-</div>
 
-<!-- =========================================================
-     SETTINGS OVERLAY
-========================================================= -->
+  <!-- =========================
+       SETTINGS
+  ========================== -->
 
-<div
-  class="overlay"
-  id="settingsOverlay"
-></div>
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
 
-<!-- =========================================================
-     SETTINGS
-========================================================= -->
+  <aside class="settings" id="settingsDrawer">
 
-<aside
-  class="settings"
-  id="settingsPanel"
->
+    <div class="settings-header">
+      <h2>Settings</h2>
 
-  <div class="settings-head">
+      <button
+        class="icon-btn"
+        id="closeSettings"
+        aria-label="Close settings"
+      >×</button>
+    </div>
 
-    <h2>
-      Settings
-    </h2>
 
-    <button
-      class="modal-close"
-      id="closeSettings"
-    >
-      ✕
-    </button>
+    <div class="setting-group">
 
-  </div>
+      <div class="setting-label">Appearance</div>
 
-  <div class="settings-section">
-
-    <h3>
-      Appearance
-    </h3>
-
-    <div class="setting-row">
-
-      <div>
-
-        <strong>
-          Theme
-        </strong>
-
-        <small>
-          Change the site's appearance.
-        </small>
-
+      <div class="setting-help">
+        Choose how JJ PLAYZ should look.
       </div>
 
-      <select
-        class="select"
-        id="themeSelect"
-      >
-
-        <option value="dark">
-          Dark
-        </option>
-
-        <option value="light">
-          Light
-        </option>
-
+      <select class="setting-control" id="themeSelect">
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+        <option value="amoled">AMOLED</option>
       </select>
 
     </div>
 
-    <div class="setting-row">
 
-      <div>
+    <div class="setting-group">
 
-        <strong>
-          Reduced motion
-        </strong>
+      <div class="toggle-row">
 
-        <small>
-          Reduce interface animations.
-        </small>
+        <div>
+          <div class="setting-label">Autoplay next video</div>
+          <div class="setting-help">
+            Automatically open the next video when one finishes.
+          </div>
+        </div>
 
-      </div>
+        <label class="toggle">
+          <input type="checkbox" id="autoplayToggle">
+          <span class="toggle-slider"></span>
+        </label>
 
-      <input
-        type="checkbox"
-        id="motionSetting"
-      >
-
-    </div>
-
-  </div>
-
-  <div class="settings-section">
-
-    <h3>
-      Playback
-    </h3>
-
-    <div class="setting-row">
-
-      <div>
-
-        <strong>
-          Autoplay
-        </strong>
-
-        <small>
-          Start a video automatically when opened.
-        </small>
-
-      </div>
-
-      <input
-        type="checkbox"
-        id="autoplaySetting"
-      >
-
-    </div>
-
-    <div class="setting-row">
-
-      <div>
-
-        <strong>
-          Remember playback position
-        </strong>
-
-        <small>
-          Resume videos where you stopped.
-        </small>
-
-      </div>
-
-      <input
-        type="checkbox"
-        id="positionSetting"
-        checked
-      >
-
-    </div>
-
-  </div>
-
-  <div class="settings-section">
-
-    <h3>
-      Advertisement slots
-    </h3>
-
-    <div class="setting-row">
-
-      <div>
-
-        <strong>
-          Show ad spaces
-        </strong>
-
-        <small>
-          These are empty placeholders until
-          you add your own ad provider.
-        </small>
-
-      </div>
-
-      <input
-        type="checkbox"
-        id="adsSetting"
-        checked
-      >
-
-    </div>
-
-  </div>
-
-  <div class="settings-section">
-
-    <h3>
-      Library
-    </h3>
-
-    <button
-      class="button"
-      id="clearHistory"
-    >
-      Clear Watch History
-    </button>
-
-    <button
-      class="button"
-      id="clearProgress"
-      style="margin-top:8px"
-    >
-      Clear Playback Progress
-    </button>
-
-    <button
-      class="button"
-      id="clearFavorites"
-      style="margin-top:8px"
-    >
-      Clear Favorites
-    </button>
-
-    <button
-      class="button"
-      id="clearLater"
-      style="margin-top:8px"
-    >
-      Clear Watch Later
-    </button>
-
-    <button
-      class="button danger"
-      id="resetData"
-      style="margin-top:8px"
-    >
-      Reset All Local Data
-    </button>
-
-  </div>
-
-  <div class="settings-section">
-
-    <h3>
-      Keyboard shortcuts
-    </h3>
-
-    <div
-      style="
-        color:var(--muted);
-        font-size:12px;
-        line-height:2;
-      "
-    >
-
-      <div>
-        <strong>/</strong>
-        Search
-      </div>
-
-      <div>
-        <strong>Space</strong>
-        Play / pause
-      </div>
-
-      <div>
-        <strong>M</strong>
-        Mute
-      </div>
-
-      <div>
-        <strong>F</strong>
-        Fullscreen
-      </div>
-
-      <div>
-        <strong>Shift + ←</strong>
-        Previous video
-      </div>
-
-      <div>
-        <strong>Shift + →</strong>
-        Next video
-      </div>
-
-      <div>
-        <strong>← / →</strong>
-        Seek 5 seconds
-      </div>
-
-      <div>
-        <strong>Esc</strong>
-        Close
       </div>
 
     </div>
 
-  </div>
 
-</aside>
+    <div class="setting-group">
 
-<!-- =========================================================
-     TOAST
-========================================================= -->
+      <div class="setting-label">Default playback speed</div>
 
-<div
-  class="toast"
-  id="toast"
-></div>
+      <div class="setting-help">
+        New videos will start at this speed.
+      </div>
+
+      <select class="setting-control" id="defaultSpeed">
+        <option value="0.5">0.5×</option>
+        <option value="0.75">0.75×</option>
+        <option value="1">1×</option>
+        <option value="1.25">1.25×</option>
+        <option value="1.5">1.5×</option>
+        <option value="1.75">1.75×</option>
+        <option value="2">2×</option>
+      </select>
+
+    </div>
+
+
+    <div class="setting-group">
+
+      <div class="setting-label">Your data</div>
+
+      <div class="setting-help">
+        JJ PLAYZ stores library preferences, progress and saved videos
+        locally in your browser. Nothing here requires an account.
+      </div>
+
+      <button class="danger-btn" id="clearHistory">
+        Clear watch history
+      </button>
+
+      <button class="danger-btn" id="clearProgress">
+        Clear playback progress
+      </button>
+
+      <button class="danger-btn" id="resetData">
+        Reset all local JJ PLAYZ data
+      </button>
+
+    </div>
+
+
+    <div class="setting-group">
+
+      <div class="setting-label">Keyboard shortcuts</div>
+
+      <div class="setting-help">
+        <strong>/</strong> Search<br>
+        <strong>K</strong> Play / pause<br>
+        <strong>M</strong> Mute<br>
+        <strong>F</strong> Fullscreen<br>
+        <strong>T</strong> Theater mode<br>
+        <strong>[</strong> Previous video<br>
+        <strong>]</strong> Next video<br>
+        <strong>Esc</strong> Close
+      </div>
+
+    </div>
+
+
+    <div class="setting-group">
+
+      <div class="setting-label">Library information</div>
+
+      <div class="setting-help" id="storageInfo">
+        Loading...
+      </div>
+
+    </div>
+
+  </aside>
+
+
+  <!-- =========================
+       TOASTS
+  ========================== -->
+
+  <div class="toast-container" id="toastContainer"></div>
+
+</div>
+
 
 <script>
+(() => {
+  "use strict";
 
-"use strict";
+  /* ==========================================
+     CONFIG
+  ========================================== */
 
-/* =========================================================
-   DOM
-========================================================= */
+  const DATA_URL = "./videos.json";
 
-const $ = selector =>
-  document.querySelector(selector);
+  const STORAGE = {
+    likes: "jj_likes",
+    favorites: "jj_favorites",
+    later: "jj_later",
+    history: "jj_history",
+    progress: "jj_progress",
+    settings: "jj_settings"
+  };
 
-const $$ = selector =>
-  [...document.querySelectorAll(selector)];
+  const DEFAULT_SETTINGS = {
+    theme: "dark",
+    autoplay: false,
+    speed: 1,
+    volume: 1,
+    muted: false
+  };
 
-/* =========================================================
-   STORAGE
-========================================================= */
 
-const KEYS = {
+  /* ==========================================
+     STATE
+  ========================================== */
 
-  favorites:
-    "jj_favorites",
+  let videos = [];
+  let filteredVideos = [];
+  let currentVideo = null;
+  let currentView = "all";
+  let selectedTag = "all";
+  let currentIndex = -1;
+  let saveProgressTimer = null;
 
-  later:
-    "jj_watch_later",
+  let likes = loadSet(STORAGE.likes);
+  let favorites = loadSet(STORAGE.favorites);
+  let later = loadSet(STORAGE.later);
 
-  history:
-    "jj_watch_history",
+  let history = loadObject(STORAGE.history);
+  let progress = loadObject(STORAGE.progress);
 
-  progress:
-    "jj_video_progress",
+  let settings = {
+    ...DEFAULT_SETTINGS,
+    ...loadObject(STORAGE.settings)
+  };
 
-  watchTime:
-    "jj_watch_time",
 
-  theme:
-    "jj_theme",
+  /* ==========================================
+     DOM
+  ========================================== */
 
-  autoplay:
-    "jj_autoplay",
+  const $ = id => document.getElementById(id);
 
-  rememberPosition:
-    "jj_remember_position",
+  const els = {
+    search: $("searchInput"),
+    category: $("categoryFilter"),
+    sort: $("sortSelect"),
+    tags: $("tagBar"),
 
-  ads:
-    "jj_ads",
+    grid: $("videoGrid"),
+    loading: $("loadingState"),
+    error: $("errorState"),
+    errorText: $("errorText"),
+    empty: $("emptyState"),
 
-  motion:
-    "jj_reduced_motion"
+    pageTitle: $("pageTitle"),
+    pageDescription: $("pageDescription"),
 
-};
+    statVideos: $("statVideos"),
+    statSaved: $("statSaved"),
+    statWatched: $("statWatched"),
 
-function load(key, fallback) {
+    countAll: $("countAll"),
+    countContinue: $("countContinue"),
+    countLater: $("countLater"),
+    countFavorites: $("countFavorites"),
+    countHistory: $("countHistory"),
+    countLiked: $("countLiked"),
 
-  try {
+    playerModal: $("playerModal"),
+    player: $("player"),
+    playerTitle: $("playerTitle"),
+    playerCategory: $("playerCategory"),
+    playerDescription: $("playerDescription"),
+    playerMeta: $("playerMeta"),
+    playerTags: $("playerTags"),
+    related: $("relatedVideos"),
 
-    const value =
-      localStorage.getItem(key);
+    likeBtn: $("likeBtn"),
+    laterBtn: $("laterBtn"),
+    favoriteBtn: $("favoriteBtn"),
+    shareBtn: $("shareBtn"),
+    downloadBtn: $("downloadBtn"),
 
-    return value === null
-      ? fallback
-      : JSON.parse(value);
+    speed: $("speedSelect"),
+    muteBtn: $("muteBtn"),
 
-  } catch {
+    settingsDrawer: $("settingsDrawer"),
+    drawerBackdrop: $("drawerBackdrop"),
+    theme: $("themeSelect"),
+    autoplay: $("autoplayToggle"),
+    defaultSpeed: $("defaultSpeed"),
+    storageInfo: $("storageInfo"),
 
-    return fallback;
+    toast: $("toastContainer")
+  };
 
+
+  /* ==========================================
+     STORAGE HELPERS
+  ========================================== */
+
+  function loadSet(key) {
+    try {
+      const data = JSON.parse(localStorage.getItem(key) || "[]");
+      return new Set(Array.isArray(data) ? data : []);
+    } catch {
+      return new Set();
+    }
   }
 
-}
+  function saveSet(key, set) {
+    localStorage.setItem(key, JSON.stringify([...set]));
+  }
 
-function save(key, value) {
-
-  localStorage.setItem(
-    key,
-    JSON.stringify(value)
-  );
-
-}
-
-/* =========================================================
-   STATE
-========================================================= */
-
-let videos = [];
-
-let currentVideo = null;
-
-let currentView = "all";
-
-let activeTag = "all";
-
-let favorites =
-  load(KEYS.favorites, []);
-
-let later =
-  load(KEYS.later, []);
-
-let history =
-  load(KEYS.history, []);
-
-let progress =
-  load(KEYS.progress, {});
-
-let watchTime =
-  Number(
-    load(KEYS.watchTime, 0)
-  );
-
-let settings = {
-
-  autoplay:
-    localStorage.getItem(
-      KEYS.autoplay
-    ) === "true",
-
-  rememberPosition:
-    localStorage.getItem(
-      KEYS.rememberPosition
-    ) !== "false",
-
-  ads:
-    localStorage.getItem(
-      KEYS.ads
-    ) !== "false",
-
-  motion:
-    localStorage.getItem(
-      KEYS.motion
-    ) === "true"
-
-};
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-let toastTimer;
-
-function toast(message) {
-
-  const element =
-    $("#toast");
-
-  element.textContent =
-    message;
-
-  element.classList.add(
-    "show"
-  );
-
-  clearTimeout(toastTimer);
-
-  toastTimer =
-    setTimeout(
-      () =>
-        element.classList.remove(
-          "show"
-        ),
-      2200
-    );
-
-}
-
-/* =========================================================
-   LOGO FALLBACK
-========================================================= */
-
-$("#brandLogo")
-  .addEventListener(
-    "error",
-    () => {
-
-      $("#brandLogo").hidden =
-        true;
-
-      $("#brandFallback").hidden =
-        false;
-
+  function loadObject(key) {
+    try {
+      const data = JSON.parse(localStorage.getItem(key) || "{}");
+      return data && typeof data === "object" ? data : {};
+    } catch {
+      return {};
     }
-  );
+  }
 
-/* =========================================================
-   DATA NORMALIZATION
-========================================================= */
+  function saveObject(key, object) {
+    localStorage.setItem(key, JSON.stringify(object));
+  }
 
-function normalizeVideo(
-  video,
-  index
-) {
 
-  return {
+  /* ==========================================
+     SECURITY
+  ========================================== */
 
-    id:
-      String(
-        video.id ??
-        video.slug ??
-        index + 1
-      ),
+  function escapeHTML(value) {
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
 
-    title:
-      String(
-        video.title ??
-        `Video ${index + 1}`
-      ),
 
-    description:
-      String(
-        video.description ??
-        ""
-      ),
+  /* ==========================================
+     DATA
+  ========================================== */
 
-    category:
-      String(
-        video.category ??
-        "Other"
-      ),
+  async function loadVideos() {
+    try {
+      setLoading(true);
 
-    tags:
-      Array.isArray(video.tags)
+      const response = await fetch(DATA_URL, {
+        cache: "no-cache"
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `videos.json returned HTTP ${response.status}`
+        );
+      }
+
+      const data = await response.json();
+
+      if (!Array.isArray(data)) {
+        throw new Error("videos.json must contain an array.");
+      }
+
+      videos = data
+        .map(normalizeVideo)
+        .filter(video => video.id && video.title);
+
+      if (!videos.length) {
+        throw new Error("videos.json contains no usable videos.");
+      }
+
+      populateCategories();
+      populateTags();
+      updateCounters();
+      render();
+
+      handleDeepLink();
+
+    } catch (error) {
+      console.error(error);
+
+      $("loadingState").classList.add("hidden");
+      els.error.classList.remove("hidden");
+
+      els.errorText.textContent =
+        `${error.message} Make sure videos.json exists next to index.html and is valid JSON.`;
+
+    } finally {
+      setLoading(false);
+    }
+  }
+
+
+  function normalizeVideo(video, index) {
+    return {
+      id: String(video.id ?? `video-${index + 1}`),
+      title: String(video.title ?? "Untitled video"),
+      description: String(video.description ?? ""),
+      category: String(video.category ?? "Uncategorized"),
+      tags: Array.isArray(video.tags)
         ? video.tags.map(String)
         : [],
-
-    thumbnail:
-      String(
-        video.thumbnail ??
-        ""
-      ),
-
-    video:
-      String(
-        video.video ??
-        video.src ??
-        ""
-      ),
-
-    views:
-      Number(
-        video.views ?? 0
-      ),
-
-    likes:
-      Number(
-        video.likes ?? 0
-      ),
-
-    duration:
-      video.duration ??
-      "",
-
-    date:
-      video.date ??
-      ""
-
-  };
-
-}
-
-/* =========================================================
-   LOAD LIBRARY
-========================================================= */
-
-async function loadVideos() {
-
-  const grid =
-    $("#videoGrid");
-
-  try {
-
-    const response =
-      await fetch(
-        "./videos.json",
-        {
-          cache: "no-cache"
-        }
-      );
-
-    if (!response.ok) {
-
-      throw new Error(
-        `HTTP ${response.status}`
-      );
-
-    }
-
-    const data =
-      await response.json();
-
-    if (!Array.isArray(data)) {
-
-      throw new Error(
-        "videos.json must contain an array."
-      );
-
-    }
-
-    videos =
-      data.map(
-        normalizeVideo
-      );
-
-    buildCategories();
-    buildTags();
-    renderFeatured();
-    updateStats();
-    renderContinue();
-    renderVideos();
-
-    openURLVideo();
-
-  } catch (error) {
-
-    console.error(error);
-
-    $("#videoGrid").innerHTML = `
-
-      <div class="empty">
-
-        <div class="empty-icon">
-          📁
-        </div>
-
-        <h3>
-          Video library unavailable
-        </h3>
-
-        <p>
-          Add a valid
-          <strong>videos.json</strong>
-          beside index.html.
-        </p>
-
-        <p>
-          ${escapeHTML(
-            error.message
-          )}
-        </p>
-
-      </div>
-
-    `;
-
-    $("#resultCount")
-      .textContent =
-      "0 videos";
-
+      thumbnail: String(video.thumbnail ?? ""),
+      video: String(video.video ?? ""),
+      duration: Number(video.duration) || 0,
+      date: video.date ? String(video.date) : "",
+      views: Number(video.views) || 0
+    };
   }
 
-}
 
-/* =========================================================
-   CATEGORIES
-========================================================= */
+  /* ==========================================
+     FILTERING
+  ========================================== */
 
-function buildCategories() {
+  function getSearchTerm() {
+    return els.search.value.trim().toLowerCase();
+  }
 
-  const categories =
-    [
-      ...new Set(
-        videos
-          .map(
-            video =>
-              video.category
-          )
-          .filter(Boolean)
-      )
+
+  function matchesSearch(video) {
+    const query = getSearchTerm();
+
+    if (!query) return true;
+
+    const searchable = [
+      video.title,
+      video.description,
+      video.category,
+      ...video.tags
     ]
-    .sort(
-      (a,b) =>
-        a.localeCompare(b)
-    );
-
-  const select =
-    $("#categoryFilter");
-
-  select.innerHTML = `
-    <option value="all">
-      All categories
-    </option>
-  `;
-
-  categories.forEach(
-    category => {
-
-      const option =
-        document.createElement(
-          "option"
-        );
-
-      option.value =
-        category;
-
-      option.textContent =
-        category;
-
-      select.appendChild(
-        option
-      );
-
-    }
-  );
-
-}
-
-/* =========================================================
-   TAGS
-========================================================= */
-
-function buildTags() {
-
-  const counts = {};
-
-  videos.forEach(
-    video => {
-
-      video.tags.forEach(
-        tag => {
-
-          const key =
-            tag.toLowerCase();
-
-          counts[key] =
-            (counts[key] || 0) + 1;
-
-        }
-      );
-
-    }
-  );
-
-  const tags =
-    Object.keys(counts)
-      .sort(
-        (a,b) =>
-          counts[b] -
-          counts[a]
-      )
-      .slice(0,30);
-
-  const container =
-    $("#tagFilter");
-
-  container.innerHTML = "";
-
-  const all =
-    document.createElement(
-      "button"
-    );
-
-  all.textContent =
-    "All tags";
-
-  all.classList.add(
-    "active"
-  );
-
-  all.dataset.tag =
-    "all";
-
-  container.appendChild(
-    all
-  );
-
-  tags.forEach(
-    tag => {
-
-      const button =
-        document.createElement(
-          "button"
-        );
-
-      button.textContent =
-        `#${tag}`;
-
-      button.dataset.tag =
-        tag;
-
-      container.appendChild(
-        button
-      );
-
-    }
-  );
-
-  $$("#tagFilter button")
-    .forEach(
-      button => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            activeTag =
-              button.dataset.tag;
-
-            $$("#tagFilter button")
-              .forEach(
-                item =>
-                  item.classList.toggle(
-                    "active",
-                    item === button
-                  )
-              );
-
-            renderVideos();
-
-          }
-        );
-
-      }
-    );
-
-}
-
-/* =========================================================
-   FEATURED
-========================================================= */
-
-function renderFeatured() {
-
-  if (!videos.length) {
-    return;
-  }
-
-  /*
-    Prefer an explicitly featured video.
-    Otherwise use the first video.
-  */
-
-  const featured =
-    videos.find(
-      video =>
-        video.featured === true
-    ) ||
-    videos[0];
-
-  $("#featured")
-    .hidden = false;
-
-  $("#featuredImage").src =
-    featured.thumbnail;
-
-  $("#featuredImage").alt =
-    featured.title;
-
-  $("#featuredTitle")
-    .textContent =
-    featured.title;
-
-  $("#featuredDescription")
-    .textContent =
-    featured.description ||
-    "Watch this video.";
-
-  $("#featuredPlay")
-    .onclick =
-    () =>
-      openVideo(featured);
-
-  $("#featuredLater")
-    .onclick =
-    () =>
-      toggleLater(
-        featured.id
-      );
-
-}
-
-/* =========================================================
-   STATS
-========================================================= */
-
-function updateStats() {
-
-  $("#statVideos")
-    .textContent =
-    videos.length;
-
-  $("#statWatched")
-    .textContent =
-    history.length;
-
-  $("#statFavorites")
-    .textContent =
-    favorites.length;
-
-  $("#statLater")
-    .textContent =
-    later.length;
-
-  $("#statWatchTime")
-    .textContent =
-    formatWatchTime(
-      watchTime
-    );
-
-  $("#statCompleted")
-    .textContent =
-    countCompleted();
-
-}
-
-function countCompleted() {
-
-  return videos.filter(
-    video => {
-
-      const item =
-        progress[video.id];
-
-      return (
-        item &&
-        item.duration > 0 &&
-        item.current /
-          item.duration >=
-          .95
-      );
-
-    }
-  ).length;
-
-}
-
-/* =========================================================
-   FILTERING
-========================================================= */
-
-function filteredVideos() {
-
-  const query =
-    $("#search")
-      .value
-      .trim()
+      .join(" ")
       .toLowerCase();
 
-  const category =
-    $("#categoryFilter")
-      .value;
-
-  const sort =
-    $("#sortFilter")
-      .value;
-
-  let list =
-    [...videos];
-
-  /* VIEW */
-
-  if (
-    currentView ===
-    "favorites"
-  ) {
-
-    list =
-      list.filter(
-        video =>
-          favorites.includes(
-            video.id
-          )
-      );
-
+    return searchable.includes(query);
   }
 
-  if (
-    currentView ===
-    "later"
-  ) {
 
-    list =
-      list.filter(
-        video =>
-          later.includes(
-            video.id
-          )
-      );
+  function matchesView(video) {
+    switch (currentView) {
 
-  }
+      case "continue":
+        return isContinue(video.id);
 
-  if (
-    currentView ===
-    "history"
-  ) {
+      case "later":
+        return later.has(video.id);
 
-    list =
-      list.filter(
-        video =>
-          history.includes(
-            video.id
-          )
-      );
+      case "favorites":
+        return favorites.has(video.id);
 
-    list.sort(
-      (a,b) =>
-        history.indexOf(b.id) -
-        history.indexOf(a.id)
-    );
+      case "liked":
+        return likes.has(video.id);
 
-  }
-
-  if (
-    currentView ===
-    "unfinished"
-  ) {
-
-    list =
-      list.filter(
-        video => {
-
-          const item =
-            progress[video.id];
-
-          if (!item) {
-            return false;
-          }
-
-          if (
-            !item.duration
-          ) {
-            return false;
-          }
-
-          const percent =
-            item.current /
-            item.duration;
-
-          return (
-            percent > .02 &&
-            percent < .95
-          );
-
-        }
-      );
-
-  }
-
-  if (
-    currentView ===
-    "completed"
-  ) {
-
-    list =
-      list.filter(
-        video => {
-
-          const item =
-            progress[video.id];
-
-          return (
-            item &&
-            item.duration &&
-            item.current /
-              item.duration >=
-              .95
-          );
-
-        }
-      );
-
-  }
-
-  /* SEARCH */
-
-  if (query) {
-
-    list =
-      list.filter(
-        video => {
-
-          const haystack = [
-
-            video.title,
-
-            video.description,
-
-            video.category,
-
-            ...video.tags
-
-          ]
-            .join(" ")
-            .toLowerCase();
-
-          return haystack
-            .includes(query);
-
-        }
-      );
-
-  }
-
-  /* CATEGORY */
-
-  if (
-    category !==
-    "all"
-  ) {
-
-    list =
-      list.filter(
-        video =>
-          video.category ===
-          category
-      );
-
-  }
-
-  /* TAG */
-
-  if (
-    activeTag !==
-    "all"
-  ) {
-
-    list =
-      list.filter(
-        video =>
-          video.tags.some(
-            tag =>
-              tag.toLowerCase() ===
-              activeTag
-          )
-      );
-
-  }
-
-  /* SORT */
-
-  if (
-    currentView !==
-    "history"
-  ) {
-
-    switch (sort) {
-
-      case "title":
-
-        list.sort(
-          (a,b) =>
-            a.title.localeCompare(
-              b.title
-            )
-        );
-
-        break;
-
-      case "title-desc":
-
-        list.sort(
-          (a,b) =>
-            b.title.localeCompare(
-              a.title
-            )
-        );
-
-        break;
-
-      case "views":
-
-        list.sort(
-          (a,b) =>
-            b.views -
-            a.views
-        );
-
-        break;
-
-      case "likes":
-
-        list.sort(
-          (a,b) =>
-            b.likes -
-            a.likes
-        );
-
-        break;
-
-      case "duration":
-
-        list.sort(
-          (a,b) =>
-            durationSeconds(
-              b.duration
-            ) -
-            durationSeconds(
-              a.duration
-            )
-        );
-
-        break;
-
-      case "oldest":
-
-        list.sort(
-          dateAscending
-        );
-
-        break;
+      case "history":
+        return Boolean(history[video.id]);
 
       default:
-
-        list.sort(
-          dateDescending
-        );
-
+        return true;
     }
-
   }
 
-  return list;
 
-}
+  function applyFilters() {
+    const category = els.category.value;
 
-/* =========================================================
-   RENDER VIDEO GRID
-========================================================= */
+    filteredVideos = videos.filter(video => {
 
-function renderVideos() {
+      if (!matchesSearch(video)) return false;
 
-  const grid =
-    $("#videoGrid");
+      if (!matchesView(video)) return false;
 
-  const list =
-    filteredVideos();
+      if (
+        category !== "all" &&
+        video.category !== category
+      ) {
+        return false;
+      }
 
-  grid.innerHTML = "";
+      if (
+        selectedTag !== "all" &&
+        !video.tags.includes(selectedTag)
+      ) {
+        return false;
+      }
 
-  $("#resultCount")
-    .textContent =
-    `${list.length} ${
-      list.length === 1
-        ? "video"
-        : "videos"
-    }`;
+      return true;
+    });
 
-  if (!list.length) {
 
-    grid.innerHTML = `
+    const sort = els.sort.value;
 
-      <div class="empty">
+    filteredVideos.sort((a, b) => {
 
-        <div class="empty-icon">
-          🔎
+      if (sort === "title") {
+        return a.title.localeCompare(b.title);
+      }
+
+      if (sort === "views") {
+        return b.views - a.views;
+      }
+
+      if (sort === "duration") {
+        return b.duration - a.duration;
+      }
+
+      if (sort === "shortest") {
+        return a.duration - b.duration;
+      }
+
+      const ad = new Date(a.date || 0).getTime();
+      const bd = new Date(b.date || 0).getTime();
+
+      return sort === "oldest"
+        ? ad - bd
+        : bd - ad;
+    });
+  }
+
+
+  /* ==========================================
+     RENDER
+  ========================================== */
+
+  function render() {
+    applyFilters();
+
+    els.grid.innerHTML = "";
+
+    if (!filteredVideos.length) {
+      els.empty.classList.remove("hidden");
+      return;
+    }
+
+    els.empty.classList.add("hidden");
+
+    const fragment = document.createDocumentFragment();
+
+    filteredVideos.forEach(video => {
+      fragment.appendChild(createVideoCard(video));
+    });
+
+    els.grid.appendChild(fragment);
+
+    updatePageHeader();
+    updateCounters();
+  }
+
+
+  function createVideoCard(video) {
+
+    const article = document.createElement("article");
+    article.className = "video-card";
+
+    const percentage = getProgressPercent(video.id);
+
+    article.innerHTML = `
+      <div class="thumbnail">
+
+        <img
+          src="${escapeHTML(video.thumbnail)}"
+          alt="${escapeHTML(video.title)}"
+          loading="lazy"
+          onerror="this.style.opacity='.15'"
+        >
+
+        ${
+          video.duration
+            ? `<span class="duration">${formatTime(video.duration)}</span>`
+            : ""
+        }
+
+        <div class="progress-track">
+          <div
+            class="progress-bar"
+            style="width:${percentage}%"
+          ></div>
         </div>
 
-        <h3>
-          Nothing found
-        </h3>
+        <div class="card-actions">
 
-        <p>
-          Try changing your search,
-          category, tag or library view.
-        </p>
+          <button
+            class="card-action ${favorites.has(video.id) ? "active" : ""}"
+            data-action="favorite"
+            title="Favorite"
+          >★</button>
 
-      </div>
+          <button
+            class="card-action ${later.has(video.id) ? "active" : ""}"
+            data-action="later"
+            title="Watch later"
+          >◷</button>
 
-    `;
+          <button
+            class="card-action ${likes.has(video.id) ? "active" : ""}"
+            data-action="like"
+            title="Like"
+          >♥</button>
 
-    return;
-
-  }
-
-  const fragment =
-    document.createDocumentFragment();
-
-  list.forEach(
-    video => {
-
-      fragment.appendChild(
-        createCard(video)
-      );
-
-    }
-  );
-
-  grid.appendChild(
-    fragment
-  );
-
-}
-
-/* =========================================================
-   CREATE VIDEO CARD
-========================================================= */
-
-function createCard(video) {
-
-  const card =
-    document.createElement(
-      "article"
-    );
-
-  card.className =
-    "video-card";
-
-  const saved =
-    getProgress(
-      video.id
-    );
-
-  const favorite =
-    favorites.includes(
-      video.id
-    );
-
-  const savedLater =
-    later.includes(
-      video.id
-    );
-
-  card.innerHTML = `
-
-    <div class="thumbnail">
-
-      ${
-        video.thumbnail
-          ? `
-            <img
-              src="${escapeHTML(
-                video.thumbnail
-              )}"
-              alt="${escapeHTML(
-                video.title
-              )}"
-              loading="lazy"
-            >
-          `
-          : `
-            <div class="placeholder">
-              ▶
-            </div>
-          `
-      }
-
-      ${
-        video.duration
-          ? `
-            <span class="duration">
-              ${escapeHTML(
-                video.duration
-              )}
-            </span>
-          `
-          : ""
-      }
-
-      <div class="progress-bar">
-
-        <span
-          style="
-            width:${saved.percent}%
-          "
-        ></span>
+        </div>
 
       </div>
 
-    </div>
+      <div class="video-info">
 
-    <div class="card-body">
+        <div class="video-category">
+          ${escapeHTML(video.category)}
+        </div>
 
-      <h3 class="card-title">
-        ${escapeHTML(
-          video.title
-        )}
-      </h3>
+        <div class="video-title">
+          ${escapeHTML(video.title)}
+        </div>
 
-      ${
-        video.description
-          ? `
-            <p class="card-description">
-              ${escapeHTML(
-                video.description
-              )}
-            </p>
-          `
-          : ""
-      }
+        <div class="video-description">
+          ${escapeHTML(video.description)}
+        </div>
 
-      <div class="meta">
-
-        ${
-          video.category
-            ? `
-              <span>
-                ${escapeHTML(
-                  video.category
-                )}
-              </span>
-            `
-            : ""
-        }
-
-        ${
-          video.views
-            ? `
-              <span>
-                · ${formatNumber(
-                  video.views
-                )} views
-              </span>
-            `
-            : ""
-        }
-
-        ${
-          video.date
-            ? `
-              <span>
-                · ${formatDate(
-                  video.date
-                )}
-              </span>
-            `
-            : ""
-        }
-
-      </div>
-
-      ${
-        video.tags.length
-          ? `
-            <div class="card-tags">
-
-              ${video.tags
-                .slice(0,5)
-                .map(
-                  tag =>
-                    `
-                      <span class="card-tag">
-                        #${escapeHTML(tag)}
-                      </span>
-                    `
-                )
-                .join("")
-              }
-
-            </div>
-          `
-          : ""
-      }
-
-      <div class="card-actions">
-
-        <button
-          class="small-button play"
-        >
-          ▶ Play
-        </button>
-
-        <button
-          class="
-            small-button
-            favorite
-            ${favorite ? "active" : ""}
-          "
-        >
-          ${favorite ? "★" : "☆"}
-          Favorite
-        </button>
-
-        <button
-          class="
-            small-button
-            later
-            ${savedLater ? "active" : ""}
-          "
-        >
-          ${savedLater ? "✓" : "🔖"}
-          Later
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-  card
-    .querySelector(".thumbnail")
-    .addEventListener(
-      "click",
-      () =>
-        openVideo(video)
-    );
-
-  card
-    .querySelector(".play")
-    .addEventListener(
-      "click",
-      () =>
-        openVideo(video)
-    );
-
-  card
-    .querySelector(".favorite")
-    .addEventListener(
-      "click",
-      () =>
-        toggleFavorite(
-          video.id
-        )
-    );
-
-  card
-    .querySelector(".later")
-    .addEventListener(
-      "click",
-      () =>
-        toggleLater(
-          video.id
-        )
-    );
-
-  return card;
-
-}
-
-/* =========================================================
-   FAVORITES
-========================================================= */
-
-function toggleFavorite(id) {
-
-  if (
-    favorites.includes(id)
-  ) {
-
-    favorites =
-      favorites.filter(
-        item =>
-          item !== id
-      );
-
-    toast(
-      "Removed from Favorites"
-    );
-
-  } else {
-
-    favorites.push(id);
-
-    toast(
-      "Added to Favorites"
-    );
-
-  }
-
-  save(
-    KEYS.favorites,
-    favorites
-  );
-
-  updateStats();
-  renderVideos();
-
-  updateModalButtons();
-
-}
-
-/* =========================================================
-   WATCH LATER
-========================================================= */
-
-function toggleLater(id) {
-
-  if (
-    later.includes(id)
-  ) {
-
-    later =
-      later.filter(
-        item =>
-          item !== id
-      );
-
-    toast(
-      "Removed from Watch Later"
-    );
-
-  } else {
-
-    later.push(id);
-
-    toast(
-      "Added to Watch Later"
-    );
-
-  }
-
-  save(
-    KEYS.later,
-    later
-  );
-
-  updateStats();
-  renderVideos();
-
-  updateModalButtons();
-
-}
-
-/* =========================================================
-   HISTORY
-========================================================= */
-
-function addHistory(id) {
-
-  history =
-    history.filter(
-      item =>
-        item !== id
-    );
-
-  history.unshift(id);
-
-  history =
-    history.slice(0,200);
-
-  save(
-    KEYS.history,
-    history
-  );
-
-  updateStats();
-
-}
-
-/* =========================================================
-   PROGRESS
-========================================================= */
-
-function getProgress(id) {
-
-  const item =
-    progress[id];
-
-  if (!item) {
-
-    return {
-
-      current: 0,
-      duration: 0,
-      percent: 0
-
-    };
-
-  }
-
-  return {
-
-    ...item,
-
-    percent:
-      item.duration > 0
-        ? Math.min(
-            100,
-            (
-              item.current /
-              item.duration
-            ) * 100
-          )
-        : 0
-
-  };
-
-}
-
-let progressSaveTimer = null;
-
-function saveCurrentProgress() {
-
-  if (
-    !currentVideo ||
-    !settings.rememberPosition
-  ) {
-    return;
-  }
-
-  const player =
-    $("#videoPlayer");
-
-  if (
-    !Number.isFinite(
-      player.currentTime
-    ) ||
-    !Number.isFinite(
-      player.duration
-    ) ||
-    player.duration <= 0
-  ) {
-    return;
-  }
-
-  progress[
-    currentVideo.id
-  ] = {
-
-    current:
-      player.currentTime,
-
-    duration:
-      player.duration,
-
-    updated:
-      Date.now()
-
-  };
-
-  save(
-    KEYS.progress,
-    progress
-  );
-
-}
-
-function scheduleProgressSave() {
-
-  clearTimeout(
-    progressSaveTimer
-  );
-
-  progressSaveTimer =
-    setTimeout(
-      saveCurrentProgress,
-      500
-    );
-
-}
-
-/* =========================================================
-   CONTINUE WATCHING
-========================================================= */
-
-function renderContinue() {
-
-  const section =
-    $("#continueSection");
-
-  const grid =
-    $("#continueGrid");
-
-  const list =
-    history
-
-      .map(
-        id =>
-          videos.find(
-            video =>
-              video.id === id
-          )
-      )
-
-      .filter(Boolean)
-
-      .filter(
-        video => {
-
-          const saved =
-            getProgress(
-              video.id
-            );
-
-          return (
-            saved.percent > 2 &&
-            saved.percent < 95
-          );
-
-        }
-      )
-
-      .slice(0,6);
-
-  grid.innerHTML = "";
-
-  if (!list.length) {
-
-    section.hidden = true;
-
-    return;
-
-  }
-
-  section.hidden = false;
-
-  list.forEach(
-    video => {
-
-      const saved =
-        getProgress(
-          video.id
-        );
-
-      const item =
-        document.createElement(
-          "article"
-        );
-
-      item.className =
-        "continue-item";
-
-      item.innerHTML = `
-
-        <div class="continue-thumb">
-
+        <div class="video-meta">
           ${
-            video.thumbnail
-              ? `
-                <img
-                  src="${escapeHTML(
-                    video.thumbnail
-                  )}"
-                  alt="${escapeHTML(
-                    video.title
-                  )}"
-                  loading="lazy"
-                >
-              `
+            video.date
+              ? `<span>${formatDate(video.date)}</span>`
               : ""
           }
 
-          <div class="progress-bar">
-            <span
-              style="
-                width:${saved.percent}%
-              "
-            ></span>
-          </div>
+          ${
+            video.views
+              ? `<span>${formatNumber(video.views)} views</span>`
+              : ""
+          }
 
+          ${
+            percentage > 0 && percentage < 90
+              ? `<span>${percentage}% watched</span>`
+              : ""
+          }
+
+          ${
+            percentage >= 90
+              ? `<span>Watched</span>`
+              : ""
+          }
         </div>
 
-        <div class="continue-info">
+        ${
+          video.tags.length
+            ? `
+              <div class="video-tags">
+                ${video.tags.slice(0, 4).map(tag =>
+                  `<span class="mini-tag">#${escapeHTML(tag)}</span>`
+                ).join("")}
+              </div>
+            `
+            : ""
+        }
 
-          <strong>
-            ${escapeHTML(
-              video.title
-            )}
-          </strong>
-
-          <span>
-            ${formatTime(
-              saved.current
-            )}
-            /
-            ${formatTime(
-              saved.duration
-            )}
-            ·
-            ${Math.round(
-              saved.percent
-            )}%
-          </span>
-
-        </div>
-
-      `;
-
-      item.addEventListener(
-        "click",
-        () =>
-          openVideo(
-            video,
-            true
-          )
-      );
-
-      grid.appendChild(
-        item
-      );
-
-    }
-  );
-
-}
-
-/* =========================================================
-   VIDEO OPEN
-========================================================= */
-
-function openVideo(
-  video,
-  resume = false
-) {
-
-  if (!video.video) {
-
-    toast(
-      "No video file is configured for this item."
-    );
-
-    return;
-
-  }
-
-  currentVideo =
-    video;
-
-  const player =
-    $("#videoPlayer");
-
-  $("#modalHeader")
-    .textContent =
-    video.title;
-
-  $("#modalTitle")
-    .textContent =
-    video.title;
-
-  $("#modalDescription")
-    .textContent =
-    video.description ||
-    "No description available.";
-
-  $("#modalMeta")
-    .innerHTML = `
-
-      ${
-        video.category
-          ? `<span>
-              ${escapeHTML(
-                video.category
-              )}
-            </span>`
-          : ""
-      }
-
-      ${
-        video.views
-          ? `<span>
-              ${formatNumber(
-                video.views
-              )} views
-            </span>`
-          : ""
-      }
-
-      ${
-        video.likes
-          ? `<span>
-              ${formatNumber(
-                video.likes
-              )} likes
-            </span>`
-          : ""
-      }
-
-      ${
-        video.date
-          ? `<span>
-              ${formatDate(
-                video.date
-              )}
-            </span>`
-          : ""
-      }
-
+      </div>
     `;
 
-  $("#modalTags")
-    .innerHTML =
-    video.tags
-      .map(
-        tag =>
-          `
-            <span class="card-tag">
-              #${escapeHTML(tag)}
-            </span>
-          `
+
+    article.addEventListener("click", event => {
+
+      const action = event.target.closest("[data-action]");
+
+      if (action) {
+        event.stopPropagation();
+
+        const type = action.dataset.action;
+
+        if (type === "favorite") toggleFavorite(video.id);
+        if (type === "later") toggleLater(video.id);
+        if (type === "like") toggleLike(video.id);
+
+        return;
+      }
+
+      openVideo(video);
+    });
+
+    return article;
+  }
+
+
+  /* ==========================================
+     LIBRARY ACTIONS
+  ========================================== */
+
+  function toggleLike(id) {
+    if (likes.has(id)) {
+      likes.delete(id);
+      toast("Removed like");
+    } else {
+      likes.add(id);
+      toast("Added to liked videos");
+    }
+
+    saveSet(STORAGE.likes, likes);
+    updatePlayerButtons();
+    render();
+  }
+
+
+  function toggleFavorite(id) {
+    if (favorites.has(id)) {
+      favorites.delete(id);
+      toast("Removed from favorites");
+    } else {
+      favorites.add(id);
+      toast("Added to favorites");
+    }
+
+    saveSet(STORAGE.favorites, favorites);
+    updatePlayerButtons();
+    render();
+  }
+
+
+  function toggleLater(id) {
+    if (later.has(id)) {
+      later.delete(id);
+      toast("Removed from Watch Later");
+    } else {
+      later.add(id);
+      toast("Added to Watch Later");
+    }
+
+    saveSet(STORAGE.later, later);
+    updatePlayerButtons();
+    render();
+  }
+
+
+  /* ==========================================
+     PROGRESS
+  ========================================== */
+
+  function getProgressPercent(id) {
+    const item = progress[id];
+
+    if (!item || !item.duration) return 0;
+
+    return Math.min(
+      100,
+      Math.round(
+        (item.currentTime / item.duration) * 100
+      )
+    );
+  }
+
+
+  function isContinue(id) {
+    const percentage = getProgressPercent(id);
+
+    return percentage > 0 && percentage < 90;
+  }
+
+
+  function saveCurrentProgress() {
+
+    if (!currentVideo) return;
+
+    const player = els.player;
+
+    if (!player.duration || !Number.isFinite(player.duration)) {
+      return;
+    }
+
+    progress[currentVideo.id] = {
+      currentTime: player.currentTime,
+      duration: player.duration,
+      updatedAt: Date.now()
+    };
+
+    saveObject(STORAGE.progress, progress);
+  }
+
+
+  function markHistory(video) {
+
+    history[video.id] = {
+      watchedAt: Date.now(),
+      position: els.player.currentTime || 0
+    };
+
+    saveObject(STORAGE.history, history);
+  }
+
+
+  /* ==========================================
+     PLAYER
+  ========================================== */
+
+  function openVideo(video) {
+
+    if (!video.video) {
+      toast("This video doesn't have a video file configured.");
+      return;
+    }
+
+    currentVideo = video;
+    currentIndex = filteredVideos.findIndex(
+      item => item.id === video.id
+    );
+
+    updateURL(video.id);
+
+    els.player.src = video.video;
+
+    els.player.volume = settings.volume;
+    els.player.muted = settings.muted;
+    els.player.playbackRate = Number(settings.speed);
+
+    els.playerTitle.textContent = video.title;
+    els.playerCategory.textContent = video.category;
+    els.playerDescription.textContent = video.description;
+
+    els.playerMeta.innerHTML = `
+      ${video.date ? `<span>${formatDate(video.date)}</span>` : ""}
+      ${video.views ? `<span>${formatNumber(video.views)} views</span>` : ""}
+      ${video.duration ? `<span>${formatTime(video.duration)}</span>` : ""}
+    `;
+
+    els.playerTags.innerHTML = video.tags
+      .map(tag =>
+        `<span class="mini-tag">#${escapeHTML(tag)}</span>`
       )
       .join("");
 
-  updateModalButtons();
+    updatePlayerButtons();
+    renderRelated(video);
 
-  renderRelated();
+    els.playerModal.classList.add("open");
+    document.body.style.overflow = "hidden";
 
-  player.src =
-    video.video;
+    addToHistory(video);
 
-  player.playbackRate =
-    Number(
-      $("#speedSelect").value
+    els.player.addEventListener(
+      "loadedmetadata",
+      restorePlaybackPosition,
+      { once: true }
     );
 
-  $("#videoModal")
-    .classList.add(
-      "open"
+    els.player.play().catch(() => {});
+  }
+
+
+  function closeVideo() {
+    saveCurrentProgress();
+
+    els.player.pause();
+    els.player.removeAttribute("src");
+    els.player.load();
+
+    currentVideo = null;
+    currentIndex = -1;
+
+    els.playerModal.classList.remove("open");
+    document.body.style.overflow = "";
+
+    history.replaceState(
+      null,
+      "",
+      location.pathname + location.search
     );
 
-  $("#videoModal")
-    .setAttribute(
-      "aria-hidden",
-      "false"
-    );
+    render();
+  }
 
-  addHistory(
-    video.id
-  );
 
-  updateURL();
+  function restorePlaybackPosition() {
 
-  const restore =
-    () => {
+    if (!currentVideo) return;
 
-      const saved =
-        getProgress(
-          video.id
-        );
+    const saved = progress[currentVideo.id];
 
-      if (
-        settings.rememberPosition &&
-        (
-          resume ||
-          saved.current > 0
-        )
-      ) {
+    if (
+      saved &&
+      Number.isFinite(saved.currentTime) &&
+      saved.currentTime > 0 &&
+      saved.currentTime < els.player.duration - 2
+    ) {
+      els.player.currentTime = saved.currentTime;
+    }
+  }
 
-        if (
-          saved.current <
-          player.duration - 2
-        ) {
 
-          player.currentTime =
-            saved.current;
-
-        }
-
-      }
-
-      if (
-        settings.autoplay ||
-        resume
-      ) {
-
-        player
-          .play()
-          .catch(
-            () => {}
-          );
-
-      }
-
+  function addToHistory(video) {
+    history[video.id] = {
+      watchedAt: Date.now(),
+      position: progress[video.id]?.currentTime || 0
     };
 
-  if (
-    player.readyState >= 1
-  ) {
-
-    restore();
-
-  } else {
-
-    player.addEventListener(
-      "loadedmetadata",
-      restore,
-      {
-        once: true
-      }
-    );
-
+    saveObject(STORAGE.history, history);
+    updateCounters();
   }
 
-}
 
-/* =========================================================
-   CLOSE VIDEO
-========================================================= */
+  function updatePlayerButtons() {
 
-function closeVideo() {
+    if (!currentVideo) return;
 
-  saveCurrentProgress();
+    els.likeBtn.textContent =
+      likes.has(currentVideo.id)
+        ? "♥ Liked"
+        : "♥ Like";
 
-  const player =
-    $("#videoPlayer");
+    els.laterBtn.textContent =
+      later.has(currentVideo.id)
+        ? "✓ Saved"
+        : "◷ Later";
 
-  player.pause();
+    els.favoriteBtn.textContent =
+      favorites.has(currentVideo.id)
+        ? "★ Favorited"
+        : "★ Favorite";
 
-  player.removeAttribute(
-    "src"
-  );
+    els.muteBtn.textContent =
+      els.player.muted
+        ? "Unmute"
+        : "Mute";
 
-  player.load();
-
-  $("#videoModal")
-    .classList.remove(
-      "open"
-    );
-
-  $("#videoModal")
-    .setAttribute(
-      "aria-hidden",
-      "true"
-    );
-
-  currentVideo =
-    null;
-
-  removeURLVideo();
-
-  renderContinue();
-  renderVideos();
-
-}
-
-/* =========================================================
-   MODAL BUTTONS
-========================================================= */
-
-function updateModalButtons() {
-
-  if (!currentVideo) {
-    return;
+    els.speed.value = String(els.player.playbackRate);
   }
 
-  const favorite =
-    favorites.includes(
-      currentVideo.id
-    );
 
-  const savedLater =
-    later.includes(
-      currentVideo.id
-    );
+  function playNext() {
 
-  $("#modalFavorite")
-    .textContent =
-    favorite
-      ? "★ Favorited"
-      : "☆ Favorite";
+    if (!filteredVideos.length) return;
 
-  $("#modalLater")
-    .textContent =
-    savedLater
-      ? "✓ Saved"
-      : "🔖 Watch Later";
+    const nextIndex =
+      currentIndex + 1 >= filteredVideos.length
+        ? 0
+        : currentIndex + 1;
 
-}
-
-/* =========================================================
-   RELATED
-========================================================= */
-
-function renderRelated() {
-
-  const container =
-    $("#relatedList");
-
-  container.innerHTML = "";
-
-  if (!currentVideo) {
-    return;
+    openVideo(filteredVideos[nextIndex]);
   }
 
-  const currentTags =
-    new Set(
-      currentVideo.tags
-        .map(
-          tag =>
-            tag.toLowerCase()
-        )
-    );
 
-  const related =
-    videos
+  function playPrevious() {
 
-      .filter(
-        video =>
-          video.id !==
-          currentVideo.id
-      )
+    if (!filteredVideos.length) return;
 
-      .map(
-        video => {
+    const previousIndex =
+      currentIndex - 1 < 0
+        ? filteredVideos.length - 1
+        : currentIndex - 1;
 
-          let score = 0;
-
-          if (
-            video.category ===
-            currentVideo.category
-          ) {
-            score += 3;
-          }
-
-          video.tags.forEach(
-            tag => {
-
-              if (
-                currentTags.has(
-                  tag.toLowerCase()
-                )
-              ) {
-                score++;
-              }
-
-            }
-          );
-
-          return {
-            video,
-            score
-          };
-
-        }
-      )
-
-      .sort(
-        (a,b) =>
-          b.score -
-          a.score
-      )
-
-      .slice(0,8);
-
-  if (!related.length) {
-
-    container.innerHTML = `
-      <p
-        style="
-          color:var(--muted);
-          font-size:12px;
-        "
-      >
-        No related videos available.
-      </p>
-    `;
-
-    return;
-
+    openVideo(filteredVideos[previousIndex]);
   }
 
-  related.forEach(
-    item => {
 
-      const video =
-        item.video;
+  /* ==========================================
+     RELATED
+  ========================================== */
 
-      const element =
-        document.createElement(
-          "div"
-        );
+  function renderRelated(video) {
 
-      element.className =
-        "related-item";
+    const related = videos
+      .filter(item => item.id !== video.id)
+      .map(item => ({
+        video: item,
+        score: similarityScore(video, item)
+      }))
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 8)
+      .map(item => item.video);
+
+    els.related.innerHTML = "";
+
+    related.forEach(item => {
+
+      const element = document.createElement("div");
+
+      element.className = "related-card";
 
       element.innerHTML = `
-
         <div class="related-thumb">
-
-          ${
-            video.thumbnail
-              ? `
-                <img
-                  src="${escapeHTML(
-                    video.thumbnail
-                  )}"
-                  alt=""
-                  loading="lazy"
-                >
-              `
-              : ""
-          }
-
+          <img
+            src="${escapeHTML(item.thumbnail)}"
+            alt="${escapeHTML(item.title)}"
+            loading="lazy"
+          >
         </div>
 
         <div>
-
           <div class="related-title">
-            ${escapeHTML(
-              video.title
-            )}
+            ${escapeHTML(item.title)}
           </div>
 
-          <div
-            style="
-              margin-top:4px;
-              color:var(--muted);
-              font-size:9px;
-            "
-          >
-            ${escapeHTML(
-              video.category
-            )}
+          <div class="related-meta">
+            ${escapeHTML(item.category)}
+            ${item.duration ? " · " + formatTime(item.duration) : ""}
           </div>
-
         </div>
-
       `;
 
       element.addEventListener(
         "click",
-        () =>
-          openVideo(
-            video
-          )
+        () => openVideo(item)
       );
 
-      container.appendChild(
-        element
-      );
-
-    }
-  );
-
-}
-
-/* =========================================================
-   URL DEEP LINKING
-========================================================= */
-
-function updateURL() {
-
-  if (!currentVideo) {
-    return;
+      els.related.appendChild(element);
+    });
   }
 
-  const url =
-    new URL(
-      location.href
-    );
 
-  url.searchParams.set(
-    "video",
-    currentVideo.id
-  );
+  function similarityScore(a, b) {
 
-  history.replaceState(
-    null,
-    "",
-    url
-  );
+    let score = 0;
 
-}
-
-function removeURLVideo() {
-
-  const url =
-    new URL(
-      location.href
-    );
-
-  url.searchParams.delete(
-    "video"
-  );
-
-  history.replaceState(
-    null,
-    "",
-    url
-  );
-
-}
-
-function openURLVideo() {
-
-  const params =
-    new URLSearchParams(
-      location.search
-    );
-
-  const id =
-    params.get(
-      "video"
-    );
-
-  if (!id) {
-    return;
-  }
-
-  const video =
-    videos.find(
-      item =>
-        item.id ===
-        String(id)
-    );
-
-  if (video) {
-
-    openVideo(
-      video,
-      true
-    );
-
-  }
-
-}
-
-/* =========================================================
-   SHARE
-========================================================= */
-
-async function shareVideo() {
-
-  if (!currentVideo) {
-    return;
-  }
-
-  const url =
-    new URL(
-      location.href
-    );
-
-  url.searchParams.set(
-    "video",
-    currentVideo.id
-  );
-
-  const data = {
-
-    title:
-      currentVideo.title,
-
-    text:
-      currentVideo.description ||
-      currentVideo.title,
-
-    url:
-      url.href
-
-  };
-
-  try {
-
-    if (
-      navigator.share
-    ) {
-
-      await navigator.share(
-        data
-      );
-
-      return;
-
+    if (a.category === b.category) {
+      score += 5;
     }
 
-    await navigator.clipboard.writeText(
-      url.href
-    );
-
-    toast(
-      "Video link copied"
-    );
-
-  } catch {
-
-    toast(
-      "Could not share video"
-    );
-
-  }
-
-}
-
-/* =========================================================
-   COPY LINK
-========================================================= */
-
-async function copyVideoLink() {
-
-  if (!currentVideo) {
-    return;
-  }
-
-  const url =
-    new URL(
-      location.href
-    );
-
-  url.searchParams.set(
-    "video",
-    currentVideo.id
-  );
-
-  try {
-
-    await navigator.clipboard.writeText(
-      url.href
-    );
-
-    toast(
-      "Link copied"
-    );
-
-  } catch {
-
-    toast(
-      "Could not copy link"
-    );
-
-  }
-
-}
-
-/* =========================================================
-   DOWNLOAD
-========================================================= */
-
-function downloadVideo() {
-
-  if (
-    !currentVideo?.video
-  ) {
-
-    toast(
-      "No video file available"
-    );
-
-    return;
-
-  }
-
-  const link =
-    document.createElement(
-      "a"
-    );
-
-  link.href =
-    currentVideo.video;
-
-  link.download =
-    `${safeFilename(
-      currentVideo.title
-    )}.mp4`;
-
-  link.target =
-    "_blank";
-
-  link.rel =
-    "noopener";
-
-  document.body.appendChild(
-    link
-  );
-
-  link.click();
-
-  link.remove();
-
-}
-
-/* =========================================================
-   FULLSCREEN
-========================================================= */
-
-async function fullscreen() {
-
-  const player =
-    $("#videoPlayer");
-
-  try {
-
-    if (
-      document.fullscreenElement
-    ) {
-
-      await document.exitFullscreen();
-
-    } else {
-
-      await player.requestFullscreen();
-
-    }
-
-  } catch {
-
-    toast(
-      "Fullscreen unavailable"
-    );
-
-  }
-
-}
-
-/* =========================================================
-   PICTURE IN PICTURE
-========================================================= */
-
-async function pictureInPicture() {
-
-  const player =
-    $("#videoPlayer");
-
-  if (
-    !document.pictureInPictureEnabled
-  ) {
-
-    toast(
-      "Picture-in-picture is unavailable"
-    );
-
-    return;
-
-  }
-
-  try {
-
-    if (
-      document.pictureInPictureElement
-    ) {
-
-      await document.exitPictureInPicture();
-
-    } else {
-
-      await player.requestPictureInPicture();
-
-    }
-
-  } catch {
-
-    toast(
-      "Picture-in-picture unavailable"
-    );
-
-  }
-
-}
-
-/* =========================================================
-   NEXT / PREVIOUS
-========================================================= */
-
-function adjacentVideo(
-  direction
-) {
-
-  if (!currentVideo) {
-    return;
-  }
-
-  const list =
-    filteredVideos();
-
-  const index =
-    list.findIndex(
-      video =>
-        video.id ===
-        currentVideo.id
-    );
-
-  if (index === -1) {
-    return;
-  }
-
-  const target =
-    list[
-      index + direction
-    ];
-
-  if (!target) {
-
-    toast(
-      direction > 0
-        ? "No next video"
-        : "No previous video"
-    );
-
-    return;
-
-  }
-
-  openVideo(
-    target
-  );
-
-}
-
-/* =========================================================
-   PLAYER EVENTS
-========================================================= */
-
-$("#videoPlayer")
-  .addEventListener(
-    "timeupdate",
-    () => {
-
-      scheduleProgressSave();
-
-      if (
-        currentVideo &&
-        Number.isFinite(
-          $("#videoPlayer").currentTime
-        )
-      ) {
-
-        watchTime =
-          Math.max(
-            watchTime,
-            0
-          );
-
+    const aTags = new Set(a.tags);
+
+    for (const tag of b.tags) {
+      if (aTags.has(tag)) {
+        score += 3;
       }
-
     }
-  );
 
-$("#videoPlayer")
-  .addEventListener(
-    "pause",
-    saveCurrentProgress
-  );
+    return score;
+  }
 
-$("#videoPlayer")
-  .addEventListener(
-    "ended",
-    () => {
 
-      if (!currentVideo) {
+  /* ==========================================
+     SHARING
+  ========================================== */
+
+  async function shareCurrent() {
+
+    if (!currentVideo) return;
+
+    const url =
+      `${location.origin}${location.pathname}#video/${encodeURIComponent(currentVideo.id)}`;
+
+    try {
+
+      if (navigator.share) {
+
+        await navigator.share({
+          title: currentVideo.title,
+          text: currentVideo.description,
+          url
+        });
+
         return;
       }
 
-      progress[
-        currentVideo.id
-      ] = {
+      await navigator.clipboard.writeText(url);
 
-        current:
-          $("#videoPlayer")
-            .duration,
+      toast("Video link copied");
 
-        duration:
-          $("#videoPlayer")
-            .duration,
+    } catch {
+      toast("Couldn't share the video");
+    }
+  }
 
-        updated:
-          Date.now()
 
-      };
+  /* ==========================================
+     URL DEEP LINKS
+  ========================================== */
 
-      save(
-        KEYS.progress,
-        progress
-      );
+  function updateURL(id) {
+    history.replaceState(
+      null,
+      "",
+      `#video/${encodeURIComponent(id)}`
+    );
+  }
 
-      renderContinue();
-      renderVideos();
-      updateStats();
 
-      /*
-        Autoplay the next item if enabled.
-      */
+  function handleDeepLink() {
 
-      if (
-        settings.autoplay
-      ) {
+    const match =
+      location.hash.match(/^#video\/(.+)$/);
 
-        adjacentVideo(
-          1
-        );
+    if (!match) return;
 
+    const id = decodeURIComponent(match[1]);
+
+    const video = videos.find(
+      item => item.id === id
+    );
+
+    if (video) {
+      openVideo(video);
+    }
+  }
+
+
+  window.addEventListener("hashchange", handleDeepLink);
+
+
+  /* ==========================================
+     PLAYER EVENTS
+  ========================================== */
+
+  els.player.addEventListener("timeupdate", () => {
+
+    if (!currentVideo) return;
+
+    if (!saveProgressTimer) {
+
+      saveProgressTimer = setTimeout(() => {
+        saveCurrentProgress();
+        saveProgressTimer = null;
+      }, 1000);
+
+    }
+
+    const item = progress[currentVideo.id];
+
+    if (item && item.duration) {
+      const percent =
+        (els.player.currentTime / item.duration) * 100;
+
+      if (percent >= 90) {
+        progress[currentVideo.id].currentTime =
+          els.player.currentTime;
+
+        saveObject(STORAGE.progress, progress);
       }
-
     }
-  );
+  });
 
-/* =========================================================
-   PLAYBACK SPEED
-========================================================= */
 
-$("#speedSelect")
-  .addEventListener(
-    "change",
-    event => {
+  els.player.addEventListener("pause", saveCurrentProgress);
 
-      $("#videoPlayer")
-        .playbackRate =
-        Number(
-          event.target.value
-        );
+  els.player.addEventListener("ended", () => {
 
+    if (!currentVideo) return;
+
+    progress[currentVideo.id] = {
+      currentTime: els.player.duration,
+      duration: els.player.duration,
+      updatedAt: Date.now()
+    };
+
+    saveObject(STORAGE.progress, progress);
+
+    markHistory(currentVideo);
+
+    if (settings.autoplay) {
+      setTimeout(playNext, 500);
     }
-  );
+  });
 
-/* =========================================================
-   MODAL EVENTS
-========================================================= */
 
-$("#closeModal")
-  .addEventListener(
+  els.player.addEventListener("volumechange", () => {
+
+    settings.volume = els.player.volume;
+    settings.muted = els.player.muted;
+
+    saveSettings();
+    updatePlayerButtons();
+  });
+
+
+  /* ==========================================
+     PLAYER BUTTONS
+  ========================================== */
+
+  $("closePlayer").addEventListener(
     "click",
     closeVideo
   );
 
-$("#videoModal")
-  .addEventListener(
+  els.playerModal.addEventListener("click", event => {
+
+    if (event.target === els.playerModal) {
+      closeVideo();
+    }
+  });
+
+  $("nextVideo").addEventListener(
     "click",
-    event => {
+    playNext
+  );
 
-      if (
-        event.target ===
-        event.currentTarget
-      ) {
+  $("prevVideo").addEventListener(
+    "click",
+    playPrevious
+  );
 
-        closeVideo();
+  els.likeBtn.addEventListener(
+    "click",
+    () => toggleLike(currentVideo.id)
+  );
 
+  els.laterBtn.addEventListener(
+    "click",
+    () => toggleLater(currentVideo.id)
+  );
+
+  els.favoriteBtn.addEventListener(
+    "click",
+    () => toggleFavorite(currentVideo.id)
+  );
+
+  els.shareBtn.addEventListener(
+    "click",
+    shareCurrent
+  );
+
+  els.muteBtn.addEventListener("click", () => {
+
+    els.player.muted = !els.player.muted;
+
+    settings.muted = els.player.muted;
+
+    saveSettings();
+
+    updatePlayerButtons();
+  });
+
+
+  els.speed.addEventListener("change", () => {
+
+    const speed = Number(els.speed.value);
+
+    els.player.playbackRate = speed;
+
+    settings.speed = speed;
+
+    saveSettings();
+  });
+
+
+  $("downloadBtn").addEventListener("click", () => {
+
+    if (!currentVideo?.video) {
+      toast("No downloadable video file is configured.");
+      return;
+    }
+
+    const link = document.createElement("a");
+
+    link.href = currentVideo.video;
+    link.download =
+      `${sanitizeFilename(currentVideo.title)}.mp4`;
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  });
+
+
+  $("fullscreenBtn").addEventListener("click", async () => {
+
+    try {
+
+      if (!document.fullscreenElement) {
+        await els.player.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
       }
 
+    } catch {
+      toast("Fullscreen isn't available here.");
     }
-  );
+  });
 
-$("#modalFavorite")
-  .addEventListener(
-    "click",
-    () => {
 
-      if (currentVideo) {
+  $("theaterBtn").addEventListener("click", () => {
 
-        toggleFavorite(
-          currentVideo.id
-        );
+    els.playerModal.classList.toggle("theater");
 
-      }
+    toast(
+      els.playerModal.classList.contains("theater")
+        ? "Theater mode enabled"
+        : "Theater mode disabled"
+    );
+  });
 
-    }
-  );
 
-$("#modalLater")
-  .addEventListener(
-    "click",
-    () => {
+  /* ==========================================
+     SEARCH / FILTERS
+  ========================================== */
 
-      if (currentVideo) {
-
-        toggleLater(
-          currentVideo.id
-        );
-
-      }
-
-    }
-  );
-
-$("#modalShare")
-  .addEventListener(
-    "click",
-    shareVideo
-  );
-
-$("#modalCopyLink")
-  .addEventListener(
-    "click",
-    copyVideoLink
-  );
-
-$("#modalDownload")
-  .addEventListener(
-    "click",
-    downloadVideo
-  );
-
-$("#modalFullscreen")
-  .addEventListener(
-    "click",
-    fullscreen
-  );
-
-$("#pipButton")
-  .addEventListener(
-    "click",
-    pictureInPicture
-  );
-
-$("#previousVideo")
-  .addEventListener(
-    "click",
-    () =>
-      adjacentVideo(-1)
-  );
-
-$("#nextVideo")
-  .addEventListener(
-    "click",
-    () =>
-      adjacentVideo(1)
-  );
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-$("#search")
-  .addEventListener(
+  els.search.addEventListener(
     "input",
-    () => {
-
-      $("#clearSearch")
-        .style.display =
-        $("#search").value
-          ? "block"
-          : "none";
-
-      renderVideos();
-
-    }
+    render
   );
 
-$("#clearSearch")
-  .addEventListener(
-    "click",
-    () => {
-
-      $("#search").value =
-        "";
-
-      $("#clearSearch")
-        .style.display =
-        "none";
-
-      renderVideos();
-
-      $("#search").focus();
-
-    }
-  );
-
-$("#searchButton")
-  .addEventListener(
-    "click",
-    () => {
-
-      $("#search").focus();
-
-      $("#library")
-        .scrollIntoView({
-          behavior: "smooth"
-        });
-
-    }
-  );
-
-$("#categoryFilter")
-  .addEventListener(
+  els.category.addEventListener(
     "change",
-    renderVideos
+    render
   );
 
-$("#sortFilter")
-  .addEventListener(
+  els.sort.addEventListener(
     "change",
-    renderVideos
+    render
   );
 
-/* =========================================================
-   TABS
-========================================================= */
 
-$$(".tab")
-  .forEach(
-    tab => {
+  $("clearFilters").addEventListener("click", () => {
 
-      tab.addEventListener(
-        "click",
-        () => {
+    els.search.value = "";
+    els.category.value = "all";
+    els.sort.value = "newest";
 
-          $$(".tab")
-            .forEach(
-              item =>
-                item.classList.remove(
-                  "active"
-                )
-            );
+    selectedTag = "all";
 
-          tab.classList.add(
-            "active"
-          );
+    populateTags();
 
-          currentView =
-            tab.dataset.view;
+    render();
+  });
 
-          renderVideos();
 
-        }
-      );
+  /* ==========================================
+     TAGS
+  ========================================== */
 
-    }
-  );
+  function populateTags() {
 
-/* =========================================================
-   SETTINGS
-========================================================= */
+    const tags = [...new Set(
+      videos.flatMap(video => video.tags)
+    )]
+      .sort((a, b) => a.localeCompare(b))
+      .slice(0, 40);
 
-function openSettings() {
+    els.tags.innerHTML = "";
 
-  $("#settingsPanel")
-    .classList.add(
-      "open"
+    const all = document.createElement("button");
+
+    all.className =
+      `tag ${selectedTag === "all" ? "active" : ""}`;
+
+    all.textContent = "All tags";
+
+    all.addEventListener("click", () => {
+
+      selectedTag = "all";
+      populateTags();
+      render();
+
+    });
+
+    els.tags.appendChild(all);
+
+    tags.forEach(tag => {
+
+      const button = document.createElement("button");
+
+      button.className =
+        `tag ${selectedTag === tag ? "active" : ""}`;
+
+      button.textContent = `#${tag}`;
+
+      button.addEventListener("click", () => {
+
+        selectedTag = tag;
+
+        populateTags();
+        render();
+
+      });
+
+      els.tags.appendChild(button);
+    });
+  }
+
+
+  function populateCategories() {
+
+    const categories = [...new Set(
+      videos.map(video => video.category)
+    )].sort();
+
+    els.category.innerHTML =
+      `<option value="all">All categories</option>`;
+
+    categories.forEach(category => {
+
+      const option =
+        document.createElement("option");
+
+      option.value = category;
+      option.textContent = category;
+
+      els.category.appendChild(option);
+    });
+  }
+
+
+  /* ==========================================
+     LIBRARY NAVIGATION
+  ========================================== */
+
+  document.querySelectorAll("[data-view]").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      currentView = button.dataset.view;
+
+      updateNavigation();
+      updatePageHeader();
+      render();
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  });
+
+
+  function updateNavigation() {
+
+    document
+      .querySelectorAll("[data-view]")
+      .forEach(button => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.view === currentView
+        );
+      });
+  }
+
+
+  function updatePageHeader() {
+
+    const names = {
+      all: [
+        "Video Library",
+        "Browse everything in your local JJ PLAYZ library."
+      ],
+      continue: [
+        "Continue Watching",
+        "Pick up where you left off."
+      ],
+      later: [
+        "Watch Later",
+        "Videos you've saved for another time."
+      ],
+      favorites: [
+        "Favorites",
+        "Your favorite videos."
+      ],
+      history: [
+        "Watch History",
+        "Videos you've recently opened."
+      ],
+      liked: [
+        "Liked Videos",
+        "Videos you've marked with a like."
+      ],
+      categories: [
+        "Categories",
+        "Browse your library by category."
+      ]
+    };
+
+    const info =
+      names[currentView] || names.all;
+
+    els.pageTitle.textContent = info[0];
+    els.pageDescription.textContent = info[1];
+  }
+
+
+  /* ==========================================
+     COUNTERS
+  ========================================== */
+
+  function updateCounters() {
+
+    const watchedCount =
+      Object.keys(history).length;
+
+    const savedCount =
+      later.size + favorites.size;
+
+    els.statVideos.textContent =
+      videos.length;
+
+    els.statSaved.textContent =
+      savedCount;
+
+    els.statWatched.textContent =
+      watchedCount;
+
+    els.countAll.textContent =
+      videos.length;
+
+    els.countContinue.textContent =
+      videos.filter(video => isContinue(video.id)).length;
+
+    els.countLater.textContent =
+      later.size;
+
+    els.countFavorites.textContent =
+      favorites.size;
+
+    els.countHistory.textContent =
+      watchedCount;
+
+    els.countLiked.textContent =
+      likes.size;
+
+    updateStorageInfo();
+  }
+
+
+  /* ==========================================
+     SETTINGS
+  ========================================== */
+
+  function saveSettings() {
+    saveObject(
+      STORAGE.settings,
+      settings
     );
+  }
 
-  $("#settingsOverlay")
-    .classList.add(
-      "open"
-    );
 
-}
+  function applyTheme() {
 
-function closeSettings() {
+    document.documentElement.dataset.theme =
+      settings.theme;
 
-  $("#settingsPanel")
-    .classList.remove(
-      "open"
-    );
+    els.theme.value =
+      settings.theme;
 
-  $("#settingsOverlay")
-    .classList.remove(
-      "open"
-    );
+    els.autoplay.checked =
+      Boolean(settings.autoplay);
 
-}
+    els.defaultSpeed.value =
+      String(settings.speed);
+  }
 
-$("#settingsButton")
-  .addEventListener(
+
+  function openSettings() {
+
+    els.drawerBackdrop.classList.add("open");
+    els.settingsDrawer.classList.add("open");
+  }
+
+
+  function closeSettings() {
+
+    els.drawerBackdrop.classList.remove("open");
+    els.settingsDrawer.classList.remove("open");
+  }
+
+
+  $("settingsBtn").addEventListener(
     "click",
     openSettings
   );
 
-$("#closeSettings")
-  .addEventListener(
+  $("openSettingsSide").addEventListener(
+    "click",
+    openSettings
+  );
+
+  $("mobileSettings").addEventListener(
+    "click",
+    openSettings
+  );
+
+  $("closeSettings").addEventListener(
     "click",
     closeSettings
   );
 
-$("#settingsOverlay")
-  .addEventListener(
+  els.drawerBackdrop.addEventListener(
     "click",
     closeSettings
   );
 
-/* =========================================================
-   THEME
-========================================================= */
 
-function applyTheme(theme) {
+  els.theme.addEventListener("change", () => {
 
-  document.body
-    .classList.toggle(
+    settings.theme =
+      els.theme.value;
+
+    saveSettings();
+    applyTheme();
+  });
+
+
+  $("themeQuickBtn").addEventListener("click", () => {
+
+    const order = [
+      "dark",
       "light",
-      theme === "light"
+      "amoled"
+    ];
+
+    const current =
+      order.indexOf(settings.theme);
+
+    settings.theme =
+      order[(current + 1) % order.length];
+
+    saveSettings();
+    applyTheme();
+
+    toast(
+      `Theme: ${settings.theme}`
+    );
+  });
+
+
+  els.autoplay.addEventListener("change", () => {
+
+    settings.autoplay =
+      els.autoplay.checked;
+
+    saveSettings();
+  });
+
+
+  els.defaultSpeed.addEventListener(
+    "change",
+    () => {
+
+      settings.speed =
+        Number(els.defaultSpeed.value);
+
+      saveSettings();
+
+      if (currentVideo) {
+        els.player.playbackRate =
+          settings.speed;
+
+        els.speed.value =
+          String(settings.speed);
+      }
+    }
+  );
+
+
+  $("clearHistory").addEventListener("click", () => {
+
+    if (!confirm(
+      "Clear your JJ PLAYZ watch history?"
+    )) return;
+
+    history = {};
+    saveObject(STORAGE.history, history);
+
+    updateCounters();
+    render();
+
+    toast("Watch history cleared");
+  });
+
+
+  $("clearProgress").addEventListener("click", () => {
+
+    if (!confirm(
+      "Clear all saved playback positions?"
+    )) return;
+
+    progress = {};
+    saveObject(STORAGE.progress, progress);
+
+    render();
+
+    toast("Playback progress cleared");
+  });
+
+
+  $("resetData").addEventListener("click", () => {
+
+    if (!confirm(
+      "Reset ALL locally stored JJ PLAYZ data? This cannot be undone."
+    )) return;
+
+    Object.values(STORAGE).forEach(
+      key => localStorage.removeItem(key)
     );
 
-  $("#themeSelect")
-    .value =
-    theme;
-
-  $("#themeButton")
-    .textContent =
-    theme === "light"
-      ? "☀"
-      : "☾";
-
-  localStorage.setItem(
-    KEYS.theme,
-    theme
-  );
-
-}
-
-function toggleTheme() {
-
-  const current =
-    localStorage.getItem(
-      KEYS.theme
-    ) ||
-    "dark";
-
-  applyTheme(
-    current === "dark"
-      ? "light"
-      : "dark"
-  );
-
-}
-
-$("#themeButton")
-  .addEventListener(
-    "click",
-    toggleTheme
-  );
-
-$("#themeSelect")
-  .addEventListener(
-    "change",
-    event =>
-      applyTheme(
-        event.target.value
-      )
-  );
-
-applyTheme(
-  localStorage.getItem(
-    KEYS.theme
-  ) ||
-  "dark"
-);
-
-/* =========================================================
-   SETTINGS VALUES
-========================================================= */
-
-$("#autoplaySetting")
-  .checked =
-  settings.autoplay;
-
-$("#positionSetting")
-  .checked =
-  settings.rememberPosition;
-
-$("#adsSetting")
-  .checked =
-  settings.ads;
-
-$("#motionSetting")
-  .checked =
-  settings.motion;
-
-function saveBoolean(
-  key,
-  value
-) {
-
-  localStorage.setItem(
-    key,
-    String(value)
-  );
-
-}
-
-$("#autoplaySetting")
-  .addEventListener(
-    "change",
-    event => {
-
-      settings.autoplay =
-        event.target.checked;
-
-      saveBoolean(
-        KEYS.autoplay,
-        settings.autoplay
-      );
-
-    }
-  );
+    location.reload();
+  });
 
-$("#positionSetting")
-  .addEventListener(
-    "change",
-    event => {
 
-      settings.rememberPosition =
-        event.target.checked;
+  /* ==========================================
+     STORAGE INFO
+  ========================================== */
 
-      saveBoolean(
-        KEYS.rememberPosition,
-        settings.rememberPosition
-      );
+  function updateStorageInfo() {
 
-    }
-  );
+    const info = [
+      `${likes.size} liked`,
+      `${favorites.size} favorites`,
+      `${later.size} Watch Later`,
+      `${Object.keys(history).length} history entries`,
+      `${Object.keys(progress).length} saved positions`
+    ];
 
-/* =========================================================
-   ADS
-========================================================= */
+    els.storageInfo.textContent =
+      info.join(" · ");
+  }
 
-function applyAds() {
 
-  $("#topAd")
-    .classList.toggle(
-      "hidden",
-      !settings.ads
-    );
+  /* ==========================================
+     VIEW MODE
+  ========================================== */
 
-  $("#bottomAd")
-    .classList.toggle(
-      "hidden",
-      !settings.ads
-    );
+  $("gridView").addEventListener("click", () => {
 
-}
+    els.grid.classList.remove("list");
 
-$("#adsSetting")
-  .addEventListener(
-    "change",
-    event => {
+    $("gridView").classList.add("active");
+    $("listView").classList.remove("active");
+  });
 
-      settings.ads =
-        event.target.checked;
 
-      saveBoolean(
-        KEYS.ads,
-        settings.ads
-      );
+  $("listView").addEventListener("click", () => {
 
-      applyAds();
+    els.grid.classList.add("list");
 
-    }
-  );
+    $("listView").classList.add("active");
+    $("gridView").classList.remove("active");
+  });
 
-applyAds();
 
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
+  /* ==========================================
+     KEYBOARD SHORTCUTS
+  ========================================== */
 
-function applyMotion() {
+  document.addEventListener("keydown", event => {
 
-  document.body
-    .classList.toggle(
-      "no-motion",
-      settings.motion
-    );
-
-}
-
-$("#motionSetting")
-  .addEventListener(
-    "change",
-    event => {
-
-      settings.motion =
-        event.target.checked;
-
-      saveBoolean(
-        KEYS.motion,
-        settings.motion
-      );
-
-      applyMotion();
-
-    }
-  );
-
-applyMotion();
-
-/* =========================================================
-   CLEAR DATA
-========================================================= */
-
-$("#clearHistory")
-  .addEventListener(
-    "click",
-    () => {
-
-      if (
-        !confirm(
-          "Clear your watch history?"
-        )
-      ) {
-        return;
-      }
-
-      history = [];
-
-      save(
-        KEYS.history,
-        history
-      );
-
-      updateStats();
-      renderContinue();
-      renderVideos();
-
-      toast(
-        "History cleared"
-      );
-
-    }
-  );
-
-$("#clearProgress")
-  .addEventListener(
-    "click",
-    () => {
-
-      if (
-        !confirm(
-          "Clear all playback progress?"
-        )
-      ) {
-        return;
-      }
-
-      progress = {};
-
-      save(
-        KEYS.progress,
-        progress
-      );
-
-      renderContinue();
-      renderVideos();
-      updateStats();
-
-      toast(
-        "Playback progress cleared"
-      );
-
-    }
-  );
-
-$("#clearFavorites")
-  .addEventListener(
-    "click",
-    () => {
-
-      if (
-        !confirm(
-          "Clear all favorites?"
-        )
-      ) {
-        return;
-      }
-
-      favorites = [];
-
-      save(
-        KEYS.favorites,
-        favorites
-      );
-
-      updateStats();
-      renderVideos();
-      updateModalButtons();
-
-      toast(
-        "Favorites cleared"
-      );
-
-    }
-  );
-
-$("#clearLater")
-  .addEventListener(
-    "click",
-    () => {
-
-      if (
-        !confirm(
-          "Clear Watch Later?"
-        )
-      ) {
-        return;
-      }
-
-      later = [];
-
-      save(
-        KEYS.later,
-        later
-      );
-
-      updateStats();
-      renderVideos();
-      updateModalButtons();
-
-      toast(
-        "Watch Later cleared"
-      );
-
-    }
-  );
-
-$("#resetData")
-  .addEventListener(
-    "click",
-    () => {
-
-      if (
-        !confirm(
-          "Reset ALL locally stored JJ PLAYZ data?"
-        )
-      ) {
-        return;
-      }
-
-      Object.values(
-        KEYS
-      ).forEach(
-        key =>
-          localStorage.removeItem(
-            key
-          )
-      );
-
-      location.reload();
-
-    }
-  );
-
-/* =========================================================
-   KEYBOARD SHORTCUTS
-========================================================= */
-
-document.addEventListener(
-  "keydown",
-  event => {
-
-    const tag =
-      document.activeElement?.tagName;
+    const target =
+      event.target;
 
     const typing =
-      tag === "INPUT" ||
-      tag === "TEXTAREA" ||
-      tag === "SELECT";
+      target instanceof HTMLInputElement ||
+      target instanceof HTMLTextAreaElement ||
+      target instanceof HTMLSelectElement;
 
-    if (
-      event.key === "/" &&
-      !typing
-    ) {
+    if (event.key === "Escape") {
 
-      event.preventDefault();
+      if (els.settingsDrawer.classList.contains("open")) {
+        closeSettings();
+        return;
+      }
 
-      $("#search").focus();
-
-      $("#library")
-        .scrollIntoView({
-          behavior: "smooth"
-        });
-
-      return;
-
-    }
-
-    if (
-      event.key === "Escape"
-    ) {
-
-      if (
-        $("#videoModal")
-          .classList.contains(
-            "open"
-          )
-      ) {
-
+      if (els.playerModal.classList.contains("open")) {
         closeVideo();
-
+        return;
       }
+    }
 
-      closeSettings();
+    if (typing) return;
+
+    if (event.key === "/") {
+
+      event.preventDefault();
+
+      els.search.focus();
 
       return;
-
     }
 
-    if (
-      !currentVideo ||
-      typing
-    ) {
-      return;
+    if (!currentVideo) return;
+
+    switch (event.key.toLowerCase()) {
+
+      case "k":
+
+        if (els.player.paused) {
+          els.player.play();
+        } else {
+          els.player.pause();
+        }
+
+        break;
+
+      case "m":
+
+        els.player.muted =
+          !els.player.muted;
+
+        break;
+
+      case "f":
+
+        $("fullscreenBtn").click();
+
+        break;
+
+      case "t":
+
+        $("theaterBtn").click();
+
+        break;
+
+      case "[":
+
+        playPrevious();
+
+        break;
+
+      case "]":
+
+        playNext();
+
+        break;
+    }
+  });
+
+
+  /* ==========================================
+     HELPERS
+  ========================================== */
+
+  function formatTime(seconds) {
+
+    if (!seconds || !Number.isFinite(seconds)) {
+      return "";
     }
 
-    const player =
-      $("#videoPlayer");
+    seconds = Math.floor(seconds);
 
-    if (
-      event.code === "Space"
-    ) {
+    const hours =
+      Math.floor(seconds / 3600);
 
-      event.preventDefault();
+    const minutes =
+      Math.floor((seconds % 3600) / 60);
 
-      if (
-        player.paused
-      ) {
+    const secs =
+      seconds % 60;
 
-        player.play();
-
-      } else {
-
-        player.pause();
-
-      }
-
+    if (hours) {
+      return `${hours}:${String(minutes).padStart(2,"0")}:${String(secs).padStart(2,"0")}`;
     }
 
-    if (
-      event.key.toLowerCase() ===
-      "m"
-    ) {
-
-      player.muted =
-        !player.muted;
-
-    }
-
-    if (
-      event.key.toLowerCase() ===
-      "f"
-    ) {
-
-      fullscreen();
-
-    }
-
-    if (
-      event.key === "ArrowRight"
-    ) {
-
-      event.preventDefault();
-
-      if (
-        event.shiftKey
-      ) {
-
-        adjacentVideo(
-          1
-        );
-
-      } else {
-
-        player.currentTime =
-          Math.min(
-            player.duration || 0,
-            player.currentTime + 5
-          );
-
-      }
-
-    }
-
-    if (
-      event.key === "ArrowLeft"
-    ) {
-
-      event.preventDefault();
-
-      if (
-        event.shiftKey
-      ) {
-
-        adjacentVideo(
-          -1
-        );
-
-      } else {
-
-        player.currentTime =
-          Math.max(
-            0,
-            player.currentTime - 5
-          );
-
-      }
-
-    }
-
+    return `${minutes}:${String(secs).padStart(2,"0")}`;
   }
-);
 
-/* =========================================================
-   PAGE SAVE
-========================================================= */
 
-window.addEventListener(
-  "pagehide",
-  () => {
+  function formatDate(value) {
 
-    saveCurrentProgress();
+    const date =
+      new Date(value);
 
-    save(
-      KEYS.watchTime,
-      watchTime
+    if (Number.isNaN(date.getTime())) {
+      return value;
+    }
+
+    return new Intl.DateTimeFormat(
+      undefined,
+      {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+      }
+    ).format(date);
+  }
+
+
+  function formatNumber(number) {
+
+    return new Intl.NumberFormat().format(
+      Number(number) || 0
     );
-
   }
-);
 
-/* =========================================================
-   UTILITY FUNCTIONS
-========================================================= */
 
-function escapeHTML(value) {
+  function sanitizeFilename(name) {
 
-  return String(
-    value ?? ""
-  )
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-    .replaceAll(
-      "'",
-      "&#039;"
+    return String(name)
+      .replace(/[<>:"/\\|?*\x00-\x1F]/g, "")
+      .trim()
+      .slice(0, 120) || "video";
+  }
+
+
+  function setLoading(value) {
+
+    els.loading.classList.toggle(
+      "hidden",
+      !value
     );
-
-}
-
-function formatNumber(
-  value
-) {
-
-  return Number(
-    value || 0
-  ).toLocaleString();
-
-}
-
-function formatDate(
-  value
-) {
-
-  const date =
-    new Date(value);
-
-  if (
-    Number.isNaN(
-      date.getTime()
-    )
-  ) {
-    return "";
   }
 
-  return date.toLocaleDateString(
-    undefined,
-    {
-      year: "numeric",
-      month: "short",
-      day: "numeric"
+
+  function toast(message) {
+
+    const element =
+      document.createElement("div");
+
+    element.className = "toast";
+    element.textContent = message;
+
+    els.toast.appendChild(element);
+
+    setTimeout(() => {
+      element.remove();
+    }, 2800);
+  }
+
+
+  /* ==========================================
+     PAGE LIFECYCLE
+  ========================================== */
+
+  window.addEventListener(
+    "pagehide",
+    saveCurrentProgress
+  );
+
+  document.addEventListener(
+    "visibilitychange",
+    () => {
+
+      if (document.hidden) {
+        saveCurrentProgress();
+      }
     }
   );
 
-}
 
-function dateDescending(
-  a,
-  b
-) {
+  /* ==========================================
+     INIT
+  ========================================== */
 
-  const aa =
-    Date.parse(a.date);
+  applyTheme();
 
-  const bb =
-    Date.parse(b.date);
+  loadVideos();
 
-  if (
-    Number.isNaN(aa) ||
-    Number.isNaN(bb)
-  ) {
-    return 0;
-  }
 
-  return bb - aa;
-
-}
-
-function dateAscending(
-  a,
-  b
-) {
-
-  return -dateDescending(
-    a,
-    b
-  );
-
-}
-
-function formatTime(
-  seconds
-) {
+  /* ==========================================
+     SERVICE WORKER
+  ========================================== */
 
   if (
-    !Number.isFinite(seconds)
+    "serviceWorker" in navigator &&
+    location.protocol !== "file:"
   ) {
-    return "0:00";
+    navigator.serviceWorker
+      .register("./sw.js")
+      .catch(error => {
+        console.warn(
+          "Service worker registration failed:",
+          error
+        );
+      });
   }
 
-  seconds =
-    Math.max(
-      0,
-      Math.floor(seconds)
-    );
-
-  const hours =
-    Math.floor(
-      seconds / 3600
-    );
-
-  const minutes =
-    Math.floor(
-      (seconds % 3600) / 60
-    );
-
-  const secs =
-    seconds % 60;
-
-  if (hours) {
-
-    return `${hours}:${String(
-      minutes
-    ).padStart(
-      2,
-      "0"
-    )}:${String(
-      secs
-    ).padStart(
-      2,
-      "0"
-    )}`;
-
-  }
-
-  return `${minutes}:${String(
-    secs
-  ).padStart(
-    2,
-    "0"
-  )}`;
-
-}
-
-function formatWatchTime(
-  seconds
-) {
-
-  seconds =
-    Math.floor(
-      Number(seconds) || 0
-    );
-
-  if (
-    seconds < 60
-  ) {
-
-    return `${seconds}s`;
-
-  }
-
-  if (
-    seconds < 3600
-  ) {
-
-    return `${Math.floor(
-      seconds / 60
-    )}m`;
-
-  }
-
-  const hours =
-    Math.floor(
-      seconds / 3600
-    );
-
-  const minutes =
-    Math.floor(
-      (seconds % 3600) / 60
-    );
-
-  return `${hours}h ${minutes}m`;
-
-}
-
-function durationSeconds(
-  value
-) {
-
-  if (
-    typeof value ===
-    "number"
-  ) {
-    return value;
-  }
-
-  if (
-    !value
-  ) {
-    return 0;
-  }
-
-  const parts =
-    String(value)
-      .split(":")
-      .map(Number);
-
-  if (
-    parts.some(
-      Number.isNaN
-    )
-  ) {
-    return 0;
-  }
-
-  if (
-    parts.length === 3
-  ) {
-
-    return (
-      parts[0] * 3600 +
-      parts[1] * 60 +
-      parts[2]
-    );
-
-  }
-
-  if (
-    parts.length === 2
-  ) {
-
-    return (
-      parts[0] * 60 +
-      parts[1]
-    );
-
-  }
-
-  return parts[0] || 0;
-
-}
-
-function safeFilename(
-  value
-) {
-
-  return String(
-    value || "video"
-  )
-    .replace(
-      /[<>:"/\\|?*]+/g,
-      ""
-    )
-    .trim()
-    .slice(0,120);
-
-}
-
-/* =========================================================
-   START
-========================================================= */
-
-loadVideos();
-
+})();
 </script>
 
 </body>
 </html>
-```
