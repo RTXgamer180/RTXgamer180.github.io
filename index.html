@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>JJ PLAYZ | Gaming</title>
-
-<meta name="description"
-      content="Welcome to JJ PLAYZ — gaming, chaos and awesome videos.">
-
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>JJ PLAYZ | Gaming</title><meta name="description" content="JJ PLAYZ — Gaming, chaos, funny moments and more."><style>
 :root {
     --bg: #070711;
     --panel: #11111d;
@@ -37,6 +29,11 @@ body {
     color: var(--text);
     font-family: Arial, Helvetica, sans-serif;
     overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
 /* BACKGROUND */
@@ -81,8 +78,7 @@ body {
 
     transform: rotate(12deg);
 
-    animation:
-        gridMove 25s linear infinite;
+    animation: gridMove 25s linear infinite;
 }
 
 @keyframes gridMove {
@@ -95,12 +91,14 @@ body {
     }
 }
 
+/* CONTAINER */
+
 .container {
     width: min(1150px, calc(100% - 32px));
     margin: auto;
 }
 
-/* NAV */
+/* NAVIGATION */
 
 nav {
     position: sticky;
@@ -142,11 +140,6 @@ nav {
     color: var(--muted);
 }
 
-.nav-links a {
-    text-decoration: none;
-    color: inherit;
-}
-
 .nav-links a:hover {
     color: white;
 }
@@ -168,7 +161,7 @@ nav {
 /* HERO */
 
 .hero {
-    min-height: 650px;
+    min-height: 620px;
 
     display: flex;
     align-items: center;
@@ -265,8 +258,6 @@ nav {
 
     font-weight: 900;
 
-    text-decoration: none;
-
     transition: .2s;
 
     border:
@@ -287,6 +278,78 @@ nav {
 
 .btn-dark {
     background: var(--panel);
+}
+
+/* UPDATE COUNTDOWN */
+
+.update-box {
+    width: min(620px, 100%);
+
+    margin: 35px auto 0;
+
+    padding: 18px 22px;
+
+    border:
+        1px solid rgba(34,211,238,.20);
+
+    border-radius: 16px;
+
+    background:
+        rgba(17,17,29,.75);
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.15);
+}
+
+.update-top {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 10px;
+}
+
+.update-title {
+    font-weight: 800;
+}
+
+.update-time {
+    color: var(--cyan);
+
+    font-weight: 900;
+
+    font-variant-numeric: tabular-nums;
+}
+
+.progress {
+    width: 100%;
+    height: 5px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,.08);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            var(--cyan)
+        );
+
+    transform-origin: left;
 }
 
 /* STATS */
@@ -378,8 +441,6 @@ section {
         1px solid var(--border);
 
     border-radius: 18px;
-
-    text-decoration: none;
 
     transition: .25s;
 }
@@ -626,131 +687,172 @@ footer {
         padding: 55px 0;
     }
 
+    .update-top {
+        flex-direction: column;
+        gap: 5px;
+    }
+
     .footer-inner {
         justify-content: center;
 
         text-align: center;
     }
 }
-</style>
-</head>
+</style></head><body><div class="background"></div><!-- NAVIGATION --><nav>
+    <div class="container nav-inner">    <a href="#" class="logo">
+        JJ<span>PLAYZ</span>
+    </a>
 
-<body>
+    <div class="nav-links">
 
-<div class="background"></div>
-
-<nav>
-    <div class="container nav-inner">
-
-        <a href="#" class="logo">
-            JJ<span>PLAYZ</span>
+        <a href="#videos">
+            Videos
         </a>
 
-        <div class="nav-links">
+        <a href="#about">
+            About
+        </a>
 
-            <a href="#videos">
-                Videos
-            </a>
-
-            <a href="#about">
-                About
-            </a>
-
-            <a
-                class="youtube-button"
-                href="https://www.youtube.com/@xxx-jj_playz"
-                target="_blank"
-                rel="noopener"
-            >
-                🔴 YouTube
-            </a>
-
-        </div>
-
-    </div>
-</nav>
-
-<main>
-
-<section class="hero">
-
-    <div class="container hero-content">
-
-        <div class="tag">
-            🎮 WELCOME TO JJ PLAYZ
-        </div>
-
-        <h1>
-            PLAY.<br>
-            <span class="gradient">CHAOS.</span><br>
-            REPEAT.
-        </h1>
-
-        <p>
-            Gaming, funny moments, crazy clips
-            and whatever happens next. 🚀
-        </p>
-
-        <div class="buttons">
-
-            <a
-                class="btn btn-red"
-                href="https://www.youtube.com/@xxx-jj_playz"
-                target="_blank"
-                rel="noopener"
-            >
-                ▶ WATCH ON YOUTUBE
-            </a>
-
-            <a
-                class="btn btn-dark"
-                href="#videos"
-            >
-                EXPLORE VIDEOS ↓
-            </a>
-
-        </div>
+        <a
+            class="youtube-button"
+            href="https://www.youtube.com/@xxx-jj_playz"
+            target="_blank"
+            rel="noopener"
+        >
+            🔴 YouTube
+        </a>
 
     </div>
 
-</section>
+</div>
 
-<div class="container">
+</nav><main><!-- HERO --><section class="hero"><div class="container hero-content">
 
-    <div class="stats">
+    <div class="tag">
+        🎮 WELCOME TO JJ PLAYZ
+    </div>
 
-        <div class="stat">
-            <div class="stat-icon">🎮</div>
-            <strong>Gaming</strong>
-            <span>That's what we do</span>
+    <h1>
+        PLAY.<br>
+        <span class="gradient">CHAOS.</span><br>
+        REPEAT.
+    </h1>
+
+    <p>
+        Gaming, funny moments, crazy clips
+        and whatever happens next. 🚀
+    </p>
+
+    <div class="buttons">
+
+        <a
+            class="btn btn-red"
+            href="https://www.youtube.com/@xxx-jj_playz"
+            target="_blank"
+            rel="noopener"
+        >
+            ▶ WATCH ON YOUTUBE
+        </a>
+
+        <a
+            class="btn btn-dark"
+            href="#videos"
+        >
+            EXPLORE VIDEOS ↓
+        </a>
+
+    </div>
+
+    <!-- AUTOMATIC COUNTDOWN -->
+
+    <div class="update-box">
+
+        <div class="update-top">
+
+            <div class="update-title">
+                🔄 Next video update
+            </div>
+
+            <div
+                class="update-time"
+                id="countdown"
+            >
+                Calculating...
+            </div>
+
         </div>
 
-        <div class="stat">
-            <div class="stat-icon">🔥</div>
-            <strong>New Videos</strong>
-            <span>Automatically updated</span>
-        </div>
-
-        <div class="stat">
-            <div class="stat-icon">💜</div>
-            <strong>JJ PLAYZ</strong>
-            <span>Join the community</span>
+        <div class="progress">
+            <div
+                class="progress-bar"
+                id="progressBar"
+            ></div>
         </div>
 
     </div>
 
 </div>
 
-<section id="videos">
+</section><!-- STATS --><div class="container"><div class="stats">
 
-<div class="container">
+    <div class="stat">
+
+        <div class="stat-icon">
+            🎮
+        </div>
+
+        <strong>
+            Gaming
+        </strong>
+
+        <span>
+            That's what we do
+        </span>
+
+    </div>
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            🔄
+        </div>
+
+        <strong>
+            Auto Updated
+        </strong>
+
+        <span>
+            Every 5 minutes
+        </span>
+
+    </div>
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            💜
+        </div>
+
+        <strong>
+            JJ PLAYZ
+        </strong>
+
+        <span>
+            Join the community
+        </span>
+
+    </div>
+
+</div>
+
+</div><!-- VIDEOS --><section id="videos"><div class="container">
 
     <h2 class="section-title">
         Latest Videos
     </h2>
 
     <p class="section-subtitle">
-        Automatically loaded from the JJ PLAYZ YouTube channel.
+        Automatically updated from the JJ PLAYZ YouTube channel.
     </p>
 
     <div
@@ -770,11 +872,7 @@ footer {
 
 </div>
 
-</section>
-
-<section id="about">
-
-<div class="container">
+</section><!-- ABOUT --><section id="about"><div class="container">
 
     <div class="about-grid">
 
@@ -789,8 +887,8 @@ footer {
             </p>
 
             <p>
-                Welcome to my little corner of
-                the internet where gaming,
+                Welcome to my little corner
+                of the internet where gaming,
                 funny moments and chaos happen.
             </p>
 
@@ -808,11 +906,27 @@ footer {
             </h3>
 
             <ul>
-                <li>Gaming adventures</li>
-                <li>Funny moments</li>
-                <li>Crazy clips</li>
-                <li>Epic fails</li>
-                <li>New uploads</li>
+
+                <li>
+                    Gaming adventures
+                </li>
+
+                <li>
+                    Funny moments
+                </li>
+
+                <li>
+                    Crazy clips
+                </li>
+
+                <li>
+                    Epic fails
+                </li>
+
+                <li>
+                    New uploads
+                </li>
+
             </ul>
 
         </div>
@@ -821,38 +935,28 @@ footer {
 
 </div>
 
-</section>
+</section><!-- CTA --><div class="container"><div class="cta">
 
-<div class="container">
+    <h2>
+        READY TO JOIN THE CHAOS?
+    </h2>
 
-    <div class="cta">
+    <p>
+        Subscribe to JJ PLAYZ on YouTube.
+    </p>
 
-        <h2>
-            READY TO JOIN THE CHAOS?
-        </h2>
-
-        <p>
-            Subscribe to JJ PLAYZ on YouTube.
-        </p>
-
-        <a
-            class="btn btn-red"
-            href="https://www.youtube.com/@xxx-jj_playz"
-            target="_blank"
-            rel="noopener"
-        >
-            🔴 SUBSCRIBE
-        </a>
-
-    </div>
+    <a
+        class="btn btn-red"
+        href="https://www.youtube.com/@xxx-jj_playz"
+        target="_blank"
+        rel="noopener"
+    >
+        🔴 SUBSCRIBE
+    </a>
 
 </div>
 
-</main>
-
-<footer>
-
-<div class="container footer-inner">
+</div></main><!-- FOOTER --><footer><div class="container footer-inner">
 
     <div>
         © 2026 JJ PLAYZ
@@ -864,9 +968,11 @@ footer {
 
 </div>
 
-</footer>
+</footer><script>
 
-<script>
+/* =========================================
+   VIDEO LOADER
+   ========================================= */
 
 async function loadVideos() {
 
@@ -876,10 +982,14 @@ async function loadVideos() {
     try {
 
         const response =
-            await fetch("videos.json?cache=" + Date.now());
+            await fetch(
+                "videos.json?cache=" + Date.now()
+            );
 
         if (!response.ok) {
-            throw new Error("videos.json not found");
+            throw new Error(
+                "videos.json not found"
+            );
         }
 
         const videos =
@@ -940,11 +1050,23 @@ async function loadVideos() {
         list.innerHTML = `
             <div class="loading">
                 Couldn't load videos right now.<br>
-                Check the YouTube channel directly.
+                <br>
+                <a
+                    href="https://www.youtube.com/@xxx-jj_playz"
+                    target="_blank"
+                    style="color:#22d3ee;font-weight:bold;"
+                >
+                    Open JJ PLAYZ on YouTube ↗
+                </a>
             </div>
         `;
     }
 }
+
+
+/* =========================================
+   HTML ESCAPING
+   ========================================= */
 
 function escapeHTML(text) {
 
@@ -956,9 +1078,129 @@ function escapeHTML(text) {
     return div.innerHTML;
 }
 
+
+/* =========================================
+   5-MINUTE UPDATE COUNTDOWN
+   ========================================= */
+
+const UPDATE_INTERVAL = 5 * 60 * 1000;
+
+function updateCountdown() {
+
+    const now =
+        new Date();
+
+    /*
+       GitHub Actions is scheduled every
+       5 minutes, so calculate the next
+       5-minute boundary.
+    */
+
+    const next =
+        new Date(now);
+
+    next.setSeconds(0);
+    next.setMilliseconds(0);
+
+    const minutes =
+        next.getMinutes();
+
+    const nextMinutes =
+        Math.floor(minutes / 5) * 5 + 5;
+
+    if (nextMinutes >= 60) {
+
+        next.setHours(
+            next.getHours() + 1
+        );
+
+        next.setMinutes(0);
+
+    } else {
+
+        next.setMinutes(
+            nextMinutes
+        );
+    }
+
+    const difference =
+        next - now;
+
+    let totalSeconds =
+        Math.max(
+            0,
+            Math.floor(
+                difference / 1000
+            )
+        );
+
+    const minutesLeft =
+        Math.floor(
+            totalSeconds / 60
+        );
+
+    const secondsLeft =
+        totalSeconds % 60;
+
+    const countdown =
+        document.getElementById(
+            "countdown"
+        );
+
+    countdown.textContent =
+        `${minutesLeft}m ${String(secondsLeft).padStart(2, "0")}s`;
+
+    /*
+       Progress bar:
+       0% = beginning of cycle
+       100% = almost next update
+    */
+
+    const elapsed =
+        UPDATE_INTERVAL - difference;
+
+    const progress =
+        Math.min(
+            100,
+            Math.max(
+                0,
+                elapsed /
+                UPDATE_INTERVAL *
+                100
+            )
+        );
+
+    document.getElementById(
+        "progressBar"
+    ).style.transform =
+        `scaleX(${progress / 100})`;
+
+    /*
+       Refresh the video list when
+       the countdown reaches zero.
+    */
+
+    if (difference <= 1000) {
+
+        setTimeout(() => {
+
+            loadVideos();
+
+        }, 1500);
+    }
+}
+
+
+/* START */
+
 loadVideos();
 
-</script>
+updateCountdown();
 
-</body>
+setInterval(
+    updateCountdown,
+    1000
+);
+
+</script></body>
 </html>
