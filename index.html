@@ -1,17 +1,41 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#08090d">
-  <meta name="description" content="JJ PLAYZ — Video library and media hub.">
 
-  <title>JJ PLAYZ</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  <link rel="manifest" href="./manifest.json">
+  <meta
+    name="description"
+    content="JJ PLAYZ — A personal video library."
+  >
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta
+    name="theme-color"
+    content="#08090d"
+  >
+
+  <title>JJ PLAYZ — Video Library</title>
+
+  <link
+    rel="manifest"
+    href="./manifest.json"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
 
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
@@ -19,33 +43,49 @@
   >
 
   <style>
+
+    /* =========================================================
+       JJ PLAYZ
+       FUNCTIONAL MEDIA DASHBOARD
+    ========================================================= */
+
     :root {
       --bg: #08090d;
-      --bg-soft: #0d0f15;
-      --panel: #11141b;
-      --panel-hover: #171a23;
-      --text: #f4f5f7;
-      --muted: #949aa8;
+      --bg-2: #0c0f15;
+      --panel: #11151d;
+      --panel-2: #171c25;
+
+      --text: #f5f7fa;
+      --muted: #9299a8;
+
       --border: rgba(255,255,255,.09);
 
       --accent: #8b5cf6;
-      --accent-hover: #7c3aed;
+      --accent-2: #6d28d9;
 
-      --danger: #ef4444;
       --success: #22c55e;
+      --danger: #ef4444;
+      --warning: #f59e0b;
 
       --radius: 16px;
-      --shadow: 0 20px 60px rgba(0,0,0,.35);
+
+      --shadow:
+        0 20px 70px rgba(0,0,0,.35);
     }
 
     body.light {
-      --bg: #f4f5f7;
-      --bg-soft: #ffffff;
+      --bg: #f3f4f7;
+      --bg-2: #ffffff;
       --panel: #ffffff;
-      --panel-hover: #f0f1f4;
+      --panel-2: #f0f1f4;
+
       --text: #111318;
-      --muted: #69707d;
-      --border: rgba(0,0,0,.1);
+      --muted: #68707e;
+
+      --border: rgba(0,0,0,.10);
+
+      --shadow:
+        0 20px 60px rgba(0,0,0,.12);
     }
 
     * {
@@ -60,11 +100,33 @@
 
     body {
       min-height: 100vh;
-      overflow-x: hidden;
-      background: var(--bg);
+
+      background:
+        radial-gradient(
+          circle at 10% 0%,
+          rgba(139,92,246,.10),
+          transparent 30%
+        ),
+        var(--bg);
+
       color: var(--text);
+
       font-family: Inter, sans-serif;
-      transition: background .2s, color .2s;
+
+      overflow-x: hidden;
+
+      transition:
+        background .25s,
+        color .25s;
+    }
+
+    body.no-motion *,
+    body.no-motion *::before,
+    body.no-motion *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: .001ms !important;
     }
 
     button,
@@ -77,14 +139,14 @@
       cursor: pointer;
     }
 
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
     a {
       color: inherit;
       text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
     }
 
     ::selection {
@@ -93,41 +155,50 @@
     }
 
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 9px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
     }
 
     ::-webkit-scrollbar-thumb {
       background: var(--accent);
-      border-radius: 20px;
+      border-radius: 99px;
     }
 
-    /* ------------------------------
+    /* =========================================================
        HEADER
-    ------------------------------ */
+    ========================================================= */
 
     header {
       position: sticky;
       top: 0;
       z-index: 1000;
 
-      border-bottom: 1px solid var(--border);
-      background: color-mix(
-        in srgb,
-        var(--bg) 88%,
-        transparent
-      );
+      border-bottom:
+        1px solid var(--border);
 
-      backdrop-filter: blur(18px);
+      background:
+        color-mix(
+          in srgb,
+          var(--bg) 88%,
+          transparent
+        );
+
+      backdrop-filter: blur(20px);
     }
 
     .nav {
-      width: min(1400px, 92%);
+      width: min(1500px, 94%);
       min-height: 70px;
+
       margin: auto;
 
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       gap: 20px;
     }
 
@@ -136,27 +207,29 @@
       align-items: center;
       gap: 11px;
 
-      font-family: "Space Grotesk", sans-serif;
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+
       font-weight: 700;
       white-space: nowrap;
     }
 
-    .brand-logo {
-      width: 38px;
-      height: 38px;
+    .brand-logo,
+    .brand-fallback {
+      width: 40px;
+      height: 40px;
 
-      object-fit: contain;
       border-radius: 10px;
     }
 
-    .brand-fallback {
-      width: 38px;
-      height: 38px;
+    .brand-logo {
+      object-fit: contain;
+    }
 
+    .brand-fallback {
       display: grid;
       place-items: center;
-
-      border-radius: 10px;
 
       background: var(--accent);
       color: white;
@@ -167,195 +240,465 @@
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
     }
 
-    .nav-button {
-      min-width: 40px;
-      height: 40px;
+    .icon-button {
+      width: 42px;
+      height: 42px;
 
-      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+
+      border:
+        1px solid var(--border);
+
       border-radius: 10px;
 
       background: var(--panel);
       color: var(--text);
+
+      transition: .2s;
     }
 
-    .nav-button:hover {
-      background: var(--panel-hover);
+    .icon-button:hover {
+      background: var(--panel-2);
+      border-color: var(--accent);
     }
 
-    /* ------------------------------
-       LAYOUT
-    ------------------------------ */
+    /* =========================================================
+       MAIN
+    ========================================================= */
 
     main {
-      width: min(1400px, 92%);
+      width: min(1500px, 94%);
       margin: auto;
     }
 
     .page {
-      padding: 40px 0 80px;
+      padding:
+        45px
+        0
+        100px;
     }
 
-    .page-header {
-      margin-bottom: 30px;
-    }
+    /* =========================================================
+       PAGE TITLE
+    ========================================================= */
 
-    .page-header h1 {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: clamp(36px, 6vw, 64px);
-      letter-spacing: -2px;
-    }
-
-    .page-header p {
-      max-width: 650px;
-      margin-top: 12px;
-
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    /* ------------------------------
-       DASHBOARD
-    ------------------------------ */
-
-    .dashboard {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-
+    .page-title {
       margin-bottom: 35px;
     }
 
-    .dashboard-card {
-      padding: 20px;
+    .page-title h1 {
+      font-family:
+        "Space Grotesk",
+        sans-serif;
 
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      font-size:
+        clamp(38px, 6vw, 70px);
+
+      letter-spacing: -3px;
+    }
+
+    .page-title p {
+      max-width: 720px;
+
+      margin-top: 13px;
+
+      color: var(--muted);
+
+      line-height: 1.7;
+    }
+
+    /* =========================================================
+       FEATURED
+    ========================================================= */
+
+    .featured {
+      position: relative;
+
+      min-height: 330px;
+
+      display: grid;
+      grid-template-columns:
+        1.4fr
+        1fr;
+
+      overflow: hidden;
+
+      margin-bottom: 30px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 22px;
+
+      background: var(--panel);
+
+      box-shadow: var(--shadow);
+    }
+
+    .featured-image {
+      position: relative;
+
+      min-height: 330px;
+
+      overflow: hidden;
+    }
+
+    .featured-image img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      transition:
+        transform .5s;
+    }
+
+    .featured:hover
+    .featured-image img {
+      transform: scale(1.03);
+    }
+
+    .featured-image::after {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          var(--panel)
+        );
+    }
+
+    .featured-info {
+      position: relative;
+      z-index: 2;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      padding: 40px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+
+      font-size: 11px;
+      font-weight: 800;
+
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .featured-info h2 {
+      margin-top: 10px;
+
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+
+      font-size:
+        clamp(28px, 4vw, 46px);
+
+      line-height: 1.05;
+    }
+
+    .featured-info p {
+      margin-top: 13px;
+
+      color: var(--muted);
+
+      line-height: 1.6;
+    }
+
+    .featured-buttons {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin-top: 20px;
+    }
+
+    /* =========================================================
+       BUTTONS
+    ========================================================= */
+
+    .button {
+      min-height: 42px;
+
+      padding:
+        10px
+        14px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 10px;
+
+      background: var(--panel);
+      color: var(--text);
+
+      transition: .2s;
+    }
+
+    .button:hover {
+      background: var(--panel-2);
+      border-color: var(--accent);
+    }
+
+    .button.primary {
+      border-color: var(--accent);
+
+      background: var(--accent);
+
+      color: white;
+    }
+
+    .button.primary:hover {
+      background: var(--accent-2);
+    }
+
+    .button.danger {
+      color: var(--danger);
+    }
+
+    /* =========================================================
+       AD SLOT
+    ========================================================= */
+
+    .ad-slot {
+      position: relative;
+
+      min-height: 90px;
+
+      display: grid;
+      place-items: center;
+
+      margin:
+        25px
+        0;
+
+      border:
+        1px dashed var(--border);
+
+      border-radius: 12px;
+
+      background:
+        rgba(255,255,255,.015);
+
+      color: var(--muted);
+
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .ad-slot.hidden {
+      display: none;
+    }
+
+    .ad-label {
+      position: absolute;
+
+      top: 8px;
+      left: 10px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* =========================================================
+       DASHBOARD STATS
+    ========================================================= */
+
+    .stats {
+      display: grid;
+
+      grid-template-columns:
+        repeat(6, 1fr);
+
+      gap: 10px;
+
+      margin-bottom: 30px;
+    }
+
+    .stat {
+      padding: 17px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 14px;
 
       background: var(--panel);
     }
 
-    .dashboard-value {
+    .stat-label {
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 700;
+
+      letter-spacing: 1px;
+    }
+
+    .stat-value {
       display: block;
 
       margin-top: 8px;
 
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 28px;
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+
+      font-size: 25px;
       font-weight: 700;
     }
 
-    .dashboard-label {
+    /* =========================================================
+       CONTINUE WATCHING
+    ========================================================= */
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+
+      gap: 20px;
+
+      margin-bottom: 15px;
+    }
+
+    .section-heading h2 {
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+
+      font-size: 25px;
+    }
+
+    .section-heading p {
       color: var(--muted);
       font-size: 12px;
     }
 
-    /* ------------------------------
-       CONTINUE WATCHING
-    ------------------------------ */
-
-    .continue-section {
-      display: none;
-      margin-bottom: 40px;
-    }
-
-    .continue-section.visible {
-      display: block;
-    }
-
-    .continue-card {
+    .continue-grid {
       display: grid;
-      grid-template-columns: 260px 1fr auto;
-      gap: 20px;
-      align-items: center;
 
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 14px;
+    }
+
+    .continue-item {
       overflow: hidden;
 
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border:
+        1px solid var(--border);
+
+      border-radius: 14px;
 
       background: var(--panel);
+
+      cursor: pointer;
+
+      transition: .2s;
     }
 
-    .continue-thumbnail {
+    .continue-item:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .continue-thumb {
       position: relative;
-      aspect-ratio: 16 / 9;
+
+      aspect-ratio: 16/9;
 
       overflow: hidden;
-      background: #181b23;
     }
 
-    .continue-thumbnail img {
+    .continue-thumb img {
       width: 100%;
       height: 100%;
+
       object-fit: cover;
     }
 
     .continue-info {
-      padding: 20px 0;
+      padding: 14px;
     }
 
-    .continue-info h3 {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 22px;
-    }
-
-    .continue-info p {
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .continue-actions {
-      padding: 20px;
-    }
-
-    .progress {
-      height: 5px;
-      margin-top: 14px;
-
-      overflow: hidden;
-      border-radius: 10px;
-
-      background: var(--border);
-    }
-
-    .progress span {
+    .continue-info strong {
       display: block;
-      width: 0;
-      height: 100%;
 
-      background: var(--accent);
+      font-family:
+        "Space Grotesk",
+        sans-serif;
     }
 
-    /* ------------------------------
-       TOOLBAR
-    ------------------------------ */
+    .continue-info span {
+      display: block;
 
-    .toolbar {
+      margin-top: 5px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    /* =========================================================
+       LIBRARY CONTROLS
+    ========================================================= */
+
+    .library-controls {
       display: grid;
-      grid-template-columns: 1fr auto auto;
-      gap: 10px;
 
-      margin-bottom: 25px;
+      grid-template-columns:
+        1fr
+        auto
+        auto;
+
+      gap: 9px;
+
+      margin-bottom: 15px;
     }
 
-    .search-wrapper {
+    .search-wrap {
       position: relative;
     }
 
     .search {
       width: 100%;
-      height: 48px;
+      height: 47px;
 
-      padding: 0 45px 0 15px;
-
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      padding:
+        0
+        45px
+        0
+        15px;
 
       outline: none;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 11px;
 
       background: var(--panel);
       color: var(--text);
@@ -365,59 +708,71 @@
       border-color: var(--accent);
     }
 
-    .clear-search {
+    .search-clear {
       position: absolute;
-      right: 10px;
+
       top: 50%;
+      right: 10px;
 
       transform: translateY(-50%);
 
       border: 0;
+
       background: transparent;
       color: var(--muted);
 
       display: none;
     }
 
-    .filter {
-      height: 48px;
+    .select {
+      height: 47px;
 
-      padding: 0 13px;
+      padding:
+        0
+        12px;
 
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      border:
+        1px solid var(--border);
+
+      border-radius: 11px;
+
+      outline: none;
 
       background: var(--panel);
       color: var(--text);
-
-      outline: none;
     }
 
-    .filter:focus {
+    .select:focus {
       border-color: var(--accent);
     }
 
-    /* ------------------------------
+    /* =========================================================
        TABS
-    ------------------------------ */
+    ========================================================= */
 
     .tabs {
       display: flex;
+
       gap: 6px;
 
       overflow-x: auto;
 
-      margin-bottom: 25px;
-      padding-bottom: 3px;
+      margin-bottom: 22px;
+
+      padding-bottom: 4px;
     }
 
     .tab {
       flex: 0 0 auto;
 
-      padding: 10px 14px;
+      padding:
+        9px
+        13px;
 
-      border: 1px solid var(--border);
-      border-radius: 10px;
+      border:
+        1px solid var(--border);
+
+      border-radius: 9px;
 
       background: var(--panel);
       color: var(--muted);
@@ -425,49 +780,94 @@
 
     .tab:hover,
     .tab.active {
-      background: var(--accent);
       border-color: var(--accent);
+
+      background: var(--accent);
+
       color: white;
     }
 
-    /* ------------------------------
+    /* =========================================================
+       TAG FILTERS
+    ========================================================= */
+
+    .tag-filter {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 6px;
+
+      margin-bottom: 22px;
+    }
+
+    .tag-filter button {
+      padding:
+        7px
+        10px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 8px;
+
+      background: transparent;
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    .tag-filter button:hover,
+    .tag-filter button.active {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    /* =========================================================
        VIDEO GRID
-    ------------------------------ */
+    ========================================================= */
 
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 18px;
     }
 
     .video-card {
       overflow: hidden;
 
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border:
+        1px solid var(--border);
+
+      border-radius: 15px;
 
       background: var(--panel);
 
       transition:
         transform .2s,
-        background .2s,
         border-color .2s;
     }
 
     .video-card:hover {
       transform: translateY(-3px);
-      background: var(--panel-hover);
-      border-color: rgba(139,92,246,.45);
+
+      border-color:
+        rgba(139,92,246,.55);
     }
 
     .thumbnail {
       position: relative;
 
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 16/9;
 
       overflow: hidden;
 
-      background: #171a22;
+      background: var(--panel-2);
+
+      cursor: pointer;
     }
 
     .thumbnail img {
@@ -476,14 +876,16 @@
 
       object-fit: cover;
 
-      transition: transform .3s;
+      transition:
+        transform .3s;
     }
 
-    .video-card:hover .thumbnail img {
-      transform: scale(1.03);
+    .video-card:hover
+    .thumbnail img {
+      transform: scale(1.04);
     }
 
-    .thumbnail-placeholder {
+    .placeholder {
       width: 100%;
       height: 100%;
 
@@ -491,36 +893,42 @@
       place-items: center;
 
       color: var(--muted);
-      font-size: 40px;
+
+      font-size: 35px;
     }
 
     .duration {
       position: absolute;
+
       right: 8px;
       bottom: 8px;
 
-      padding: 4px 7px;
+      padding:
+        4px
+        6px;
 
       border-radius: 5px;
 
-      background: rgba(0,0,0,.8);
+      background: rgba(0,0,0,.82);
       color: white;
 
-      font-size: 11px;
+      font-size: 10px;
     }
 
-    .watched-indicator {
+    .progress-bar {
       position: absolute;
+
       left: 0;
       right: 0;
       bottom: 0;
 
       height: 4px;
 
-      background: rgba(255,255,255,.15);
+      background:
+        rgba(255,255,255,.16);
     }
 
-    .watched-indicator span {
+    .progress-bar span {
       display: block;
 
       width: 0;
@@ -529,122 +937,156 @@
       background: var(--accent);
     }
 
-    .video-content {
-      padding: 17px;
+    .card-body {
+      padding: 15px;
     }
 
-    .video-title {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 18px;
+    .card-title {
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+
+      font-size: 17px;
+
       line-height: 1.35;
     }
 
-    .video-description {
+    .card-description {
       display: -webkit-box;
+
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
 
       overflow: hidden;
 
-      margin-top: 8px;
+      margin-top: 7px;
 
       color: var(--muted);
-      font-size: 13px;
+
+      font-size: 12px;
+
       line-height: 1.55;
     }
 
-    .video-meta {
+    .meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
 
-      margin-top: 12px;
+      gap: 7px;
 
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-
-      margin-top: 12px;
-    }
-
-    .tag {
-      padding: 4px 7px;
-
-      border: 1px solid var(--border);
-      border-radius: 6px;
+      margin-top: 10px;
 
       color: var(--muted);
 
       font-size: 10px;
     }
 
-    .card-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
 
-      gap: 6px;
+      gap: 4px;
 
-      margin-top: 15px;
+      margin-top: 10px;
     }
 
-    .card-button {
-      padding: 9px 6px;
+    .card-tag {
+      padding:
+        4px
+        6px;
 
-      border: 1px solid var(--border);
-      border-radius: 9px;
+      border:
+        1px solid var(--border);
+
+      border-radius: 5px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+    }
+
+    .card-actions {
+      display: grid;
+
+      grid-template-columns:
+        1fr
+        1fr
+        1fr;
+
+      gap: 5px;
+
+      margin-top: 13px;
+    }
+
+    .small-button {
+      padding:
+        8px
+        5px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 8px;
 
       background: transparent;
       color: var(--text);
 
-      font-size: 12px;
+      font-size: 10px;
     }
 
-    .card-button:hover,
-    .card-button.active {
-      background: var(--panel-hover);
+    .small-button:hover,
+    .small-button.active {
       border-color: var(--accent);
+      background: var(--panel-2);
     }
 
-    /* ------------------------------
-       EMPTY STATE
-    ------------------------------ */
+    /* =========================================================
+       EMPTY / ERROR
+    ========================================================= */
 
     .empty {
-      grid-column: 1 / -1;
+      grid-column: 1/-1;
 
-      padding: 70px 20px;
+      padding: 80px 20px;
 
-      border: 1px dashed var(--border);
-      border-radius: var(--radius);
+      border:
+        1px dashed var(--border);
+
+      border-radius: 16px;
 
       text-align: center;
     }
 
     .empty-icon {
-      font-size: 42px;
       margin-bottom: 15px;
+
+      font-size: 40px;
     }
 
     .empty h3 {
-      font-family: "Space Grotesk", sans-serif;
+      font-family:
+        "Space Grotesk",
+        sans-serif;
     }
 
     .empty p {
-      max-width: 500px;
-      margin: 8px auto 0;
+      max-width: 600px;
+
+      margin:
+        9px
+        auto
+        0;
 
       color: var(--muted);
-      line-height: 1.6;
+
+      line-height: 1.7;
+
+      font-size: 13px;
     }
 
-    /* ------------------------------
+    /* =========================================================
        MODAL
-    ------------------------------ */
+    ========================================================= */
 
     .modal {
       position: fixed;
@@ -653,59 +1095,91 @@
       z-index: 5000;
 
       display: none;
-      place-items: center;
 
-      padding: 20px;
+      padding: 18px;
 
-      background: rgba(0,0,0,.8);
-      backdrop-filter: blur(10px);
+      background:
+        rgba(0,0,0,.84);
+
+      backdrop-filter:
+        blur(12px);
     }
 
     .modal.open {
       display: grid;
+      place-items: center;
     }
 
     .modal-box {
-      width: min(1100px, 100%);
-      max-height: 92vh;
+      width: min(1250px, 100%);
+      max-height: 95vh;
 
       overflow: auto;
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
+
       border-radius: 18px;
 
-      background: var(--bg-soft);
+      background: var(--bg-2);
+
       box-shadow: var(--shadow);
     }
 
-    .modal-header {
-      min-height: 58px;
-
+    .modal-top {
       display: flex;
+
       align-items: center;
       justify-content: space-between;
 
-      padding: 10px 15px;
+      min-height: 55px;
 
-      border-bottom: 1px solid var(--border);
+      padding:
+        8px
+        13px;
+
+      border-bottom:
+        1px solid var(--border);
     }
 
-    .modal-header strong {
-      font-family: "Space Grotesk", sans-serif;
+    .modal-top strong {
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      font-family:
+        "Space Grotesk",
+        sans-serif;
     }
 
-    .close {
+    .modal-close {
       width: 38px;
       height: 38px;
 
       border: 0;
+
       border-radius: 9px;
 
       background: var(--panel);
       color: var(--text);
     }
 
-    .video-player {
+    .player-layout {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        300px;
+    }
+
+    .player-area {
+      min-width: 0;
+
+      background: #000;
+    }
+
+    .player {
       display: block;
 
       width: 100%;
@@ -714,144 +1188,288 @@
       background: #000;
     }
 
-    .modal-content {
-      padding: 20px;
+    .player-controls-extra {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 7px;
+
+      padding: 10px;
+
+      background: #080808;
     }
 
-    .modal-title {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 26px;
+    .player-select {
+      padding:
+        7px
+        9px;
+
+      border:
+        1px solid rgba(255,255,255,.12);
+
+      border-radius: 7px;
+
+      background: #111;
+      color: white;
     }
 
-    .modal-description {
+    .player-button {
+      padding:
+        7px
+        10px;
+
+      border:
+        1px solid rgba(255,255,255,.12);
+
+      border-radius: 7px;
+
+      background: #111;
+      color: white;
+    }
+
+    .modal-info {
+      padding: 22px;
+    }
+
+    .modal-info h2 {
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+
+      font-size: 27px;
+    }
+
+    .modal-info p {
       margin-top: 10px;
 
       color: var(--muted);
-      line-height: 1.7;
 
-      white-space: pre-wrap;
+      line-height: 1.7;
+      font-size: 13px;
     }
 
     .modal-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
 
-      margin-top: 15px;
+      gap: 10px;
+
+      margin-top: 13px;
 
       color: var(--muted);
-      font-size: 13px;
+
+      font-size: 11px;
     }
 
     .modal-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
 
-      margin-top: 20px;
+      gap: 7px;
+
+      margin-top: 18px;
     }
 
-    .button {
-      padding: 11px 14px;
+    /* =========================================================
+       RELATED
+    ========================================================= */
 
-      border: 1px solid var(--border);
-      border-radius: 10px;
+    .related {
+      padding: 20px;
+
+      border-left:
+        1px solid var(--border);
 
       background: var(--panel);
-      color: var(--text);
     }
 
-    .button:hover {
-      background: var(--panel-hover);
+    .related h3 {
+      margin-bottom: 13px;
+
+      font-family:
+        "Space Grotesk",
+        sans-serif;
     }
 
-    .button.primary {
-      border-color: var(--accent);
-      background: var(--accent);
-      color: white;
+    .related-list {
+      display: grid;
+
+      gap: 10px;
     }
 
-    /* ------------------------------
+    .related-item {
+      display: grid;
+
+      grid-template-columns: 95px 1fr;
+
+      gap: 9px;
+
+      padding: 7px;
+
+      border-radius: 9px;
+
+      cursor: pointer;
+    }
+
+    .related-item:hover {
+      background: var(--panel-2);
+    }
+
+    .related-thumb {
+      aspect-ratio: 16/9;
+
+      overflow: hidden;
+
+      border-radius: 6px;
+
+      background: var(--bg);
+    }
+
+    .related-thumb img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+    .related-title {
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    /* =========================================================
        SETTINGS
-    ------------------------------ */
+    ========================================================= */
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+
+      z-index: 3000;
+
+      display: none;
+
+      background:
+        rgba(0,0,0,.45);
+    }
+
+    .overlay.open {
+      display: block;
+    }
 
     .settings {
       position: fixed;
+
       top: 0;
       right: 0;
       bottom: 0;
 
       z-index: 4000;
 
-      width: min(390px, 92%);
+      width:
+        min(
+          430px,
+          94%
+        );
 
       padding: 25px;
 
       overflow-y: auto;
 
-      border-left: 1px solid var(--border);
+      border-left:
+        1px solid var(--border);
 
-      background: var(--bg-soft);
+      background: var(--bg-2);
 
-      transform: translateX(100%);
-      transition: transform .25s;
+      transform:
+        translateX(100%);
+
+      transition:
+        transform .25s;
     }
 
     .settings.open {
-      transform: translateX(0);
+      transform:
+        translateX(0);
     }
 
-    .settings-header {
+    .settings-head {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
 
-      margin-bottom: 30px;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 25px;
+    }
+
+    .settings-head h2 {
+      font-family:
+        "Space Grotesk",
+        sans-serif;
     }
 
     .settings-section {
-      padding: 20px 0;
+      padding:
+        20px
+        0;
 
-      border-bottom: 1px solid var(--border);
+      border-bottom:
+        1px solid var(--border);
     }
 
     .settings-section h3 {
-      font-family: "Space Grotesk", sans-serif;
-      margin-bottom: 15px;
+      margin-bottom: 14px;
+
+      font-family:
+        "Space Grotesk",
+        sans-serif;
     }
 
     .setting-row {
       display: flex;
-      justify-content: space-between;
+
       align-items: center;
+      justify-content: space-between;
 
       gap: 15px;
 
-      padding: 12px 0;
+      padding:
+        11px
+        0;
     }
 
-    .setting-description {
+    .setting-row small {
+      display: block;
+
+      margin-top: 4px;
+
       color: var(--muted);
-      font-size: 12px;
+
+      font-size: 10px;
       line-height: 1.5;
     }
 
-    /* ------------------------------
+    /* =========================================================
        TOAST
-    ------------------------------ */
+    ========================================================= */
 
     .toast {
       position: fixed;
+
       left: 50%;
-      bottom: 25px;
+      bottom: 22px;
 
       z-index: 10000;
 
       max-width: 90%;
 
-      padding: 12px 16px;
+      padding:
+        11px
+        15px;
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
+
       border-radius: 10px;
 
       background: var(--panel);
@@ -859,26 +1477,31 @@
 
       box-shadow: var(--shadow);
 
-      transform: translate(-50%, 30px);
+      transform:
+        translate(-50%, 30px);
+
       opacity: 0;
+
       pointer-events: none;
 
-      transition: .25s;
+      transition: .2s;
     }
 
     .toast.show {
-      transform: translate(-50%, 0);
+      transform:
+        translate(-50%, 0);
+
       opacity: 1;
     }
 
-    /* ------------------------------
+    /* =========================================================
        LOADING
-    ------------------------------ */
+    ========================================================= */
 
     .loading {
-      grid-column: 1 / -1;
+      grid-column: 1/-1;
 
-      padding: 70px;
+      padding: 80px;
 
       text-align: center;
 
@@ -889,14 +1512,21 @@
       width: 35px;
       height: 35px;
 
-      margin: 0 auto 15px;
+      margin:
+        0
+        auto
+        15px;
 
-      border: 3px solid var(--border);
-      border-top-color: var(--accent);
+      border:
+        3px solid var(--border);
+
+      border-top-color:
+        var(--accent);
 
       border-radius: 50%;
 
-      animation: spin .8s linear infinite;
+      animation:
+        spin .8s linear infinite;
     }
 
     @keyframes spin {
@@ -905,34 +1535,63 @@
       }
     }
 
-    /* ------------------------------
+    /* =========================================================
        MOBILE
-    ------------------------------ */
+    ========================================================= */
 
-    @media (max-width: 1000px) {
+    @media (max-width: 1200px) {
+
       .video-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns:
+          repeat(3, 1fr);
       }
 
-      .dashboard {
-        grid-template-columns: repeat(2, 1fr);
+      .stats {
+        grid-template-columns:
+          repeat(3, 1fr);
       }
 
-      .continue-card {
-        grid-template-columns: 200px 1fr;
+    }
+
+    @media (max-width: 900px) {
+
+      .featured {
+        grid-template-columns: 1fr;
       }
 
-      .continue-actions {
-        grid-column: 2;
-        padding: 0 20px 20px;
+      .featured-image {
+        min-height: 250px;
       }
+
+      .featured-image::after {
+        background:
+          linear-gradient(
+            0deg,
+            var(--panel),
+            transparent
+          );
+      }
+
+      .featured-info {
+        padding: 25px;
+      }
+
+      .player-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .related {
+        border-left: 0;
+
+        border-top:
+          1px solid var(--border);
+      }
+
     }
 
     @media (max-width: 700px) {
-      main {
-        width: 94%;
-      }
 
+      main,
       .nav {
         width: 94%;
       }
@@ -941,25 +1600,22 @@
         padding-top: 28px;
       }
 
-      .dashboard {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .toolbar {
-        grid-template-columns: 1fr;
-      }
-
       .video-grid {
         grid-template-columns: 1fr;
       }
 
-      .continue-card {
+      .continue-grid {
         grid-template-columns: 1fr;
       }
 
-      .continue-actions {
-        grid-column: auto;
-        padding: 0 20px 20px;
+      .stats {
+        grid-template-columns:
+          1fr
+          1fr;
+      }
+
+      .library-controls {
+        grid-template-columns: 1fr;
       }
 
       .modal {
@@ -969,23 +1625,41 @@
       .modal-box {
         width: 100%;
         height: 100%;
+
         max-height: 100vh;
+
         border-radius: 0;
       }
 
-      .video-player {
+      .player {
         max-height: 55vh;
       }
+
+      .page-title h1 {
+        letter-spacing: -2px;
+      }
+
     }
+
   </style>
 </head>
 
 <body>
 
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
 <header>
+
   <nav class="nav">
 
-    <a href="./" class="brand">
+    <a
+      href="./"
+      class="brand"
+      aria-label="JJ PLAYZ home"
+    >
+
       <img
         src="./assets/logo.png"
         alt="JJ PLAYZ"
@@ -993,26 +1667,40 @@
         id="brandLogo"
       >
 
-      <span id="brandFallback" class="brand-fallback" hidden>
+      <span
+        class="brand-fallback"
+        id="brandFallback"
+        hidden
+      >
         JJ
       </span>
 
       <span>JJ PLAYZ</span>
+
     </a>
 
     <div class="nav-actions">
 
       <button
-        class="nav-button"
+        class="icon-button"
+        id="searchButton"
+        title="Search"
+        aria-label="Search"
+      >
+        🔎
+      </button>
+
+      <button
+        class="icon-button"
         id="themeButton"
-        title="Change theme"
-        aria-label="Change theme"
+        title="Theme"
+        aria-label="Theme"
       >
         ☾
       </button>
 
       <button
-        class="nav-button"
+        class="icon-button"
         id="settingsButton"
         title="Settings"
         aria-label="Settings"
@@ -1023,138 +1711,295 @@
     </div>
 
   </nav>
+
 </header>
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
 
 <main>
 
   <div class="page">
 
-    <!-- HEADER -->
+    <!-- PAGE TITLE -->
 
-    <div class="page-header">
+    <section class="page-title">
 
-      <h1>Video Library</h1>
+      <h1>
+        Video Library
+      </h1>
 
       <p>
-        Browse, search, watch and organize your JJ PLAYZ videos.
-        Your favorites, watch history and playback progress are saved
-        locally in your browser.
+        Watch, organize and keep track of your JJ PLAYZ
+        videos. Your library preferences and playback
+        progress are stored locally in your browser.
       </p>
-
-    </div>
-
-    <!-- DASHBOARD -->
-
-    <section class="dashboard">
-
-      <div class="dashboard-card">
-        <span class="dashboard-label">VIDEOS</span>
-        <strong class="dashboard-value" id="statVideos">0</strong>
-      </div>
-
-      <div class="dashboard-card">
-        <span class="dashboard-label">WATCHED</span>
-        <strong class="dashboard-value" id="statWatched">0</strong>
-      </div>
-
-      <div class="dashboard-card">
-        <span class="dashboard-label">WATCH LATER</span>
-        <strong class="dashboard-value" id="statLater">0</strong>
-      </div>
-
-      <div class="dashboard-card">
-        <span class="dashboard-label">FAVORITES</span>
-        <strong class="dashboard-value" id="statFavorites">0</strong>
-      </div>
 
     </section>
 
-    <!-- CONTINUE WATCHING -->
+    <!-- FEATURED -->
 
-    <section class="continue-section" id="continueSection">
+    <section
+      class="featured"
+      id="featured"
+      hidden
+    >
 
-      <h2 style="margin-bottom:15px;font-family:'Space Grotesk',sans-serif">
-        Continue Watching
-      </h2>
+      <div class="featured-image">
 
-      <div class="continue-card">
+        <img
+          id="featuredImage"
+          alt=""
+        >
 
-        <div class="continue-thumbnail">
-          <img id="continueThumbnail" alt="">
-        </div>
+      </div>
 
-        <div class="continue-info">
+      <div class="featured-info">
 
-          <h3 id="continueTitle"></h3>
+        <span class="eyebrow">
+          Featured
+        </span>
 
-          <p id="continueTime"></p>
+        <h2 id="featuredTitle"></h2>
 
-          <div class="progress">
-            <span id="continueProgress"></span>
-          </div>
+        <p id="featuredDescription"></p>
 
-        </div>
-
-        <div class="continue-actions">
+        <div class="featured-buttons">
 
           <button
             class="button primary"
-            id="continueButton"
+            id="featuredPlay"
           >
-            Continue
+            ▶ Watch
           </button>
 
           <button
             class="button"
-            id="dismissContinue"
+            id="featuredLater"
           >
-            Dismiss
+            🔖 Watch Later
           </button>
 
         </div>
 
       </div>
+
+    </section>
+
+    <!-- OPTIONAL AD -->
+
+    <div
+      class="ad-slot"
+      id="topAd"
+    >
+
+      <span class="ad-label">
+        Advertisement
+      </span>
+
+      <span>
+        Ad space
+      </span>
+
+    </div>
+
+    <!-- REAL LOCAL STATS -->
+
+    <section class="stats">
+
+      <div class="stat">
+        <span class="stat-label">
+          VIDEOS
+        </span>
+        <strong
+          class="stat-value"
+          id="statVideos"
+        >
+          0
+        </strong>
+      </div>
+
+      <div class="stat">
+        <span class="stat-label">
+          WATCHED
+        </span>
+        <strong
+          class="stat-value"
+          id="statWatched"
+        >
+          0
+        </strong>
+      </div>
+
+      <div class="stat">
+        <span class="stat-label">
+          FAVORITES
+        </span>
+        <strong
+          class="stat-value"
+          id="statFavorites"
+        >
+          0
+        </strong>
+      </div>
+
+      <div class="stat">
+        <span class="stat-label">
+          WATCH LATER
+        </span>
+        <strong
+          class="stat-value"
+          id="statLater"
+        >
+          0
+        </strong>
+      </div>
+
+      <div class="stat">
+        <span class="stat-label">
+          WATCH TIME
+        </span>
+        <strong
+          class="stat-value"
+          id="statWatchTime"
+        >
+          0m
+        </strong>
+      </div>
+
+      <div class="stat">
+        <span class="stat-label">
+          COMPLETED
+        </span>
+        <strong
+          class="stat-value"
+          id="statCompleted"
+        >
+          0
+        </strong>
+      </div>
+
+    </section>
+
+    <!-- CONTINUE -->
+
+    <section
+      class="section"
+      id="continueSection"
+      hidden
+    >
+
+      <div class="section-heading">
+
+        <div>
+
+          <h2>
+            Continue Watching
+          </h2>
+
+          <p>
+            Pick up where you left off.
+          </p>
+
+        </div>
+
+      </div>
+
+      <div
+        class="continue-grid"
+        id="continueGrid"
+      ></div>
 
     </section>
 
     <!-- LIBRARY -->
 
-    <section id="library">
+    <section
+      class="section"
+      id="library"
+    >
+
+      <div class="section-heading">
+
+        <div>
+
+          <h2>
+            Library
+          </h2>
+
+          <p id="resultCount">
+            Loading...
+          </p>
+
+        </div>
+
+      </div>
+
+      <!-- TABS -->
 
       <div class="tabs">
 
-        <button class="tab active" data-view="all">
-          All Videos
+        <button
+          class="tab active"
+          data-view="all"
+        >
+          All
         </button>
 
-        <button class="tab" data-view="favorites">
-          Favorites
+        <button
+          class="tab"
+          data-view="favorites"
+        >
+          ❤️ Favorites
         </button>
 
-        <button class="tab" data-view="later">
-          Watch Later
+        <button
+          class="tab"
+          data-view="later"
+        >
+          🔖 Watch Later
         </button>
 
-        <button class="tab" data-view="history">
-          History
+        <button
+          class="tab"
+          data-view="history"
+        >
+          🕘 History
+        </button>
+
+        <button
+          class="tab"
+          data-view="unfinished"
+        >
+          ▶ Continue
+        </button>
+
+        <button
+          class="tab"
+          data-view="completed"
+        >
+          ✓ Completed
         </button>
 
       </div>
 
-      <div class="toolbar">
+      <!-- SEARCH -->
 
-        <div class="search-wrapper">
+      <div class="library-controls">
+
+        <div class="search-wrap">
 
           <input
             type="search"
-            class="search"
             id="search"
-            placeholder="Search videos, tags or descriptions..."
+            class="search"
+            placeholder="Search titles, descriptions, categories or tags..."
             autocomplete="off"
           >
 
           <button
-            class="clear-search"
+            class="search-clear"
             id="clearSearch"
             aria-label="Clear search"
           >
@@ -1163,113 +2008,286 @@
 
         </div>
 
-        <select class="filter" id="categoryFilter">
-          <option value="all">All categories</option>
+        <select
+          class="select"
+          id="categoryFilter"
+        >
+
+          <option value="all">
+            All categories
+          </option>
+
         </select>
 
-        <select class="filter" id="sortFilter">
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
-          <option value="title">Title A-Z</option>
-          <option value="views">Most viewed</option>
-          <option value="likes">Most liked</option>
+        <select
+          class="select"
+          id="sortFilter"
+        >
+
+          <option value="newest">
+            Newest
+          </option>
+
+          <option value="oldest">
+            Oldest
+          </option>
+
+          <option value="title">
+            Title A-Z
+          </option>
+
+          <option value="title-desc">
+            Title Z-A
+          </option>
+
+          <option value="views">
+            Most viewed
+          </option>
+
+          <option value="likes">
+            Most liked
+          </option>
+
+          <option value="duration">
+            Longest
+          </option>
+
         </select>
 
       </div>
 
-      <div class="video-grid" id="videoGrid">
+      <!-- TAGS -->
+
+      <div
+        class="tag-filter"
+        id="tagFilter"
+      ></div>
+
+      <!-- VIDEO GRID -->
+
+      <div
+        class="video-grid"
+        id="videoGrid"
+      >
 
         <div class="loading">
+
           <div class="spinner"></div>
-          Loading videos...
+
+          Loading video library...
+
         </div>
 
       </div>
 
     </section>
 
+    <!-- OPTIONAL SECOND AD -->
+
+    <div
+      class="ad-slot"
+      id="bottomAd"
+    >
+
+      <span class="ad-label">
+        Advertisement
+      </span>
+
+      <span>
+        Ad space
+      </span>
+
+    </div>
+
   </div>
 
 </main>
 
-<!-- VIDEO MODAL -->
+<!-- =========================================================
+     VIDEO MODAL
+========================================================= -->
 
-<div class="modal" id="videoModal">
+<div
+  class="modal"
+  id="videoModal"
+  aria-hidden="true"
+>
 
   <div class="modal-box">
 
-    <div class="modal-header">
+    <div class="modal-top">
 
-      <strong id="modalHeaderTitle">
+      <strong
+        id="modalHeader"
+      >
         JJ PLAYZ
       </strong>
 
       <button
-        class="close"
+        class="modal-close"
         id="closeModal"
-        aria-label="Close"
+        aria-label="Close video"
       >
         ✕
       </button>
 
     </div>
 
-    <video
-      class="video-player"
-      id="videoPlayer"
-      controls
-      playsinline
-      preload="metadata"
-    ></video>
+    <div class="player-layout">
 
-    <div class="modal-content">
+      <!-- PLAYER -->
 
-      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="player-area">
 
-      <div class="modal-meta" id="modalMeta"></div>
+        <video
+          id="videoPlayer"
+          class="player"
+          controls
+          playsinline
+          preload="metadata"
+        ></video>
 
-      <p class="modal-description" id="modalDescription"></p>
+        <div class="player-controls-extra">
 
-      <div class="tags" id="modalTags"></div>
+          <select
+            class="player-select"
+            id="speedSelect"
+            title="Playback speed"
+          >
 
-      <div class="modal-actions">
+            <option value="0.5">
+              0.5x
+            </option>
 
-        <button
-          class="button primary"
-          id="modalFavorite"
-        >
-          ☆ Favorite
-        </button>
+            <option value="0.75">
+              0.75x
+            </option>
 
-        <button
-          class="button"
-          id="modalLater"
-        >
-          🔖 Watch Later
-        </button>
+            <option value="1" selected>
+              1x
+            </option>
 
-        <button
-          class="button"
-          id="modalShare"
-        >
-          ↗ Share
-        </button>
+            <option value="1.25">
+              1.25x
+            </option>
 
-        <button
-          class="button"
-          id="modalDownload"
-        >
-          ↓ Download
-        </button>
+            <option value="1.5">
+              1.5x
+            </option>
 
-        <button
-          class="button"
-          id="modalTheater"
-        >
-          ⛶ Theater
-        </button>
+            <option value="1.75">
+              1.75x
+            </option>
+
+            <option value="2">
+              2x
+            </option>
+
+          </select>
+
+          <button
+            class="player-button"
+            id="previousVideo"
+          >
+            ← Previous
+          </button>
+
+          <button
+            class="player-button"
+            id="nextVideo"
+          >
+            Next →
+          </button>
+
+          <button
+            class="player-button"
+            id="pipButton"
+          >
+            ▣ PiP
+          </button>
+
+        </div>
+
+        <div class="modal-info">
+
+          <h2 id="modalTitle"></h2>
+
+          <div
+            class="modal-meta"
+            id="modalMeta"
+          ></div>
+
+          <p id="modalDescription"></p>
+
+          <div
+            class="card-tags"
+            id="modalTags"
+          ></div>
+
+          <div class="modal-actions">
+
+            <button
+              class="button primary"
+              id="modalFavorite"
+            >
+              ☆ Favorite
+            </button>
+
+            <button
+              class="button"
+              id="modalLater"
+            >
+              🔖 Watch Later
+            </button>
+
+            <button
+              class="button"
+              id="modalShare"
+            >
+              ↗ Share
+            </button>
+
+            <button
+              class="button"
+              id="modalCopyLink"
+            >
+              🔗 Copy Link
+            </button>
+
+            <button
+              class="button"
+              id="modalDownload"
+            >
+              ↓ Download
+            </button>
+
+            <button
+              class="button"
+              id="modalFullscreen"
+            >
+              ⛶ Fullscreen
+            </button>
+
+          </div>
+
+        </div>
 
       </div>
+
+      <!-- RELATED -->
+
+      <aside class="related">
+
+        <h3>
+          Related Videos
+        </h3>
+
+        <div
+          class="related-list"
+          id="relatedList"
+        ></div>
+
+      </aside>
 
     </div>
 
@@ -1277,17 +2295,34 @@
 
 </div>
 
-<!-- SETTINGS -->
+<!-- =========================================================
+     SETTINGS OVERLAY
+========================================================= -->
 
-<aside class="settings" id="settingsPanel">
+<div
+  class="overlay"
+  id="settingsOverlay"
+></div>
 
-  <div class="settings-header">
+<!-- =========================================================
+     SETTINGS
+========================================================= -->
 
-    <h2 style="font-family:'Space Grotesk',sans-serif">
+<aside
+  class="settings"
+  id="settingsPanel"
+>
+
+  <div class="settings-head">
+
+    <h2>
       Settings
     </h2>
 
-    <button class="close" id="closeSettings">
+    <button
+      class="modal-close"
+      id="closeSettings"
+    >
       ✕
     </button>
 
@@ -1295,35 +2330,82 @@
 
   <div class="settings-section">
 
-    <h3>Appearance</h3>
+    <h3>
+      Appearance
+    </h3>
 
     <div class="setting-row">
+
       <div>
-        <strong>Theme</strong>
-        <div class="setting-description">
-          Choose how JJ PLAYZ looks.
-        </div>
+
+        <strong>
+          Theme
+        </strong>
+
+        <small>
+          Change the site's appearance.
+        </small>
+
       </div>
 
-      <select class="filter" id="themeSelect">
-        <option value="dark">Dark</option>
-        <option value="light">Light</option>
+      <select
+        class="select"
+        id="themeSelect"
+      >
+
+        <option value="dark">
+          Dark
+        </option>
+
+        <option value="light">
+          Light
+        </option>
+
       </select>
+
+    </div>
+
+    <div class="setting-row">
+
+      <div>
+
+        <strong>
+          Reduced motion
+        </strong>
+
+        <small>
+          Reduce interface animations.
+        </small>
+
+      </div>
+
+      <input
+        type="checkbox"
+        id="motionSetting"
+      >
+
     </div>
 
   </div>
 
   <div class="settings-section">
 
-    <h3>Playback</h3>
+    <h3>
+      Playback
+    </h3>
 
     <div class="setting-row">
 
       <div>
-        <strong>Autoplay</strong>
-        <div class="setting-description">
-          Automatically start videos when opened.
-        </div>
+
+        <strong>
+          Autoplay
+        </strong>
+
+        <small>
+          Start a video automatically when opened.
+        </small>
+
       </div>
 
       <input
@@ -1336,15 +2418,20 @@
     <div class="setting-row">
 
       <div>
-        <strong>Remember position</strong>
-        <div class="setting-description">
-          Save where you stopped watching.
-        </div>
+
+        <strong>
+          Remember playback position
+        </strong>
+
+        <small>
+          Resume videos where you stopped.
+        </small>
+
       </div>
 
       <input
         type="checkbox"
-        id="rememberPosition"
+        id="positionSetting"
         checked
       >
 
@@ -1354,20 +2441,76 @@
 
   <div class="settings-section">
 
-    <h3>Library data</h3>
+    <h3>
+      Advertisement slots
+    </h3>
 
-    <button class="button" id="clearHistory">
+    <div class="setting-row">
+
+      <div>
+
+        <strong>
+          Show ad spaces
+        </strong>
+
+        <small>
+          These are empty placeholders until
+          you add your own ad provider.
+        </small>
+
+      </div>
+
+      <input
+        type="checkbox"
+        id="adsSetting"
+        checked
+      >
+
+    </div>
+
+  </div>
+
+  <div class="settings-section">
+
+    <h3>
+      Library
+    </h3>
+
+    <button
+      class="button"
+      id="clearHistory"
+    >
       Clear Watch History
-    </button>
-
-    <button class="button" id="clearLater" style="margin-top:8px">
-      Clear Watch Later
     </button>
 
     <button
       class="button"
+      id="clearProgress"
+      style="margin-top:8px"
+    >
+      Clear Playback Progress
+    </button>
+
+    <button
+      class="button"
+      id="clearFavorites"
+      style="margin-top:8px"
+    >
+      Clear Favorites
+    </button>
+
+    <button
+      class="button"
+      id="clearLater"
+      style="margin-top:8px"
+    >
+      Clear Watch Later
+    </button>
+
+    <button
+      class="button danger"
       id="resetData"
-      style="margin-top:8px;color:var(--danger)"
+      style="margin-top:8px"
     >
       Reset All Local Data
     </button>
@@ -1376,16 +2519,57 @@
 
   <div class="settings-section">
 
-    <h3>Keyboard shortcuts</h3>
+    <h3>
+      Keyboard shortcuts
+    </h3>
 
-    <div class="setting-description">
+    <div
+      style="
+        color:var(--muted);
+        font-size:12px;
+        line-height:2;
+      "
+    >
 
-      <p><strong>/</strong> — Search</p>
-      <p><strong>Space</strong> — Play / pause</p>
-      <p><strong>F</strong> — Fullscreen</p>
-      <p><strong>M</strong> — Mute</p>
-      <p><strong>Esc</strong> — Close player</p>
-      <p><strong>← / →</strong> — Previous / next video</p>
+      <div>
+        <strong>/</strong>
+        Search
+      </div>
+
+      <div>
+        <strong>Space</strong>
+        Play / pause
+      </div>
+
+      <div>
+        <strong>M</strong>
+        Mute
+      </div>
+
+      <div>
+        <strong>F</strong>
+        Fullscreen
+      </div>
+
+      <div>
+        <strong>Shift + ←</strong>
+        Previous video
+      </div>
+
+      <div>
+        <strong>Shift + →</strong>
+        Next video
+      </div>
+
+      <div>
+        <strong>← / →</strong>
+        Seek 5 seconds
+      </div>
+
+      <div>
+        <strong>Esc</strong>
+        Close
+      </div>
 
     </div>
 
@@ -1393,47 +2577,77 @@
 
 </aside>
 
-<div class="toast" id="toast"></div>
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+  class="toast"
+  id="toast"
+></div>
 
 <script>
-/* ============================================================
-   JJ PLAYZ — FUNCTIONAL VIDEO LIBRARY
-   ============================================================ */
 
 "use strict";
 
-/* ------------------------------------------------------------
-   DOM HELPERS
------------------------------------------------------------- */
+/* =========================================================
+   DOM
+========================================================= */
 
-const $ = selector => document.querySelector(selector);
-const $$ = selector => [...document.querySelectorAll(selector)];
+const $ = selector =>
+  document.querySelector(selector);
 
-/* ------------------------------------------------------------
+const $$ = selector =>
+  [...document.querySelectorAll(selector)];
+
+/* =========================================================
    STORAGE
------------------------------------------------------------- */
+========================================================= */
 
-const STORAGE_KEYS = {
-  favorites: "jj_favorites",
-  later: "jj_watch_later",
-  history: "jj_watch_history",
-  progress: "jj_video_progress",
-  theme: "jj_theme",
-  autoplay: "jj_autoplay",
-  rememberPosition: "jj_remember_position"
+const KEYS = {
+
+  favorites:
+    "jj_favorites",
+
+  later:
+    "jj_watch_later",
+
+  history:
+    "jj_watch_history",
+
+  progress:
+    "jj_video_progress",
+
+  watchTime:
+    "jj_watch_time",
+
+  theme:
+    "jj_theme",
+
+  autoplay:
+    "jj_autoplay",
+
+  rememberPosition:
+    "jj_remember_position",
+
+  ads:
+    "jj_ads",
+
+  motion:
+    "jj_reduced_motion"
+
 };
 
-function readStorage(key, fallback) {
+function load(key, fallback) {
 
   try {
 
-    const value = localStorage.getItem(key);
+    const value =
+      localStorage.getItem(key);
 
-    if (value === null) {
-      return fallback;
-    }
-
-    return JSON.parse(value);
+    return value === null
+      ? fallback
+      : JSON.parse(value);
 
   } catch {
 
@@ -1443,7 +2657,7 @@ function readStorage(key, fallback) {
 
 }
 
-function writeStorage(key, value) {
+function save(key, value) {
 
   localStorage.setItem(
     key,
@@ -1452,223 +2666,300 @@ function writeStorage(key, value) {
 
 }
 
-/* ------------------------------------------------------------
-   APP STATE
------------------------------------------------------------- */
+/* =========================================================
+   STATE
+========================================================= */
 
 let videos = [];
+
 let currentVideo = null;
+
 let currentView = "all";
 
-let favorites = readStorage(
-  STORAGE_KEYS.favorites,
-  []
-);
+let activeTag = "all";
 
-let watchLater = readStorage(
-  STORAGE_KEYS.later,
-  []
-);
+let favorites =
+  load(KEYS.favorites, []);
 
-let watchHistory = readStorage(
-  STORAGE_KEYS.history,
-  []
-);
+let later =
+  load(KEYS.later, []);
 
-let progress = readStorage(
-  STORAGE_KEYS.progress,
-  {}
-);
+let history =
+  load(KEYS.history, []);
 
-/* ------------------------------------------------------------
-   SETTINGS
------------------------------------------------------------- */
+let progress =
+  load(KEYS.progress, {});
+
+let watchTime =
+  Number(
+    load(KEYS.watchTime, 0)
+  );
 
 let settings = {
+
   autoplay:
-    localStorage.getItem(STORAGE_KEYS.autoplay) === "true",
+    localStorage.getItem(
+      KEYS.autoplay
+    ) === "true",
 
   rememberPosition:
-    localStorage.getItem(STORAGE_KEYS.rememberPosition) !== "false"
+    localStorage.getItem(
+      KEYS.rememberPosition
+    ) !== "false",
+
+  ads:
+    localStorage.getItem(
+      KEYS.ads
+    ) !== "false",
+
+  motion:
+    localStorage.getItem(
+      KEYS.motion
+    ) === "true"
+
 };
 
-/* ------------------------------------------------------------
+/* =========================================================
    TOAST
------------------------------------------------------------- */
+========================================================= */
 
 let toastTimer;
 
-function showToast(message) {
+function toast(message) {
 
-  const toast = $("#toast");
+  const element =
+    $("#toast");
 
-  toast.textContent = message;
-  toast.classList.add("show");
+  element.textContent =
+    message;
+
+  element.classList.add(
+    "show"
+  );
 
   clearTimeout(toastTimer);
 
-  toastTimer = setTimeout(() => {
-    toast.classList.remove("show");
-  }, 2200);
+  toastTimer =
+    setTimeout(
+      () =>
+        element.classList.remove(
+          "show"
+        ),
+      2200
+    );
 
 }
 
-/* ------------------------------------------------------------
+/* =========================================================
    LOGO FALLBACK
------------------------------------------------------------- */
+========================================================= */
 
-$("#brandLogo").addEventListener("error", () => {
+$("#brandLogo")
+  .addEventListener(
+    "error",
+    () => {
 
-  $("#brandLogo").hidden = true;
-  $("#brandFallback").hidden = false;
+      $("#brandLogo").hidden =
+        true;
 
-});
+      $("#brandFallback").hidden =
+        false;
 
-/* ------------------------------------------------------------
-   NORMALIZE VIDEO DATA
------------------------------------------------------------- */
+    }
+  );
 
-function normalizeVideo(video, index) {
+/* =========================================================
+   DATA NORMALIZATION
+========================================================= */
+
+function normalizeVideo(
+  video,
+  index
+) {
 
   return {
 
     id:
-      video.id ??
-      video.slug ??
-      index + 1,
+      String(
+        video.id ??
+        video.slug ??
+        index + 1
+      ),
 
     title:
-      video.title ??
-      `Video ${index + 1}`,
+      String(
+        video.title ??
+        `Video ${index + 1}`
+      ),
 
     description:
-      video.description ??
-      "",
+      String(
+        video.description ??
+        ""
+      ),
 
     category:
-      String(video.category ?? "Other"),
+      String(
+        video.category ??
+        "Other"
+      ),
 
     tags:
       Array.isArray(video.tags)
-        ? video.tags
+        ? video.tags.map(String)
         : [],
 
     thumbnail:
-      video.thumbnail ??
-      "",
+      String(
+        video.thumbnail ??
+        ""
+      ),
 
     video:
-      video.video ??
-      video.src ??
-      "",
+      String(
+        video.video ??
+        video.src ??
+        ""
+      ),
 
     views:
-      Number(video.views ?? 0),
+      Number(
+        video.views ?? 0
+      ),
 
     likes:
-      Number(video.likes ?? 0),
-
-    date:
-      video.date ??
-      video.createdAt ??
-      "",
+      Number(
+        video.likes ?? 0
+      ),
 
     duration:
       video.duration ??
+      "",
+
+    date:
+      video.date ??
       ""
 
   };
 
 }
 
-/* ------------------------------------------------------------
-   LOAD VIDEOS
------------------------------------------------------------- */
+/* =========================================================
+   LOAD LIBRARY
+========================================================= */
 
 async function loadVideos() {
 
-  const grid = $("#videoGrid");
+  const grid =
+    $("#videoGrid");
 
   try {
 
-    const response = await fetch(
-      "./videos.json",
-      { cache: "no-cache" }
-    );
+    const response =
+      await fetch(
+        "./videos.json",
+        {
+          cache: "no-cache"
+        }
+      );
 
     if (!response.ok) {
+
       throw new Error(
         `HTTP ${response.status}`
       );
+
     }
 
-    const data = await response.json();
+    const data =
+      await response.json();
 
     if (!Array.isArray(data)) {
+
       throw new Error(
-        "videos.json must contain an array"
+        "videos.json must contain an array."
       );
+
     }
 
-    videos = data.map(normalizeVideo);
+    videos =
+      data.map(
+        normalizeVideo
+      );
+
+    buildCategories();
+    buildTags();
+    renderFeatured();
+    updateStats();
+    renderContinue();
+    renderVideos();
+
+    openURLVideo();
 
   } catch (error) {
 
     console.error(error);
 
-    videos = [];
+    $("#videoGrid").innerHTML = `
 
-    grid.innerHTML = `
       <div class="empty">
 
-        <div class="empty-icon">📁</div>
+        <div class="empty-icon">
+          📁
+        </div>
 
-        <h3>Could not load videos</h3>
+        <h3>
+          Video library unavailable
+        </h3>
 
         <p>
-          Make sure <strong>videos.json</strong>
-          exists beside index.html and contains
-          a JSON array of videos.
+          Add a valid
+          <strong>videos.json</strong>
+          beside index.html.
         </p>
 
-        <p style="margin-top:10px">
-          Error: ${escapeHTML(error.message)}
+        <p>
+          ${escapeHTML(
+            error.message
+          )}
         </p>
 
       </div>
+
     `;
 
-    updateStats();
-
-    return;
+    $("#resultCount")
+      .textContent =
+      "0 videos";
 
   }
 
-  buildCategories();
-  updateStats();
-  renderVideos();
-  renderContinueWatching();
-
 }
 
-/* ------------------------------------------------------------
+/* =========================================================
    CATEGORIES
------------------------------------------------------------- */
+========================================================= */
 
 function buildCategories() {
 
-  const categories = [
-    ...new Set(
-      videos
-        .map(video => video.category)
-        .filter(Boolean)
-    )
-  ].sort(
-    (a,b) =>
-      a.localeCompare(b)
-  );
+  const categories =
+    [
+      ...new Set(
+        videos
+          .map(
+            video =>
+              video.category
+          )
+          .filter(Boolean)
+      )
+    ]
+    .sort(
+      (a,b) =>
+        a.localeCompare(b)
+    );
 
-  const select = $("#categoryFilter");
+  const select =
+    $("#categoryFilter");
 
   select.innerHTML = `
     <option value="all">
@@ -1676,91 +2967,382 @@ function buildCategories() {
     </option>
   `;
 
-  categories.forEach(category => {
+  categories.forEach(
+    category => {
 
-    const option =
-      document.createElement("option");
+      const option =
+        document.createElement(
+          "option"
+        );
 
-    option.value = category;
-    option.textContent = category;
+      option.value =
+        category;
 
-    select.appendChild(option);
+      option.textContent =
+        category;
 
-  });
+      select.appendChild(
+        option
+      );
+
+    }
+  );
 
 }
 
-/* ------------------------------------------------------------
+/* =========================================================
+   TAGS
+========================================================= */
+
+function buildTags() {
+
+  const counts = {};
+
+  videos.forEach(
+    video => {
+
+      video.tags.forEach(
+        tag => {
+
+          const key =
+            tag.toLowerCase();
+
+          counts[key] =
+            (counts[key] || 0) + 1;
+
+        }
+      );
+
+    }
+  );
+
+  const tags =
+    Object.keys(counts)
+      .sort(
+        (a,b) =>
+          counts[b] -
+          counts[a]
+      )
+      .slice(0,30);
+
+  const container =
+    $("#tagFilter");
+
+  container.innerHTML = "";
+
+  const all =
+    document.createElement(
+      "button"
+    );
+
+  all.textContent =
+    "All tags";
+
+  all.classList.add(
+    "active"
+  );
+
+  all.dataset.tag =
+    "all";
+
+  container.appendChild(
+    all
+  );
+
+  tags.forEach(
+    tag => {
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+      button.textContent =
+        `#${tag}`;
+
+      button.dataset.tag =
+        tag;
+
+      container.appendChild(
+        button
+      );
+
+    }
+  );
+
+  $$("#tagFilter button")
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            activeTag =
+              button.dataset.tag;
+
+            $$("#tagFilter button")
+              .forEach(
+                item =>
+                  item.classList.toggle(
+                    "active",
+                    item === button
+                  )
+              );
+
+            renderVideos();
+
+          }
+        );
+
+      }
+    );
+
+}
+
+/* =========================================================
+   FEATURED
+========================================================= */
+
+function renderFeatured() {
+
+  if (!videos.length) {
+    return;
+  }
+
+  /*
+    Prefer an explicitly featured video.
+    Otherwise use the first video.
+  */
+
+  const featured =
+    videos.find(
+      video =>
+        video.featured === true
+    ) ||
+    videos[0];
+
+  $("#featured")
+    .hidden = false;
+
+  $("#featuredImage").src =
+    featured.thumbnail;
+
+  $("#featuredImage").alt =
+    featured.title;
+
+  $("#featuredTitle")
+    .textContent =
+    featured.title;
+
+  $("#featuredDescription")
+    .textContent =
+    featured.description ||
+    "Watch this video.";
+
+  $("#featuredPlay")
+    .onclick =
+    () =>
+      openVideo(featured);
+
+  $("#featuredLater")
+    .onclick =
+    () =>
+      toggleLater(
+        featured.id
+      );
+
+}
+
+/* =========================================================
    STATS
------------------------------------------------------------- */
+========================================================= */
 
 function updateStats() {
 
-  $("#statVideos").textContent =
+  $("#statVideos")
+    .textContent =
     videos.length;
 
-  $("#statWatched").textContent =
-    watchHistory.length;
+  $("#statWatched")
+    .textContent =
+    history.length;
 
-  $("#statLater").textContent =
-    watchLater.length;
-
-  $("#statFavorites").textContent =
+  $("#statFavorites")
+    .textContent =
     favorites.length;
+
+  $("#statLater")
+    .textContent =
+    later.length;
+
+  $("#statWatchTime")
+    .textContent =
+    formatWatchTime(
+      watchTime
+    );
+
+  $("#statCompleted")
+    .textContent =
+    countCompleted();
 
 }
 
-/* ------------------------------------------------------------
-   SEARCH + FILTER
------------------------------------------------------------- */
+function countCompleted() {
 
-function getFilteredVideos() {
+  return videos.filter(
+    video => {
+
+      const item =
+        progress[video.id];
+
+      return (
+        item &&
+        item.duration > 0 &&
+        item.current /
+          item.duration >=
+          .95
+      );
+
+    }
+  ).length;
+
+}
+
+/* =========================================================
+   FILTERING
+========================================================= */
+
+function filteredVideos() {
 
   const query =
-    $("#search").value
+    $("#search")
+      .value
       .trim()
       .toLowerCase();
 
   const category =
-    $("#categoryFilter").value;
+    $("#categoryFilter")
+      .value;
 
   const sort =
-    $("#sortFilter").value;
+    $("#sortFilter")
+      .value;
 
-  let result = [...videos];
+  let list =
+    [...videos];
 
   /* VIEW */
 
-  if (currentView === "favorites") {
+  if (
+    currentView ===
+    "favorites"
+  ) {
 
-    result =
-      result.filter(video =>
-        favorites.includes(video.id)
+    list =
+      list.filter(
+        video =>
+          favorites.includes(
+            video.id
+          )
       );
 
   }
 
-  if (currentView === "later") {
+  if (
+    currentView ===
+    "later"
+  ) {
 
-    result =
-      result.filter(video =>
-        watchLater.includes(video.id)
+    list =
+      list.filter(
+        video =>
+          later.includes(
+            video.id
+          )
       );
 
   }
 
-  if (currentView === "history") {
+  if (
+    currentView ===
+    "history"
+  ) {
 
-    result =
-      result.filter(video =>
-        watchHistory.includes(video.id)
+    list =
+      list.filter(
+        video =>
+          history.includes(
+            video.id
+          )
       );
 
-    result.sort(
+    list.sort(
       (a,b) =>
-        watchHistory.indexOf(b.id) -
-        watchHistory.indexOf(a.id)
+        history.indexOf(b.id) -
+        history.indexOf(a.id)
     );
+
+  }
+
+  if (
+    currentView ===
+    "unfinished"
+  ) {
+
+    list =
+      list.filter(
+        video => {
+
+          const item =
+            progress[video.id];
+
+          if (!item) {
+            return false;
+          }
+
+          if (
+            !item.duration
+          ) {
+            return false;
+          }
+
+          const percent =
+            item.current /
+            item.duration;
+
+          return (
+            percent > .02 &&
+            percent < .95
+          );
+
+        }
+      );
+
+  }
+
+  if (
+    currentView ===
+    "completed"
+  ) {
+
+    list =
+      list.filter(
+        video => {
+
+          const item =
+            progress[video.id];
+
+          return (
+            item &&
+            item.duration &&
+            item.current /
+              item.duration >=
+              .95
+          );
+
+        }
+      );
 
   }
 
@@ -1768,32 +3350,63 @@ function getFilteredVideos() {
 
   if (query) {
 
-    result =
-      result.filter(video => {
+    list =
+      list.filter(
+        video => {
 
-        const searchable = [
-          video.title,
-          video.description,
-          video.category,
-          ...video.tags
-        ]
-          .join(" ")
-          .toLowerCase();
+          const haystack = [
 
-        return searchable.includes(query);
+            video.title,
 
-      });
+            video.description,
+
+            video.category,
+
+            ...video.tags
+
+          ]
+            .join(" ")
+            .toLowerCase();
+
+          return haystack
+            .includes(query);
+
+        }
+      );
 
   }
 
   /* CATEGORY */
 
-  if (category !== "all") {
+  if (
+    category !==
+    "all"
+  ) {
 
-    result =
-      result.filter(
+    list =
+      list.filter(
         video =>
-          video.category === category
+          video.category ===
+          category
+      );
+
+  }
+
+  /* TAG */
+
+  if (
+    activeTag !==
+    "all"
+  ) {
+
+    list =
+      list.filter(
+        video =>
+          video.tags.some(
+            tag =>
+              tag.toLowerCase() ===
+              activeTag
+          )
       );
 
   }
@@ -1801,113 +3414,133 @@ function getFilteredVideos() {
   /* SORT */
 
   if (
-    currentView !== "history"
+    currentView !==
+    "history"
   ) {
 
-    if (sort === "title") {
+    switch (sort) {
 
-      result.sort(
-        (a,b) =>
-          a.title.localeCompare(b.title)
-      );
+      case "title":
 
-    }
+        list.sort(
+          (a,b) =>
+            a.title.localeCompare(
+              b.title
+            )
+        );
 
-    if (sort === "views") {
+        break;
 
-      result.sort(
-        (a,b) =>
-          b.views - a.views
-      );
+      case "title-desc":
 
-    }
+        list.sort(
+          (a,b) =>
+            b.title.localeCompare(
+              a.title
+            )
+        );
 
-    if (sort === "likes") {
+        break;
 
-      result.sort(
-        (a,b) =>
-          b.likes - a.likes
-      );
+      case "views":
 
-    }
+        list.sort(
+          (a,b) =>
+            b.views -
+            a.views
+        );
 
-    if (sort === "newest") {
+        break;
 
-      result.sort(
-        compareDatesDescending
-      );
+      case "likes":
 
-    }
+        list.sort(
+          (a,b) =>
+            b.likes -
+            a.likes
+        );
 
-    if (sort === "oldest") {
+        break;
 
-      result.sort(
-        compareDatesAscending
-      );
+      case "duration":
+
+        list.sort(
+          (a,b) =>
+            durationSeconds(
+              b.duration
+            ) -
+            durationSeconds(
+              a.duration
+            )
+        );
+
+        break;
+
+      case "oldest":
+
+        list.sort(
+          dateAscending
+        );
+
+        break;
+
+      default:
+
+        list.sort(
+          dateDescending
+        );
 
     }
 
   }
 
-  return result;
+  return list;
 
 }
 
-function compareDatesDescending(a,b) {
-
-  const aTime =
-    Date.parse(a.date);
-
-  const bTime =
-    Date.parse(b.date);
-
-  if (
-    Number.isNaN(aTime) ||
-    Number.isNaN(bTime)
-  ) {
-    return 0;
-  }
-
-  return bTime - aTime;
-
-}
-
-function compareDatesAscending(a,b) {
-
-  return -compareDatesDescending(a,b);
-
-}
-
-/* ------------------------------------------------------------
-   RENDER VIDEOS
------------------------------------------------------------- */
+/* =========================================================
+   RENDER VIDEO GRID
+========================================================= */
 
 function renderVideos() {
 
-  const grid = $("#videoGrid");
+  const grid =
+    $("#videoGrid");
 
   const list =
-    getFilteredVideos();
+    filteredVideos();
 
   grid.innerHTML = "";
+
+  $("#resultCount")
+    .textContent =
+    `${list.length} ${
+      list.length === 1
+        ? "video"
+        : "videos"
+    }`;
 
   if (!list.length) {
 
     grid.innerHTML = `
+
       <div class="empty">
 
-        <div class="empty-icon">🔎</div>
+        <div class="empty-icon">
+          🔎
+        </div>
 
         <h3>
-          No videos found
+          Nothing found
         </h3>
 
         <p>
-          Try another search,
-          category or library filter.
+          Try changing your search,
+          category, tag or library view.
         </p>
 
       </div>
+
     `;
 
     return;
@@ -1917,38 +3550,50 @@ function renderVideos() {
   const fragment =
     document.createDocumentFragment();
 
-  list.forEach(video => {
+  list.forEach(
+    video => {
 
-    fragment.appendChild(
-      createVideoCard(video)
-    );
+      fragment.appendChild(
+        createCard(video)
+      );
 
-  });
+    }
+  );
 
-  grid.appendChild(fragment);
+  grid.appendChild(
+    fragment
+  );
 
 }
 
-/* ------------------------------------------------------------
-   VIDEO CARD
------------------------------------------------------------- */
+/* =========================================================
+   CREATE VIDEO CARD
+========================================================= */
 
-function createVideoCard(video) {
+function createCard(video) {
 
   const card =
-    document.createElement("article");
+    document.createElement(
+      "article"
+    );
 
   card.className =
     "video-card";
 
-  const videoProgress =
-    getVideoProgress(video.id);
+  const saved =
+    getProgress(
+      video.id
+    );
 
   const favorite =
-    favorites.includes(video.id);
+    favorites.includes(
+      video.id
+    );
 
-  const later =
-    watchLater.includes(video.id);
+  const savedLater =
+    later.includes(
+      video.id
+    );
 
   card.innerHTML = `
 
@@ -1958,13 +3603,17 @@ function createVideoCard(video) {
         video.thumbnail
           ? `
             <img
-              src="${escapeHTML(video.thumbnail)}"
-              alt="${escapeHTML(video.title)}"
+              src="${escapeHTML(
+                video.thumbnail
+              )}"
+              alt="${escapeHTML(
+                video.title
+              )}"
               loading="lazy"
             >
           `
           : `
-            <div class="thumbnail-placeholder">
+            <div class="placeholder">
               ▶
             </div>
           `
@@ -1974,53 +3623,81 @@ function createVideoCard(video) {
         video.duration
           ? `
             <span class="duration">
-              ${escapeHTML(video.duration)}
+              ${escapeHTML(
+                video.duration
+              )}
             </span>
           `
           : ""
       }
 
-      <div class="watched-indicator">
+      <div class="progress-bar">
+
         <span
-          style="width:${videoProgress.percent}%"
+          style="
+            width:${saved.percent}%
+          "
         ></span>
+
       </div>
 
     </div>
 
-    <div class="video-content">
+    <div class="card-body">
 
-      <h3 class="video-title">
-        ${escapeHTML(video.title)}
+      <h3 class="card-title">
+        ${escapeHTML(
+          video.title
+        )}
       </h3>
 
       ${
         video.description
           ? `
-            <p class="video-description">
-              ${escapeHTML(video.description)}
+            <p class="card-description">
+              ${escapeHTML(
+                video.description
+              )}
             </p>
           `
           : ""
       }
 
-      <div class="video-meta">
+      <div class="meta">
 
         ${
-          video.views
-            ? `👁 ${formatNumber(video.views)} views`
+          video.category
+            ? `
+              <span>
+                ${escapeHTML(
+                  video.category
+                )}
+              </span>
+            `
             : ""
         }
 
         ${
-          video.likes
-            ? `❤️ ${formatNumber(video.likes)} likes`
+          video.views
+            ? `
+              <span>
+                · ${formatNumber(
+                  video.views
+                )} views
+              </span>
+            `
             : ""
         }
 
         ${
           video.date
-            ? formatDate(video.date)
+            ? `
+              <span>
+                · ${formatDate(
+                  video.date
+                )}
+              </span>
+            `
             : ""
         }
 
@@ -2029,14 +3706,17 @@ function createVideoCard(video) {
       ${
         video.tags.length
           ? `
-            <div class="tags">
+            <div class="card-tags">
 
               ${video.tags
                 .slice(0,5)
-                .map(tag =>
-                  `<span class="tag">
-                    ${escapeHTML(tag)}
-                  </span>`
+                .map(
+                  tag =>
+                    `
+                      <span class="card-tag">
+                        #${escapeHTML(tag)}
+                      </span>
+                    `
                 )
                 .join("")
               }
@@ -2049,25 +3729,31 @@ function createVideoCard(video) {
       <div class="card-actions">
 
         <button
-          class="card-button play-button"
+          class="small-button play"
         >
           ▶ Play
         </button>
 
         <button
-          class="card-button favorite-button ${
-            favorite ? "active" : ""
-          }"
+          class="
+            small-button
+            favorite
+            ${favorite ? "active" : ""}
+          "
         >
-          ${favorite ? "★" : "☆"} Favorite
+          ${favorite ? "★" : "☆"}
+          Favorite
         </button>
 
         <button
-          class="card-button later-button ${
-            later ? "active" : ""
-          }"
+          class="
+            small-button
+            later
+            ${savedLater ? "active" : ""}
+          "
         >
-          ${later ? "✓" : "🔖"} Later
+          ${savedLater ? "✓" : "🔖"}
+          Later
         </button>
 
       </div>
@@ -2077,66 +3763,77 @@ function createVideoCard(video) {
   `;
 
   card
-    .querySelector(".play-button")
-    .addEventListener(
-      "click",
-      () => openVideo(video)
-    );
-
-  card
-    .querySelector(".favorite-button")
-    .addEventListener(
-      "click",
-      () => toggleFavorite(video.id)
-    );
-
-  card
-    .querySelector(".later-button")
-    .addEventListener(
-      "click",
-      () => toggleWatchLater(video.id)
-    );
-
-  card
     .querySelector(".thumbnail")
     .addEventListener(
       "click",
-      () => openVideo(video)
+      () =>
+        openVideo(video)
+    );
+
+  card
+    .querySelector(".play")
+    .addEventListener(
+      "click",
+      () =>
+        openVideo(video)
+    );
+
+  card
+    .querySelector(".favorite")
+    .addEventListener(
+      "click",
+      () =>
+        toggleFavorite(
+          video.id
+        )
+    );
+
+  card
+    .querySelector(".later")
+    .addEventListener(
+      "click",
+      () =>
+        toggleLater(
+          video.id
+        )
     );
 
   return card;
 
 }
 
-/* ------------------------------------------------------------
+/* =========================================================
    FAVORITES
------------------------------------------------------------- */
+========================================================= */
 
 function toggleFavorite(id) {
 
-  if (favorites.includes(id)) {
+  if (
+    favorites.includes(id)
+  ) {
 
     favorites =
       favorites.filter(
-        item => item !== id
+        item =>
+          item !== id
       );
 
-    showToast(
-      "Removed from favorites"
+    toast(
+      "Removed from Favorites"
     );
 
   } else {
 
     favorites.push(id);
 
-    showToast(
-      "Added to favorites"
+    toast(
+      "Added to Favorites"
     );
 
   }
 
-  writeStorage(
-    STORAGE_KEYS.favorites,
+  save(
+    KEYS.favorites,
     favorites
   );
 
@@ -2147,36 +3844,39 @@ function toggleFavorite(id) {
 
 }
 
-/* ------------------------------------------------------------
+/* =========================================================
    WATCH LATER
------------------------------------------------------------- */
+========================================================= */
 
-function toggleWatchLater(id) {
+function toggleLater(id) {
 
-  if (watchLater.includes(id)) {
+  if (
+    later.includes(id)
+  ) {
 
-    watchLater =
-      watchLater.filter(
-        item => item !== id
+    later =
+      later.filter(
+        item =>
+          item !== id
       );
 
-    showToast(
+    toast(
       "Removed from Watch Later"
     );
 
   } else {
 
-    watchLater.push(id);
+    later.push(id);
 
-    showToast(
+    toast(
       "Added to Watch Later"
     );
 
   }
 
-  writeStorage(
-    STORAGE_KEYS.later,
-    watchLater
+  save(
+    KEYS.later,
+    later
   );
 
   updateStats();
@@ -2186,40 +3886,37 @@ function toggleWatchLater(id) {
 
 }
 
-/* ------------------------------------------------------------
+/* =========================================================
    HISTORY
------------------------------------------------------------- */
+========================================================= */
 
-function addToHistory(id) {
+function addHistory(id) {
 
-  watchHistory =
-    watchHistory.filter(
-      item => item !== id
+  history =
+    history.filter(
+      item =>
+        item !== id
     );
 
-  watchHistory.unshift(id);
+  history.unshift(id);
 
-  /*
-    Keep history manageable.
-  */
+  history =
+    history.slice(0,200);
 
-  watchHistory =
-    watchHistory.slice(0,100);
-
-  writeStorage(
-    STORAGE_KEYS.history,
-    watchHistory
+  save(
+    KEYS.history,
+    history
   );
 
   updateStats();
 
 }
 
-/* ------------------------------------------------------------
+/* =========================================================
    PROGRESS
------------------------------------------------------------- */
+========================================================= */
 
-function getVideoProgress(id) {
+function getProgress(id) {
 
   const item =
     progress[id];
@@ -2227,37 +3924,41 @@ function getVideoProgress(id) {
   if (!item) {
 
     return {
+
       current: 0,
       duration: 0,
       percent: 0
+
     };
 
   }
 
-  const percent =
-    item.duration > 0
-      ? Math.min(
-          100,
-          (item.current /
-           item.duration) * 100
-        )
-      : 0;
-
   return {
+
     ...item,
-    percent
+
+    percent:
+      item.duration > 0
+        ? Math.min(
+            100,
+            (
+              item.current /
+              item.duration
+            ) * 100
+          )
+        : 0
+
   };
 
 }
 
-function saveProgress(video) {
+let progressSaveTimer = null;
+
+function saveCurrentProgress() {
 
   if (
-    !settings.rememberPosition ||
-    !video ||
-    !Number.isFinite(
-      $("#videoPlayer").currentTime
-    )
+    !currentVideo ||
+    !settings.rememberPosition
   ) {
     return;
   }
@@ -2266,13 +3967,20 @@ function saveProgress(video) {
     $("#videoPlayer");
 
   if (
-    !player.duration ||
-    !Number.isFinite(player.duration)
+    !Number.isFinite(
+      player.currentTime
+    ) ||
+    !Number.isFinite(
+      player.duration
+    ) ||
+    player.duration <= 0
   ) {
     return;
   }
 
-  progress[video.id] = {
+  progress[
+    currentVideo.id
+  ] = {
 
     current:
       player.currentTime,
@@ -2285,268 +3993,403 @@ function saveProgress(video) {
 
   };
 
-  writeStorage(
-    STORAGE_KEYS.progress,
+  save(
+    KEYS.progress,
     progress
   );
 
 }
 
-/* ------------------------------------------------------------
-   CONTINUE WATCHING
------------------------------------------------------------- */
+function scheduleProgressSave() {
 
-function renderContinueWatching() {
+  clearTimeout(
+    progressSaveTimer
+  );
+
+  progressSaveTimer =
+    setTimeout(
+      saveCurrentProgress,
+      500
+    );
+
+}
+
+/* =========================================================
+   CONTINUE WATCHING
+========================================================= */
+
+function renderContinue() {
 
   const section =
     $("#continueSection");
 
-  let candidate = null;
+  const grid =
+    $("#continueGrid");
 
-  for (const id of watchHistory) {
+  const list =
+    history
 
-    const video =
-      videos.find(
-        item => item.id === id
-      );
+      .map(
+        id =>
+          videos.find(
+            video =>
+              video.id === id
+          )
+      )
 
-    if (!video) {
-      continue;
-    }
+      .filter(Boolean)
 
-    const saved =
-      getVideoProgress(video.id);
+      .filter(
+        video => {
 
-    if (
-      saved.percent > 2 &&
-      saved.percent < 95
-    ) {
+          const saved =
+            getProgress(
+              video.id
+            );
 
-      candidate = video;
-      break;
+          return (
+            saved.percent > 2 &&
+            saved.percent < 95
+          );
 
-    }
+        }
+      )
 
-  }
+      .slice(0,6);
 
-  if (!candidate) {
+  grid.innerHTML = "";
 
-    section.classList.remove(
-      "visible"
-    );
+  if (!list.length) {
+
+    section.hidden = true;
 
     return;
 
   }
 
-  const saved =
-    getVideoProgress(
-      candidate.id
-    );
+  section.hidden = false;
 
-  section.classList.add(
-    "visible"
-  );
+  list.forEach(
+    video => {
 
-  $("#continueTitle").textContent =
-    candidate.title;
+      const saved =
+        getProgress(
+          video.id
+        );
 
-  $("#continueThumbnail").src =
-    candidate.thumbnail || "";
+      const item =
+        document.createElement(
+          "article"
+        );
 
-  $("#continueThumbnail").alt =
-    candidate.title;
+      item.className =
+        "continue-item";
 
-  $("#continueTime").textContent =
-    `${formatTime(saved.current)} / ${formatTime(saved.duration)}`;
+      item.innerHTML = `
 
-  $("#continueProgress").style.width =
-    saved.percent + "%";
+        <div class="continue-thumb">
 
-  $("#continueButton").onclick =
-    () => openVideo(candidate, true);
+          ${
+            video.thumbnail
+              ? `
+                <img
+                  src="${escapeHTML(
+                    video.thumbnail
+                  )}"
+                  alt="${escapeHTML(
+                    video.title
+                  )}"
+                  loading="lazy"
+                >
+              `
+              : ""
+          }
 
-  $("#dismissContinue").onclick =
-    () => {
+          <div class="progress-bar">
+            <span
+              style="
+                width:${saved.percent}%
+              "
+            ></span>
+          </div>
 
-      delete progress[candidate.id];
+        </div>
 
-      writeStorage(
-        STORAGE_KEYS.progress,
-        progress
+        <div class="continue-info">
+
+          <strong>
+            ${escapeHTML(
+              video.title
+            )}
+          </strong>
+
+          <span>
+            ${formatTime(
+              saved.current
+            )}
+            /
+            ${formatTime(
+              saved.duration
+            )}
+            ·
+            ${Math.round(
+              saved.percent
+            )}%
+          </span>
+
+        </div>
+
+      `;
+
+      item.addEventListener(
+        "click",
+        () =>
+          openVideo(
+            video,
+            true
+          )
       );
 
-      renderContinueWatching();
+      grid.appendChild(
+        item
+      );
 
-    };
+    }
+  );
 
 }
 
-/* ------------------------------------------------------------
-   VIDEO PLAYER
------------------------------------------------------------- */
+/* =========================================================
+   VIDEO OPEN
+========================================================= */
 
-async function openVideo(video, resume = false) {
+function openVideo(
+  video,
+  resume = false
+) {
 
   if (!video.video) {
 
-    showToast(
-      "This video does not have a file path."
+    toast(
+      "No video file is configured for this item."
     );
 
     return;
 
   }
 
-  currentVideo = video;
+  currentVideo =
+    video;
 
   const player =
     $("#videoPlayer");
 
-  $("#modalHeaderTitle").textContent =
+  $("#modalHeader")
+    .textContent =
     video.title;
 
-  $("#modalTitle").textContent =
+  $("#modalTitle")
+    .textContent =
     video.title;
 
-  $("#modalDescription").textContent =
-    video.description || "No description available.";
+  $("#modalDescription")
+    .textContent =
+    video.description ||
+    "No description available.";
 
-  $("#modalMeta").innerHTML = `
+  $("#modalMeta")
+    .innerHTML = `
 
-    ${
-      video.category
-        ? `<span>Category: ${escapeHTML(video.category)}</span>`
-        : ""
-    }
+      ${
+        video.category
+          ? `<span>
+              ${escapeHTML(
+                video.category
+              )}
+            </span>`
+          : ""
+      }
 
-    ${
-      video.views
-        ? `<span>${formatNumber(video.views)} views</span>`
-        : ""
-    }
+      ${
+        video.views
+          ? `<span>
+              ${formatNumber(
+                video.views
+              )} views
+            </span>`
+          : ""
+      }
 
-    ${
-      video.likes
-        ? `<span>${formatNumber(video.likes)} likes</span>`
-        : ""
-    }
+      ${
+        video.likes
+          ? `<span>
+              ${formatNumber(
+                video.likes
+              )} likes
+            </span>`
+          : ""
+      }
 
-    ${
-      video.date
-        ? `<span>${formatDate(video.date)}</span>`
-        : ""
-    }
+      ${
+        video.date
+          ? `<span>
+              ${formatDate(
+                video.date
+              )}
+            </span>`
+          : ""
+      }
 
-  `;
+    `;
 
-  $("#modalTags").innerHTML =
+  $("#modalTags")
+    .innerHTML =
     video.tags
-      .map(tag =>
-        `<span class="tag">
-          ${escapeHTML(tag)}
-        </span>`
+      .map(
+        tag =>
+          `
+            <span class="card-tag">
+              #${escapeHTML(tag)}
+            </span>
+          `
       )
       .join("");
 
   updateModalButtons();
 
-  player.src = video.video;
+  renderRelated();
 
-  $("#videoModal").classList.add(
-    "open"
+  player.src =
+    video.video;
+
+  player.playbackRate =
+    Number(
+      $("#speedSelect").value
+    );
+
+  $("#videoModal")
+    .classList.add(
+      "open"
+    );
+
+  $("#videoModal")
+    .setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+  addHistory(
+    video.id
   );
 
-  /*
-    Add to history when actually opened.
-  */
+  updateURL();
 
-  addToHistory(video.id);
+  const restore =
+    () => {
 
-  /*
-    Wait for metadata before restoring
-    playback position.
-  */
-
-  const restorePosition = () => {
-
-    const saved =
-      getVideoProgress(video.id);
-
-    if (
-      settings.rememberPosition &&
-      (resume || saved.current > 0)
-    ) {
+      const saved =
+        getProgress(
+          video.id
+        );
 
       if (
-        saved.current <
-        player.duration - 2
+        settings.rememberPosition &&
+        (
+          resume ||
+          saved.current > 0
+        )
       ) {
 
-        player.currentTime =
-          saved.current;
+        if (
+          saved.current <
+          player.duration - 2
+        ) {
+
+          player.currentTime =
+            saved.current;
+
+        }
 
       }
 
-    }
+      if (
+        settings.autoplay ||
+        resume
+      ) {
 
-    if (settings.autoplay || resume) {
+        player
+          .play()
+          .catch(
+            () => {}
+          );
 
-      player.play().catch(() => {});
+      }
 
-    }
+    };
 
-  };
+  if (
+    player.readyState >= 1
+  ) {
 
-  if (player.readyState >= 1) {
-
-    restorePosition();
+    restore();
 
   } else {
 
     player.addEventListener(
       "loadedmetadata",
-      restorePosition,
-      { once: true }
+      restore,
+      {
+        once: true
+      }
     );
 
   }
 
-  renderContinueWatching();
-
 }
 
-/* ------------------------------------------------------------
+/* =========================================================
    CLOSE VIDEO
------------------------------------------------------------- */
+========================================================= */
 
 function closeVideo() {
+
+  saveCurrentProgress();
 
   const player =
     $("#videoPlayer");
 
-  if (currentVideo) {
-    saveProgress(currentVideo);
-  }
-
   player.pause();
-  player.removeAttribute("src");
-  player.load();
 
-  $("#videoModal").classList.remove(
-    "open"
+  player.removeAttribute(
+    "src"
   );
 
-  currentVideo = null;
+  player.load();
 
-  renderContinueWatching();
+  $("#videoModal")
+    .classList.remove(
+      "open"
+    );
+
+  $("#videoModal")
+    .setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+  currentVideo =
+    null;
+
+  removeURLVideo();
+
+  renderContinue();
   renderVideos();
 
 }
 
-/* ------------------------------------------------------------
+/* =========================================================
    MODAL BUTTONS
------------------------------------------------------------- */
+========================================================= */
 
 function updateModalButtons() {
 
@@ -2559,38 +4402,197 @@ function updateModalButtons() {
       currentVideo.id
     );
 
-  const later =
-    watchLater.includes(
+  const savedLater =
+    later.includes(
       currentVideo.id
     );
 
-  $("#modalFavorite").textContent =
+  $("#modalFavorite")
+    .textContent =
     favorite
       ? "★ Favorited"
       : "☆ Favorite";
 
-  $("#modalLater").textContent =
-    later
+  $("#modalLater")
+    .textContent =
+    savedLater
       ? "✓ Saved"
       : "🔖 Watch Later";
 
-  $("#modalFavorite").classList.toggle(
-    "primary",
-    favorite
-  );
+}
 
-  $("#modalLater").classList.toggle(
-    "primary",
-    later
+/* =========================================================
+   RELATED
+========================================================= */
+
+function renderRelated() {
+
+  const container =
+    $("#relatedList");
+
+  container.innerHTML = "";
+
+  if (!currentVideo) {
+    return;
+  }
+
+  const currentTags =
+    new Set(
+      currentVideo.tags
+        .map(
+          tag =>
+            tag.toLowerCase()
+        )
+    );
+
+  const related =
+    videos
+
+      .filter(
+        video =>
+          video.id !==
+          currentVideo.id
+      )
+
+      .map(
+        video => {
+
+          let score = 0;
+
+          if (
+            video.category ===
+            currentVideo.category
+          ) {
+            score += 3;
+          }
+
+          video.tags.forEach(
+            tag => {
+
+              if (
+                currentTags.has(
+                  tag.toLowerCase()
+                )
+              ) {
+                score++;
+              }
+
+            }
+          );
+
+          return {
+            video,
+            score
+          };
+
+        }
+      )
+
+      .sort(
+        (a,b) =>
+          b.score -
+          a.score
+      )
+
+      .slice(0,8);
+
+  if (!related.length) {
+
+    container.innerHTML = `
+      <p
+        style="
+          color:var(--muted);
+          font-size:12px;
+        "
+      >
+        No related videos available.
+      </p>
+    `;
+
+    return;
+
+  }
+
+  related.forEach(
+    item => {
+
+      const video =
+        item.video;
+
+      const element =
+        document.createElement(
+          "div"
+        );
+
+      element.className =
+        "related-item";
+
+      element.innerHTML = `
+
+        <div class="related-thumb">
+
+          ${
+            video.thumbnail
+              ? `
+                <img
+                  src="${escapeHTML(
+                    video.thumbnail
+                  )}"
+                  alt=""
+                  loading="lazy"
+                >
+              `
+              : ""
+          }
+
+        </div>
+
+        <div>
+
+          <div class="related-title">
+            ${escapeHTML(
+              video.title
+            )}
+          </div>
+
+          <div
+            style="
+              margin-top:4px;
+              color:var(--muted);
+              font-size:9px;
+            "
+          >
+            ${escapeHTML(
+              video.category
+            )}
+          </div>
+
+        </div>
+
+      `;
+
+      element.addEventListener(
+        "click",
+        () =>
+          openVideo(
+            video
+          )
+      );
+
+      container.appendChild(
+        element
+      );
+
+    }
   );
 
 }
 
-/* ------------------------------------------------------------
-   SHARE
------------------------------------------------------------- */
+/* =========================================================
+   URL DEEP LINKING
+========================================================= */
 
-async function shareCurrentVideo() {
+function updateURL() {
 
   if (!currentVideo) {
     return;
@@ -2603,10 +4605,91 @@ async function shareCurrentVideo() {
 
   url.searchParams.set(
     "video",
-    String(currentVideo.id)
+    currentVideo.id
   );
 
-  const shareData = {
+  history.replaceState(
+    null,
+    "",
+    url
+  );
+
+}
+
+function removeURLVideo() {
+
+  const url =
+    new URL(
+      location.href
+    );
+
+  url.searchParams.delete(
+    "video"
+  );
+
+  history.replaceState(
+    null,
+    "",
+    url
+  );
+
+}
+
+function openURLVideo() {
+
+  const params =
+    new URLSearchParams(
+      location.search
+    );
+
+  const id =
+    params.get(
+      "video"
+    );
+
+  if (!id) {
+    return;
+  }
+
+  const video =
+    videos.find(
+      item =>
+        item.id ===
+        String(id)
+    );
+
+  if (video) {
+
+    openVideo(
+      video,
+      true
+    );
+
+  }
+
+}
+
+/* =========================================================
+   SHARE
+========================================================= */
+
+async function shareVideo() {
+
+  if (!currentVideo) {
+    return;
+  }
+
+  const url =
+    new URL(
+      location.href
+    );
+
+  url.searchParams.set(
+    "video",
+    currentVideo.id
+  );
+
+  const data = {
 
     title:
       currentVideo.title,
@@ -2627,7 +4710,7 @@ async function shareCurrentVideo() {
     ) {
 
       await navigator.share(
-        shareData
+        data
       );
 
       return;
@@ -2638,13 +4721,13 @@ async function shareCurrentVideo() {
       url.href
     );
 
-    showToast(
+    toast(
       "Video link copied"
     );
 
   } catch {
 
-    showToast(
+    toast(
       "Could not share video"
     );
 
@@ -2652,15 +4735,57 @@ async function shareCurrentVideo() {
 
 }
 
-/* ------------------------------------------------------------
+/* =========================================================
+   COPY LINK
+========================================================= */
+
+async function copyVideoLink() {
+
+  if (!currentVideo) {
+    return;
+  }
+
+  const url =
+    new URL(
+      location.href
+    );
+
+  url.searchParams.set(
+    "video",
+    currentVideo.id
+  );
+
+  try {
+
+    await navigator.clipboard.writeText(
+      url.href
+    );
+
+    toast(
+      "Link copied"
+    );
+
+  } catch {
+
+    toast(
+      "Could not copy link"
+    );
+
+  }
+
+}
+
+/* =========================================================
    DOWNLOAD
------------------------------------------------------------- */
+========================================================= */
 
-function downloadCurrentVideo() {
+function downloadVideo() {
 
-  if (!currentVideo?.video) {
+  if (
+    !currentVideo?.video
+  ) {
 
-    showToast(
+    toast(
       "No video file available"
     );
 
@@ -2669,15 +4794,17 @@ function downloadCurrentVideo() {
   }
 
   const link =
-    document.createElement("a");
+    document.createElement(
+      "a"
+    );
 
   link.href =
     currentVideo.video;
 
   link.download =
-    getDownloadName(
-      currentVideo
-    );
+    `${safeFilename(
+      currentVideo.title
+    )}.mp4`;
 
   link.target =
     "_blank";
@@ -2685,7 +4812,9 @@ function downloadCurrentVideo() {
   link.rel =
     "noopener";
 
-  document.body.appendChild(link);
+  document.body.appendChild(
+    link
+  );
 
   link.click();
 
@@ -2693,11 +4822,11 @@ function downloadCurrentVideo() {
 
 }
 
-/* ------------------------------------------------------------
-   THEATER MODE
------------------------------------------------------------- */
+/* =========================================================
+   FULLSCREEN
+========================================================= */
 
-async function theaterMode() {
+async function fullscreen() {
 
   const player =
     $("#videoPlayer");
@@ -2718,46 +4847,93 @@ async function theaterMode() {
 
   } catch {
 
-    showToast(
-      "Fullscreen is not available."
+    toast(
+      "Fullscreen unavailable"
     );
 
   }
 
 }
 
-/* ------------------------------------------------------------
-   PREVIOUS / NEXT
------------------------------------------------------------- */
+/* =========================================================
+   PICTURE IN PICTURE
+========================================================= */
 
-function openAdjacentVideo(direction) {
+async function pictureInPicture() {
+
+  const player =
+    $("#videoPlayer");
+
+  if (
+    !document.pictureInPictureEnabled
+  ) {
+
+    toast(
+      "Picture-in-picture is unavailable"
+    );
+
+    return;
+
+  }
+
+  try {
+
+    if (
+      document.pictureInPictureElement
+    ) {
+
+      await document.exitPictureInPicture();
+
+    } else {
+
+      await player.requestPictureInPicture();
+
+    }
+
+  } catch {
+
+    toast(
+      "Picture-in-picture unavailable"
+    );
+
+  }
+
+}
+
+/* =========================================================
+   NEXT / PREVIOUS
+========================================================= */
+
+function adjacentVideo(
+  direction
+) {
 
   if (!currentVideo) {
     return;
   }
 
   const list =
-    getFilteredVideos();
+    filteredVideos();
 
   const index =
     list.findIndex(
       video =>
-        video.id === currentVideo.id
+        video.id ===
+        currentVideo.id
     );
 
   if (index === -1) {
     return;
   }
 
-  const nextIndex =
-    index + direction;
+  const target =
+    list[
+      index + direction
+    ];
 
-  if (
-    nextIndex < 0 ||
-    nextIndex >= list.length
-  ) {
+  if (!target) {
 
-    showToast(
+    toast(
       direction > 0
         ? "No next video"
         : "No previous video"
@@ -2768,16 +4944,942 @@ function openAdjacentVideo(direction) {
   }
 
   openVideo(
-    list[nextIndex]
+    target
   );
 
 }
 
-/* ------------------------------------------------------------
-   FORMATTERS
------------------------------------------------------------- */
+/* =========================================================
+   PLAYER EVENTS
+========================================================= */
 
-function formatNumber(value) {
+$("#videoPlayer")
+  .addEventListener(
+    "timeupdate",
+    () => {
+
+      scheduleProgressSave();
+
+      if (
+        currentVideo &&
+        Number.isFinite(
+          $("#videoPlayer").currentTime
+        )
+      ) {
+
+        watchTime =
+          Math.max(
+            watchTime,
+            0
+          );
+
+      }
+
+    }
+  );
+
+$("#videoPlayer")
+  .addEventListener(
+    "pause",
+    saveCurrentProgress
+  );
+
+$("#videoPlayer")
+  .addEventListener(
+    "ended",
+    () => {
+
+      if (!currentVideo) {
+        return;
+      }
+
+      progress[
+        currentVideo.id
+      ] = {
+
+        current:
+          $("#videoPlayer")
+            .duration,
+
+        duration:
+          $("#videoPlayer")
+            .duration,
+
+        updated:
+          Date.now()
+
+      };
+
+      save(
+        KEYS.progress,
+        progress
+      );
+
+      renderContinue();
+      renderVideos();
+      updateStats();
+
+      /*
+        Autoplay the next item if enabled.
+      */
+
+      if (
+        settings.autoplay
+      ) {
+
+        adjacentVideo(
+          1
+        );
+
+      }
+
+    }
+  );
+
+/* =========================================================
+   PLAYBACK SPEED
+========================================================= */
+
+$("#speedSelect")
+  .addEventListener(
+    "change",
+    event => {
+
+      $("#videoPlayer")
+        .playbackRate =
+        Number(
+          event.target.value
+        );
+
+    }
+  );
+
+/* =========================================================
+   MODAL EVENTS
+========================================================= */
+
+$("#closeModal")
+  .addEventListener(
+    "click",
+    closeVideo
+  );
+
+$("#videoModal")
+  .addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target ===
+        event.currentTarget
+      ) {
+
+        closeVideo();
+
+      }
+
+    }
+  );
+
+$("#modalFavorite")
+  .addEventListener(
+    "click",
+    () => {
+
+      if (currentVideo) {
+
+        toggleFavorite(
+          currentVideo.id
+        );
+
+      }
+
+    }
+  );
+
+$("#modalLater")
+  .addEventListener(
+    "click",
+    () => {
+
+      if (currentVideo) {
+
+        toggleLater(
+          currentVideo.id
+        );
+
+      }
+
+    }
+  );
+
+$("#modalShare")
+  .addEventListener(
+    "click",
+    shareVideo
+  );
+
+$("#modalCopyLink")
+  .addEventListener(
+    "click",
+    copyVideoLink
+  );
+
+$("#modalDownload")
+  .addEventListener(
+    "click",
+    downloadVideo
+  );
+
+$("#modalFullscreen")
+  .addEventListener(
+    "click",
+    fullscreen
+  );
+
+$("#pipButton")
+  .addEventListener(
+    "click",
+    pictureInPicture
+  );
+
+$("#previousVideo")
+  .addEventListener(
+    "click",
+    () =>
+      adjacentVideo(-1)
+  );
+
+$("#nextVideo")
+  .addEventListener(
+    "click",
+    () =>
+      adjacentVideo(1)
+  );
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+$("#search")
+  .addEventListener(
+    "input",
+    () => {
+
+      $("#clearSearch")
+        .style.display =
+        $("#search").value
+          ? "block"
+          : "none";
+
+      renderVideos();
+
+    }
+  );
+
+$("#clearSearch")
+  .addEventListener(
+    "click",
+    () => {
+
+      $("#search").value =
+        "";
+
+      $("#clearSearch")
+        .style.display =
+        "none";
+
+      renderVideos();
+
+      $("#search").focus();
+
+    }
+  );
+
+$("#searchButton")
+  .addEventListener(
+    "click",
+    () => {
+
+      $("#search").focus();
+
+      $("#library")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+  );
+
+$("#categoryFilter")
+  .addEventListener(
+    "change",
+    renderVideos
+  );
+
+$("#sortFilter")
+  .addEventListener(
+    "change",
+    renderVideos
+  );
+
+/* =========================================================
+   TABS
+========================================================= */
+
+$$(".tab")
+  .forEach(
+    tab => {
+
+      tab.addEventListener(
+        "click",
+        () => {
+
+          $$(".tab")
+            .forEach(
+              item =>
+                item.classList.remove(
+                  "active"
+                )
+            );
+
+          tab.classList.add(
+            "active"
+          );
+
+          currentView =
+            tab.dataset.view;
+
+          renderVideos();
+
+        }
+      );
+
+    }
+  );
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+function openSettings() {
+
+  $("#settingsPanel")
+    .classList.add(
+      "open"
+    );
+
+  $("#settingsOverlay")
+    .classList.add(
+      "open"
+    );
+
+}
+
+function closeSettings() {
+
+  $("#settingsPanel")
+    .classList.remove(
+      "open"
+    );
+
+  $("#settingsOverlay")
+    .classList.remove(
+      "open"
+    );
+
+}
+
+$("#settingsButton")
+  .addEventListener(
+    "click",
+    openSettings
+  );
+
+$("#closeSettings")
+  .addEventListener(
+    "click",
+    closeSettings
+  );
+
+$("#settingsOverlay")
+  .addEventListener(
+    "click",
+    closeSettings
+  );
+
+/* =========================================================
+   THEME
+========================================================= */
+
+function applyTheme(theme) {
+
+  document.body
+    .classList.toggle(
+      "light",
+      theme === "light"
+    );
+
+  $("#themeSelect")
+    .value =
+    theme;
+
+  $("#themeButton")
+    .textContent =
+    theme === "light"
+      ? "☀"
+      : "☾";
+
+  localStorage.setItem(
+    KEYS.theme,
+    theme
+  );
+
+}
+
+function toggleTheme() {
+
+  const current =
+    localStorage.getItem(
+      KEYS.theme
+    ) ||
+    "dark";
+
+  applyTheme(
+    current === "dark"
+      ? "light"
+      : "dark"
+  );
+
+}
+
+$("#themeButton")
+  .addEventListener(
+    "click",
+    toggleTheme
+  );
+
+$("#themeSelect")
+  .addEventListener(
+    "change",
+    event =>
+      applyTheme(
+        event.target.value
+      )
+  );
+
+applyTheme(
+  localStorage.getItem(
+    KEYS.theme
+  ) ||
+  "dark"
+);
+
+/* =========================================================
+   SETTINGS VALUES
+========================================================= */
+
+$("#autoplaySetting")
+  .checked =
+  settings.autoplay;
+
+$("#positionSetting")
+  .checked =
+  settings.rememberPosition;
+
+$("#adsSetting")
+  .checked =
+  settings.ads;
+
+$("#motionSetting")
+  .checked =
+  settings.motion;
+
+function saveBoolean(
+  key,
+  value
+) {
+
+  localStorage.setItem(
+    key,
+    String(value)
+  );
+
+}
+
+$("#autoplaySetting")
+  .addEventListener(
+    "change",
+    event => {
+
+      settings.autoplay =
+        event.target.checked;
+
+      saveBoolean(
+        KEYS.autoplay,
+        settings.autoplay
+      );
+
+    }
+  );
+
+$("#positionSetting")
+  .addEventListener(
+    "change",
+    event => {
+
+      settings.rememberPosition =
+        event.target.checked;
+
+      saveBoolean(
+        KEYS.rememberPosition,
+        settings.rememberPosition
+      );
+
+    }
+  );
+
+/* =========================================================
+   ADS
+========================================================= */
+
+function applyAds() {
+
+  $("#topAd")
+    .classList.toggle(
+      "hidden",
+      !settings.ads
+    );
+
+  $("#bottomAd")
+    .classList.toggle(
+      "hidden",
+      !settings.ads
+    );
+
+}
+
+$("#adsSetting")
+  .addEventListener(
+    "change",
+    event => {
+
+      settings.ads =
+        event.target.checked;
+
+      saveBoolean(
+        KEYS.ads,
+        settings.ads
+      );
+
+      applyAds();
+
+    }
+  );
+
+applyAds();
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+function applyMotion() {
+
+  document.body
+    .classList.toggle(
+      "no-motion",
+      settings.motion
+    );
+
+}
+
+$("#motionSetting")
+  .addEventListener(
+    "change",
+    event => {
+
+      settings.motion =
+        event.target.checked;
+
+      saveBoolean(
+        KEYS.motion,
+        settings.motion
+      );
+
+      applyMotion();
+
+    }
+  );
+
+applyMotion();
+
+/* =========================================================
+   CLEAR DATA
+========================================================= */
+
+$("#clearHistory")
+  .addEventListener(
+    "click",
+    () => {
+
+      if (
+        !confirm(
+          "Clear your watch history?"
+        )
+      ) {
+        return;
+      }
+
+      history = [];
+
+      save(
+        KEYS.history,
+        history
+      );
+
+      updateStats();
+      renderContinue();
+      renderVideos();
+
+      toast(
+        "History cleared"
+      );
+
+    }
+  );
+
+$("#clearProgress")
+  .addEventListener(
+    "click",
+    () => {
+
+      if (
+        !confirm(
+          "Clear all playback progress?"
+        )
+      ) {
+        return;
+      }
+
+      progress = {};
+
+      save(
+        KEYS.progress,
+        progress
+      );
+
+      renderContinue();
+      renderVideos();
+      updateStats();
+
+      toast(
+        "Playback progress cleared"
+      );
+
+    }
+  );
+
+$("#clearFavorites")
+  .addEventListener(
+    "click",
+    () => {
+
+      if (
+        !confirm(
+          "Clear all favorites?"
+        )
+      ) {
+        return;
+      }
+
+      favorites = [];
+
+      save(
+        KEYS.favorites,
+        favorites
+      );
+
+      updateStats();
+      renderVideos();
+      updateModalButtons();
+
+      toast(
+        "Favorites cleared"
+      );
+
+    }
+  );
+
+$("#clearLater")
+  .addEventListener(
+    "click",
+    () => {
+
+      if (
+        !confirm(
+          "Clear Watch Later?"
+        )
+      ) {
+        return;
+      }
+
+      later = [];
+
+      save(
+        KEYS.later,
+        later
+      );
+
+      updateStats();
+      renderVideos();
+      updateModalButtons();
+
+      toast(
+        "Watch Later cleared"
+      );
+
+    }
+  );
+
+$("#resetData")
+  .addEventListener(
+    "click",
+    () => {
+
+      if (
+        !confirm(
+          "Reset ALL locally stored JJ PLAYZ data?"
+        )
+      ) {
+        return;
+      }
+
+      Object.values(
+        KEYS
+      ).forEach(
+        key =>
+          localStorage.removeItem(
+            key
+          )
+      );
+
+      location.reload();
+
+    }
+  );
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    const tag =
+      document.activeElement?.tagName;
+
+    const typing =
+      tag === "INPUT" ||
+      tag === "TEXTAREA" ||
+      tag === "SELECT";
+
+    if (
+      event.key === "/" &&
+      !typing
+    ) {
+
+      event.preventDefault();
+
+      $("#search").focus();
+
+      $("#library")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+      return;
+
+    }
+
+    if (
+      event.key === "Escape"
+    ) {
+
+      if (
+        $("#videoModal")
+          .classList.contains(
+            "open"
+          )
+      ) {
+
+        closeVideo();
+
+      }
+
+      closeSettings();
+
+      return;
+
+    }
+
+    if (
+      !currentVideo ||
+      typing
+    ) {
+      return;
+    }
+
+    const player =
+      $("#videoPlayer");
+
+    if (
+      event.code === "Space"
+    ) {
+
+      event.preventDefault();
+
+      if (
+        player.paused
+      ) {
+
+        player.play();
+
+      } else {
+
+        player.pause();
+
+      }
+
+    }
+
+    if (
+      event.key.toLowerCase() ===
+      "m"
+    ) {
+
+      player.muted =
+        !player.muted;
+
+    }
+
+    if (
+      event.key.toLowerCase() ===
+      "f"
+    ) {
+
+      fullscreen();
+
+    }
+
+    if (
+      event.key === "ArrowRight"
+    ) {
+
+      event.preventDefault();
+
+      if (
+        event.shiftKey
+      ) {
+
+        adjacentVideo(
+          1
+        );
+
+      } else {
+
+        player.currentTime =
+          Math.min(
+            player.duration || 0,
+            player.currentTime + 5
+          );
+
+      }
+
+    }
+
+    if (
+      event.key === "ArrowLeft"
+    ) {
+
+      event.preventDefault();
+
+      if (
+        event.shiftKey
+      ) {
+
+        adjacentVideo(
+          -1
+        );
+
+      } else {
+
+        player.currentTime =
+          Math.max(
+            0,
+            player.currentTime - 5
+          );
+
+      }
+
+    }
+
+  }
+);
+
+/* =========================================================
+   PAGE SAVE
+========================================================= */
+
+window.addEventListener(
+  "pagehide",
+  () => {
+
+    saveCurrentProgress();
+
+    save(
+      KEYS.watchTime,
+      watchTime
+    );
+
+  }
+);
+
+/* =========================================================
+   UTILITY FUNCTIONS
+========================================================= */
+
+function escapeHTML(value) {
+
+  return String(
+    value ?? ""
+  )
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
+function formatNumber(
+  value
+) {
 
   return Number(
     value || 0
@@ -2785,7 +5887,9 @@ function formatNumber(value) {
 
 }
 
-function formatDate(value) {
+function formatDate(
+  value
+) {
 
   const date =
     new Date(value);
@@ -2809,7 +5913,43 @@ function formatDate(value) {
 
 }
 
-function formatTime(seconds) {
+function dateDescending(
+  a,
+  b
+) {
+
+  const aa =
+    Date.parse(a.date);
+
+  const bb =
+    Date.parse(b.date);
+
+  if (
+    Number.isNaN(aa) ||
+    Number.isNaN(bb)
+  ) {
+    return 0;
+  }
+
+  return bb - aa;
+
+}
+
+function dateAscending(
+  a,
+  b
+) {
+
+  return -dateDescending(
+    a,
+    b
+  );
+
+}
+
+function formatTime(
+  seconds
+) {
 
   if (
     !Number.isFinite(seconds)
@@ -2836,656 +5976,153 @@ function formatTime(seconds) {
   const secs =
     seconds % 60;
 
-  if (hours > 0) {
+  if (hours) {
 
-    return `${hours}:${String(minutes).padStart(2,"0")}:${String(secs).padStart(2,"0")}`;
+    return `${hours}:${String(
+      minutes
+    ).padStart(
+      2,
+      "0"
+    )}:${String(
+      secs
+    ).padStart(
+      2,
+      "0"
+    )}`;
 
   }
 
-  return `${minutes}:${String(secs).padStart(2,"0")}`;
+  return `${minutes}:${String(
+    secs
+  ).padStart(
+    2,
+    "0"
+  )}`;
 
 }
 
-function getDownloadName(video) {
+function formatWatchTime(
+  seconds
+) {
 
-  const clean =
-    video.title
-      .replace(/[<>:"/\\|?*]+/g, "")
-      .trim();
+  seconds =
+    Math.floor(
+      Number(seconds) || 0
+    );
 
-  return `${clean || "jj-playz-video"}.mp4`;
+  if (
+    seconds < 60
+  ) {
+
+    return `${seconds}s`;
+
+  }
+
+  if (
+    seconds < 3600
+  ) {
+
+    return `${Math.floor(
+      seconds / 60
+    )}m`;
+
+  }
+
+  const hours =
+    Math.floor(
+      seconds / 3600
+    );
+
+  const minutes =
+    Math.floor(
+      (seconds % 3600) / 60
+    );
+
+  return `${hours}h ${minutes}m`;
 
 }
 
-function escapeHTML(value) {
+function durationSeconds(
+  value
+) {
 
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+  if (
+    typeof value ===
+    "number"
+  ) {
+    return value;
+  }
+
+  if (
+    !value
+  ) {
+    return 0;
+  }
+
+  const parts =
+    String(value)
+      .split(":")
+      .map(Number);
+
+  if (
+    parts.some(
+      Number.isNaN
+    )
+  ) {
+    return 0;
+  }
+
+  if (
+    parts.length === 3
+  ) {
+
+    return (
+      parts[0] * 3600 +
+      parts[1] * 60 +
+      parts[2]
+    );
+
+  }
+
+  if (
+    parts.length === 2
+  ) {
+
+    return (
+      parts[0] * 60 +
+      parts[1]
+    );
+
+  }
+
+  return parts[0] || 0;
 
 }
 
-/* ------------------------------------------------------------
-   SEARCH EVENTS
------------------------------------------------------------- */
+function safeFilename(
+  value
+) {
 
-$("#search").addEventListener(
-  "input",
-  () => {
-
-    $("#clearSearch").style.display =
-      $("#search").value
-        ? "block"
-        : "none";
-
-    renderVideos();
-
-  }
-);
-
-$("#clearSearch").addEventListener(
-  "click",
-  () => {
-
-    $("#search").value = "";
-
-    $("#clearSearch").style.display =
-      "none";
-
-    renderVideos();
-
-    $("#search").focus();
-
-  }
-);
-
-$("#categoryFilter").addEventListener(
-  "change",
-  renderVideos
-);
-
-$("#sortFilter").addEventListener(
-  "change",
-  renderVideos
-);
-
-/* ------------------------------------------------------------
-   TABS
------------------------------------------------------------- */
-
-$$(".tab").forEach(tab => {
-
-  tab.addEventListener(
-    "click",
-    () => {
-
-      $$(".tab").forEach(item =>
-        item.classList.remove(
-          "active"
-        )
-      );
-
-      tab.classList.add(
-        "active"
-      );
-
-      currentView =
-        tab.dataset.view;
-
-      renderVideos();
-
-    }
-  );
-
-});
-
-/* ------------------------------------------------------------
-   MODAL EVENTS
------------------------------------------------------------- */
-
-$("#closeModal").addEventListener(
-  "click",
-  closeVideo
-);
-
-$("#videoModal").addEventListener(
-  "click",
-  event => {
-
-    if (
-      event.target ===
-      event.currentTarget
-    ) {
-
-      closeVideo();
-
-    }
-
-  }
-);
-
-$("#modalFavorite").addEventListener(
-  "click",
-  () => {
-
-    if (currentVideo) {
-      toggleFavorite(
-        currentVideo.id
-      );
-    }
-
-  }
-);
-
-$("#modalLater").addEventListener(
-  "click",
-  () => {
-
-    if (currentVideo) {
-      toggleWatchLater(
-        currentVideo.id
-      );
-    }
-
-  }
-);
-
-$("#modalShare").addEventListener(
-  "click",
-  shareCurrentVideo
-);
-
-$("#modalDownload").addEventListener(
-  "click",
-  downloadCurrentVideo
-);
-
-$("#modalTheater").addEventListener(
-  "click",
-  theaterMode
-);
-
-/* ------------------------------------------------------------
-   PLAYER EVENTS
------------------------------------------------------------- */
-
-$("#videoPlayer").addEventListener(
-  "timeupdate",
-  () => {
-
-    if (
-      currentVideo &&
-      settings.rememberPosition
-    ) {
-
-      /*
-        Don't write to localStorage
-        on every single frame.
-      */
-
-      if (
-        Math.floor(
-          $("#videoPlayer").currentTime
-        ) %
-        5 ===
-        0
-      ) {
-
-        saveProgress(
-          currentVideo
-        );
-
-      }
-
-    }
-
-  }
-);
-
-$("#videoPlayer").addEventListener(
-  "pause",
-  () => {
-
-    if (currentVideo) {
-      saveProgress(
-        currentVideo
-      );
-    }
-
-  }
-);
-
-$("#videoPlayer").addEventListener(
-  "ended",
-  () => {
-
-    if (!currentVideo) {
-      return;
-    }
-
-    delete progress[
-      currentVideo.id
-    ];
-
-    writeStorage(
-      STORAGE_KEYS.progress,
-      progress
-    );
-
-    renderContinueWatching();
-    renderVideos();
-
-  }
-);
-
-/* ------------------------------------------------------------
-   THEME
------------------------------------------------------------- */
-
-function applyTheme(theme) {
-
-  document.body.classList.toggle(
-    "light",
-    theme === "light"
-  );
-
-  $("#themeSelect").value =
-    theme;
-
-  $("#themeButton").textContent =
-    theme === "light"
-      ? "☀"
-      : "☾";
-
-  localStorage.setItem(
-    STORAGE_KEYS.theme,
-    theme
-  );
+  return String(
+    value || "video"
+  )
+    .replace(
+      /[<>:"/\\|?*]+/g,
+      ""
+    )
+    .trim()
+    .slice(0,120);
 
 }
 
-function toggleTheme() {
-
-  const current =
-    localStorage.getItem(
-      STORAGE_KEYS.theme
-    ) || "dark";
-
-  applyTheme(
-    current === "dark"
-      ? "light"
-      : "dark"
-  );
-
-}
-
-$("#themeButton").addEventListener(
-  "click",
-  toggleTheme
-);
-
-$("#themeSelect").addEventListener(
-  "change",
-  event => {
-
-    applyTheme(
-      event.target.value
-    );
-
-  }
-);
-
-applyTheme(
-  localStorage.getItem(
-    STORAGE_KEYS.theme
-  ) || "dark"
-);
-
-/* ------------------------------------------------------------
-   SETTINGS
------------------------------------------------------------- */
-
-function openSettings() {
-
-  $("#settingsPanel")
-    .classList.add("open");
-
-}
-
-function closeSettings() {
-
-  $("#settingsPanel")
-    .classList.remove("open");
-
-}
-
-$("#settingsButton").addEventListener(
-  "click",
-  openSettings
-);
-
-$("#closeSettings").addEventListener(
-  "click",
-  closeSettings
-);
-
-/* SETTINGS VALUES */
-
-$("#autoplaySetting").checked =
-  settings.autoplay;
-
-$("#rememberPosition").checked =
-  settings.rememberPosition;
-
-$("#autoplaySetting").addEventListener(
-  "change",
-  event => {
-
-    settings.autoplay =
-      event.target.checked;
-
-    localStorage.setItem(
-      STORAGE_KEYS.autoplay,
-      String(settings.autoplay)
-    );
-
-  }
-);
-
-$("#rememberPosition").addEventListener(
-  "change",
-  event => {
-
-    settings.rememberPosition =
-      event.target.checked;
-
-    localStorage.setItem(
-      STORAGE_KEYS.rememberPosition,
-      String(
-        settings.rememberPosition
-      )
-    );
-
-  }
-);
-
-/* ------------------------------------------------------------
-   CLEAR DATA
------------------------------------------------------------- */
-
-$("#clearHistory").addEventListener(
-  "click",
-  () => {
-
-    if (
-      !confirm(
-        "Clear your watch history?"
-      )
-    ) {
-      return;
-    }
-
-    watchHistory = [];
-
-    writeStorage(
-      STORAGE_KEYS.history,
-      watchHistory
-    );
-
-    updateStats();
-    renderVideos();
-    renderContinueWatching();
-
-    showToast(
-      "Watch history cleared"
-    );
-
-  }
-);
-
-$("#clearLater").addEventListener(
-  "click",
-  () => {
-
-    if (
-      !confirm(
-        "Clear your Watch Later list?"
-      )
-    ) {
-      return;
-    }
-
-    watchLater = [];
-
-    writeStorage(
-      STORAGE_KEYS.later,
-      watchLater
-    );
-
-    updateStats();
-    renderVideos();
-
-    showToast(
-      "Watch Later cleared"
-    );
-
-  }
-);
-
-$("#resetData").addEventListener(
-  "click",
-  () => {
-
-    if (
-      !confirm(
-        "Reset all JJ PLAYZ data stored in this browser?"
-      )
-    ) {
-      return;
-    }
-
-    Object.values(
-      STORAGE_KEYS
-    ).forEach(key =>
-      localStorage.removeItem(key)
-    );
-
-    location.reload();
-
-  }
-);
-
-/* ------------------------------------------------------------
-   KEYBOARD SHORTCUTS
------------------------------------------------------------- */
-
-document.addEventListener(
-  "keydown",
-  event => {
-
-    const tag =
-      document.activeElement?.tagName;
-
-    const typing =
-      tag === "INPUT" ||
-      tag === "TEXTAREA" ||
-      tag === "SELECT";
-
-    /* SEARCH */
-
-    if (
-      event.key === "/" &&
-      !typing
-    ) {
-
-      event.preventDefault();
-
-      $("#search").focus();
-
-    }
-
-    /* ESC */
-
-    if (
-      event.key === "Escape"
-    ) {
-
-      if (
-        $("#videoModal")
-          .classList.contains("open")
-      ) {
-
-        closeVideo();
-
-      }
-
-      closeSettings();
-
-    }
-
-    if (!currentVideo) {
-      return;
-    }
-
-    const player =
-      $("#videoPlayer");
-
-    /* SPACE */
-
-    if (
-      event.code === "Space" &&
-      !typing
-    ) {
-
-      event.preventDefault();
-
-      if (player.paused) {
-        player.play();
-      } else {
-        player.pause();
-      }
-
-    }
-
-    /* MUTE */
-
-    if (
-      event.key.toLowerCase() === "m" &&
-      !typing
-    ) {
-
-      player.muted =
-        !player.muted;
-
-    }
-
-    /* FULLSCREEN */
-
-    if (
-      event.key.toLowerCase() === "f" &&
-      !typing
-    ) {
-
-      theaterMode();
-
-    }
-
-    /* NEXT */
-
-    if (
-      event.key === "ArrowRight" &&
-      !typing
-    ) {
-
-      if (
-        event.shiftKey
-      ) {
-
-        openAdjacentVideo(1);
-
-      } else {
-
-        player.currentTime =
-          Math.min(
-            player.duration || 0,
-            player.currentTime + 5
-          );
-
-      }
-
-    }
-
-    /* PREVIOUS */
-
-    if (
-      event.key === "ArrowLeft" &&
-      !typing
-    ) {
-
-      if (
-        event.shiftKey
-      ) {
-
-        openAdjacentVideo(-1);
-
-      } else {
-
-        player.currentTime =
-          Math.max(
-            0,
-            player.currentTime - 5
-          );
-
-      }
-
-    }
-
-  }
-);
-
-/* ------------------------------------------------------------
-   URL VIDEO DEEP LINK
------------------------------------------------------------- */
-
-function openVideoFromURL() {
-
-  const params =
-    new URLSearchParams(
-      location.search
-    );
-
-  const requested =
-    params.get("video");
-
-  if (!requested) {
-    return;
-  }
-
-  const video =
-    videos.find(
-      item =>
-        String(item.id) ===
-        String(requested)
-    );
-
-  if (video) {
-    openVideo(video);
-  }
-
-}
-
-/* ------------------------------------------------------------
-   INIT
------------------------------------------------------------- */
-
-loadVideos().then(
-  openVideoFromURL
-);
+/* =========================================================
+   START
+========================================================= */
+
+loadVideos();
 
 </script>
 
 </body>
 </html>
+```
