@@ -2,3278 +2,3076 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#08080d" />
-
-  <title>JJ PLAYZ — Enter the Chaos</title>
-  <meta
-    name="description"
-    content="JJ PLAYZ — gaming, chaos, clips, community and unforgettable moments."
-  />
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap"
-    rel="stylesheet"
-  >
-
-  <style>
-    :root {
-      --bg: #07070b;
-      --bg-2: #0d0d14;
-      --card: rgba(255,255,255,.055);
-      --card-hover: rgba(255,255,255,.09);
-      --border: rgba(255,255,255,.10);
-      --text: #f8f8ff;
-      --muted: #9696a9;
-
-      --accent: #8b5cf6;
-      --accent-2: #ec4899;
-      --cyan: #22d3ee;
-      --green: #22c55e;
-      --yellow: #facc15;
-      --red: #ef4444;
-
-      --shadow:
-        0 25px 80px rgba(0,0,0,.45);
-
-      --radius: 22px;
-      --nav-height: 76px;
-
-      --max-width: 1280px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Inter, sans-serif;
-      background:
-        radial-gradient(circle at 15% 10%, rgba(139,92,246,.16), transparent 28%),
-        radial-gradient(circle at 85% 20%, rgba(236,72,153,.12), transparent 25%),
-        radial-gradient(circle at 50% 100%, rgba(34,211,238,.08), transparent 30%),
-        var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-    }
-
-    body.light {
-      --bg: #f5f5f9;
-      --bg-2: #ffffff;
-      --card: rgba(0,0,0,.045);
-      --card-hover: rgba(0,0,0,.07);
-      --border: rgba(0,0,0,.09);
-      --text: #11111a;
-      --muted: #666675;
-    }
-
-    body.modal-open {
-      overflow: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button,
-    input,
-    select {
-      font: inherit;
-    }
-
-    button {
-      border: 0;
-      cursor: pointer;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    ::selection {
-      background: var(--accent);
-      color: white;
-    }
-
-    /* =========================
-       BACKGROUND FX
-    ========================= */
-
-    .background-grid {
-      position: fixed;
-      inset: 0;
-      z-index: -5;
-      pointer-events: none;
-      opacity: .25;
-      background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-      background-size: 55px 55px;
-      mask-image: linear-gradient(to bottom, black, transparent 80%);
-    }
-
-    .orb {
-      position: fixed;
-      width: 400px;
-      height: 400px;
-      border-radius: 50%;
-      filter: blur(100px);
-      pointer-events: none;
-      z-index: -4;
-      opacity: .13;
-    }
-
-    .orb.one {
-      background: var(--accent);
-      top: -180px;
-      left: -120px;
-      animation: floatOrb 12s ease-in-out infinite;
-    }
-
-    .orb.two {
-      background: var(--accent-2);
-      right: -150px;
-      top: 30%;
-      animation: floatOrb 15s ease-in-out infinite reverse;
-    }
-
-    .orb.three {
-      background: var(--cyan);
-      bottom: -200px;
-      left: 30%;
-      animation: floatOrb 18s ease-in-out infinite;
-    }
-
-    @keyframes floatOrb {
-      0%,100% {
-        transform: translate(0,0) scale(1);
-      }
-      50% {
-        transform: translate(50px,-40px) scale(1.15);
-      }
-    }
-
-    #particles {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -2;
-    }
-
-    #cursorGlow {
-      position: fixed;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: -1;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(139,92,246,.12), transparent 65%);
-      mix-blend-mode: screen;
-    }
-
-    /* =========================
-       NAVBAR
-    ========================= */
-
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: var(--nav-height);
-      z-index: 1000;
-      backdrop-filter: blur(18px);
-      background: rgba(7,7,11,.65);
-      border-bottom: 1px solid transparent;
-      transition: .3s;
-    }
-
-    body.light .nav {
-      background: rgba(245,245,249,.75);
-    }
-
-    .nav.scrolled {
-      border-bottom-color: var(--border);
-      box-shadow: 0 10px 50px rgba(0,0,0,.15);
-    }
-
-    .nav-inner {
-      width: min(var(--max-width), calc(100% - 40px));
-      height: 100%;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 1.1rem;
-      font-weight: 800;
-      letter-spacing: -.04em;
-    }
-
-    .brand-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background:
-        linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow:
-        0 0 30px rgba(139,92,246,.35);
-      font-size: .9rem;
-    }
-
-    /* Optional repository logo:
-       Put your logo here:
-       ./assets/logo.png
-    */
-    .brand-logo {
-      width: 38px;
-      height: 38px;
-      object-fit: contain;
-      border-radius: 10px;
-      display: none;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .nav-links a {
-      padding: 10px 14px;
-      color: var(--muted);
-      font-size: .88rem;
-      border-radius: 10px;
-      transition: .25s;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--text);
-      background: var(--card);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .icon-btn {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      background: var(--card);
-      color: var(--text);
-      border: 1px solid var(--border);
-      transition: .25s;
-    }
-
-    .icon-btn:hover {
-      transform: translateY(-2px);
-      background: var(--card-hover);
-    }
-
-    .menu-btn {
-      display: none;
-    }
-
-    /* =========================
-       HERO
-    ========================= */
-
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: calc(var(--nav-height) + 70px) 20px 80px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-inner {
-      width: min(var(--max-width), 100%);
-      margin: auto;
-      text-align: center;
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      padding: 8px 13px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.045);
-      backdrop-filter: blur(15px);
-      border-radius: 999px;
-      font-size: .78rem;
-      color: var(--muted);
-      margin-bottom: 25px;
-      animation: heroIn .8s both;
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 15px var(--green);
-      animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-      50% {
-        opacity: .35;
-        transform: scale(.75);
-      }
-    }
-
-    .hero h1 {
-      max-width: 1000px;
-      margin: auto;
-      font-family: "Space Grotesk", sans-serif;
-      font-size: clamp(4rem, 11vw, 9rem);
-      line-height: .82;
-      letter-spacing: -.075em;
-      font-weight: 800;
-      animation: heroIn .8s .1s both;
-    }
-
-    .hero h1 span {
-      display: inline-block;
-      background: linear-gradient(
-        110deg,
-        #fff,
-        #b9a7ff 35%,
-        #ff7ccf 65%,
-        #fff
-      );
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: gradientMove 4s linear infinite;
-    }
-
-    @keyframes gradientMove {
-      to {
-        background-position: 200% center;
-      }
-    }
-
-    .hero p {
-      max-width: 680px;
-      margin: 30px auto 0;
-      color: var(--muted);
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      line-height: 1.7;
-      animation: heroIn .8s .2s both;
-    }
-
-    .hero-buttons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 35px;
-      animation: heroIn .8s .3s both;
-    }
-
-    @keyframes heroIn {
-      from {
-        opacity: 0;
-        transform: translateY(25px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .btn {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      padding: 14px 20px;
-      border-radius: 13px;
-      font-weight: 700;
-      font-size: .9rem;
-      transition: .25s;
-      overflow: hidden;
-    }
-
-    .btn::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      transform: translateX(-110%);
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.22),
-        transparent
-      );
-      transition: .5s;
-    }
-
-    .btn:hover::after {
-      transform: translateX(110%);
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-    }
-
-    .btn-primary {
-      color: white;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 15px 40px rgba(139,92,246,.25);
-    }
-
-    .btn-secondary {
-      color: var(--text);
-      background: var(--card);
-      border: 1px solid var(--border);
-    }
-
-    /* =========================
-       HERO FEATURE
-    ========================= */
-
-    .hero-feature {
-      width: min(1050px, 100%);
-      margin: 65px auto 0;
-      position: relative;
-      animation: heroIn .9s .4s both;
-    }
-
-    .hero-feature-card {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      background: rgba(255,255,255,.045);
-      box-shadow: var(--shadow);
-      min-height: 380px;
-    }
-
-    .hero-feature-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(
-          90deg,
-          rgba(0,0,0,.85),
-          rgba(0,0,0,.45),
-          rgba(0,0,0,.1)
-        ),
-        linear-gradient(135deg, #25154c, #4d1639);
-    }
-
-    .hero-feature-content {
-      position: relative;
-      min-height: 380px;
-      padding: 55px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: flex-start;
-      text-align: left;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.09);
-      border: 1px solid rgba(255,255,255,.12);
-      color: #ddd;
-      font-size: .72rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      margin-bottom: 15px;
-    }
-
-    .hero-feature h2 {
-      max-width: 700px;
-      font-family: "Space Grotesk";
-      font-size: clamp(2rem, 5vw, 4rem);
-      line-height: .95;
-      letter-spacing: -.055em;
-    }
-
-    .hero-feature p {
-      max-width: 620px;
-      margin: 15px 0 22px;
-      color: rgba(255,255,255,.65);
-    }
-
-    /* =========================
-       SECTIONS
-    ========================= */
-
-    section {
-      width: min(var(--max-width), calc(100% - 40px));
-      margin: auto;
-      padding: 110px 0;
-    }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 30px;
-      margin-bottom: 35px;
-    }
-
-    .section-kicker {
-      color: var(--accent-2);
-      font-size: .75rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .14em;
-      margin-bottom: 10px;
-    }
-
-    .section-title {
-      font-family: "Space Grotesk";
-      font-size: clamp(2.4rem, 5vw, 4.5rem);
-      line-height: .95;
-      letter-spacing: -.06em;
-    }
-
-    .section-description {
-      color: var(--muted);
-      line-height: 1.7;
-      max-width: 500px;
-    }
-
-    /* =========================
-       STATS
-    ========================= */
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .stat {
-      padding: 25px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: var(--card);
-      backdrop-filter: blur(14px);
-      transition: .3s;
-    }
-
-    .stat:hover {
-      transform: translateY(-6px);
-      background: var(--card-hover);
-    }
-
-    .stat-value {
-      font-family: "Space Grotesk";
-      font-size: 2.3rem;
-      font-weight: 800;
-      letter-spacing: -.06em;
-    }
-
-    .stat-label {
-      color: var(--muted);
-      margin-top: 5px;
-      font-size: .85rem;
-    }
-
-    /* =========================
-       MARQUEE
-    ========================= */
-
-    .marquee-wrap {
-      overflow: hidden;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 18px 0;
-      background: rgba(255,255,255,.02);
-    }
-
-    .marquee {
-      display: flex;
-      width: max-content;
-      animation: marquee 25s linear infinite;
-    }
-
-    .marquee span {
-      font-family: "Space Grotesk";
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: rgba(255,255,255,.3);
-      margin-right: 45px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
-
-    @keyframes marquee {
-      to {
-        transform: translateX(-50%);
-      }
-    }
-
-    /* =========================
-       VIDEO TOOLBAR
-    ========================= */
-
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 28px;
-    }
-
-    .search {
-      flex: 1;
-      min-width: 220px;
-      position: relative;
-    }
-
-    .search input {
-      width: 100%;
-      padding: 14px 16px 14px 44px;
-      border-radius: 13px;
-      border: 1px solid var(--border);
-      outline: none;
-      color: var(--text);
-      background: var(--card);
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-    }
-
-    .filter {
-      padding: 14px 16px;
-      border-radius: 13px;
-      border: 1px solid var(--border);
-      color: var(--text);
-      background: var(--card);
-      outline: none;
-    }
-
-    /* =========================
-       VIDEO GRID
-    ========================= */
-
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .video-card {
-      border: 1px solid var(--border);
-      background: var(--card);
-      border-radius: var(--radius);
-      overflow: hidden;
-      transition: .35s;
-      cursor: pointer;
-    }
-
-    .video-card:hover {
-      transform: translateY(-8px);
-      background: var(--card-hover);
-      border-color: rgba(139,92,246,.4);
-      box-shadow: 0 20px 60px rgba(0,0,0,.25);
-    }
-
-    .video-thumb {
-      aspect-ratio: 16 / 9;
-      position: relative;
-      overflow: hidden;
-      background:
-        linear-gradient(135deg, #19102d, #35142b);
-    }
-
-    .video-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: .5s;
-    }
-
-    .video-card:hover .video-thumb img {
-      transform: scale(1.07);
-    }
-
-    .play {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      background: rgba(0,0,0,.12);
-    }
-
-    .play span {
-      width: 58px;
-      height: 58px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: rgba(255,255,255,.9);
-      color: #111;
-      font-size: 1.2rem;
-      transform: scale(.8);
-      opacity: 0;
-      transition: .3s;
-    }
-
-    .video-card:hover .play span {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .video-badge {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      padding: 6px 9px;
-      border-radius: 8px;
-      background: rgba(0,0,0,.7);
-      backdrop-filter: blur(8px);
-      font-size: .68rem;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    .video-duration {
-      position: absolute;
-      right: 12px;
-      bottom: 12px;
-      padding: 5px 7px;
-      border-radius: 6px;
-      background: rgba(0,0,0,.75);
-      font-size: .68rem;
-    }
-
-    .video-info {
-      padding: 18px;
-    }
-
-    .video-title {
-      font-weight: 800;
-      line-height: 1.3;
-    }
-
-    .video-meta {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      color: var(--muted);
-      font-size: .75rem;
-      margin-top: 10px;
-    }
-
-    /* =========================
-       XP / PLAYER
-    ========================= */
-
-    .player-panel {
-      display: grid;
-      grid-template-columns: 1.3fr .7fr;
-      gap: 18px;
-    }
-
-    .xp-card,
-    .live-card {
-      border: 1px solid var(--border);
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 28px;
-    }
-
-    .xp-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-
-    .level {
-      font-family: "Space Grotesk";
-      font-size: 2rem;
-      font-weight: 800;
-    }
-
-    .xp-number {
-      color: var(--accent-2);
-      font-weight: 800;
-    }
-
-    .xp-track {
-      height: 13px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: rgba(255,255,255,.07);
-    }
-
-    .xp-fill {
-      width: 72%;
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      box-shadow: 0 0 25px rgba(139,92,246,.45);
-      transition: width 1s cubic-bezier(.2,.8,.2,1);
-    }
-
-    .xp-small {
-      display: flex;
-      justify-content: space-between;
-      color: var(--muted);
-      font-size: .75rem;
-      margin-top: 9px;
-    }
-
-    .live-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      margin-bottom: 18px;
-    }
-
-    .live-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--red);
-      border-radius: 50%;
-      box-shadow: 0 0 15px var(--red);
-    }
-
-    .chat {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      max-height: 190px;
-      overflow: hidden;
-    }
-
-    .message {
-      font-size: .82rem;
-      color: var(--muted);
-    }
-
-    .message b {
-      color: var(--text);
-    }
-
-    /* =========================
-       ACHIEVEMENTS
-    ========================= */
-
-    .achievements {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .achievement {
-      padding: 22px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      border-radius: var(--radius);
-      transition: .3s;
-    }
-
-    .achievement:hover {
-      transform: translateY(-5px);
-    }
-
-    .achievement-icon {
-      font-size: 2rem;
-      margin-bottom: 15px;
-      filter: grayscale(1);
-      opacity: .45;
-    }
-
-    .achievement.unlocked .achievement-icon {
-      filter: none;
-      opacity: 1;
-    }
-
-    .achievement h3 {
-      font-size: .95rem;
-    }
-
-    .achievement p {
-      color: var(--muted);
-      font-size: .76rem;
-      margin-top: 6px;
-      line-height: 1.5;
-    }
-
-    /* =========================
-       COMMUNITY
-    ========================= */
-
-    .community-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .community-card {
-      padding: 26px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      border-radius: var(--radius);
-      min-height: 190px;
-    }
-
-    .community-icon {
-      font-size: 1.8rem;
-      margin-bottom: 18px;
-    }
-
-    .community-card h3 {
-      font-family: "Space Grotesk";
-      font-size: 1.25rem;
-    }
-
-    .community-card p {
-      margin-top: 10px;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: .9rem;
-    }
-
-    /* =========================
-       CTA
-    ========================= */
-
-    .cta {
-      text-align: center;
-      padding: 130px 30px;
-      border: 1px solid var(--border);
-      border-radius: 32px;
-      overflow: hidden;
-      position: relative;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(139,92,246,.2), transparent 45%),
-        var(--card);
-    }
-
-    .cta h2 {
-      font-family: "Space Grotesk";
-      font-size: clamp(2.8rem, 7vw, 6rem);
-      line-height: .9;
-      letter-spacing: -.065em;
-    }
-
-    .cta p {
-      max-width: 600px;
-      margin: 22px auto;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    footer {
-      width: min(var(--max-width), calc(100% - 40px));
-      margin: auto;
-      padding: 45px 0;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      color: var(--muted);
-      font-size: .8rem;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 18px;
-    }
-
-    .footer-links a:hover {
-      color: var(--text);
-    }
-
-    /* =========================
-       MODAL
-    ========================= */
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      z-index: 2000;
-      display: none;
-      place-items: center;
-      padding: 20px;
-      background: rgba(0,0,0,.82);
-      backdrop-filter: blur(15px);
-    }
-
-    .modal.open {
-      display: grid;
-    }
-
-    .modal-box {
-      width: min(1050px, 100%);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      background: #0d0d14;
-      overflow: hidden;
-      box-shadow: 0 40px 120px rgba(0,0,0,.65);
-      animation: modalIn .3s both;
-    }
-
-    @keyframes modalIn {
-      from {
-        opacity: 0;
-        transform: scale(.94) translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    .modal-video {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: #000;
-    }
-
-    .modal-video iframe,
-    .modal-video video {
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    .modal-info {
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .modal-info h3 {
-      font-family: "Space Grotesk";
-      font-size: 1.3rem;
-    }
-
-    .close-modal {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      color: white;
-      background: rgba(255,255,255,.08);
-    }
-
-    /* =========================
-       COMMAND PALETTE
-    ========================= */
-
-    .command {
-      position: fixed;
-      inset: 0;
-      z-index: 3000;
-      display: none;
-      align-items: flex-start;
-      justify-content: center;
-      padding-top: 15vh;
-      background: rgba(0,0,0,.65);
-      backdrop-filter: blur(12px);
-    }
-
-    .command.open {
-      display: flex;
-    }
-
-    .command-box {
-      width: min(650px, calc(100% - 30px));
-      border: 1px solid var(--border);
-      background: #111119;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .command-input {
-      width: 100%;
-      padding: 20px;
-      border: 0;
-      outline: 0;
-      color: white;
-      background: transparent;
-      font-size: 1rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .command-list {
-      padding: 8px;
-    }
-
-    .command-item {
-      padding: 13px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: space-between;
-      color: #ddd;
-      cursor: pointer;
-    }
-
-    .command-item:hover {
-      background: rgba(255,255,255,.07);
-    }
-
-    .shortcut {
-      color: #777;
-      font-size: .72rem;
-    }
-
-    /* =========================
-       TOAST
-    ========================= */
-
-    #toast-container {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      z-index: 5000;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .toast {
-      min-width: 260px;
-      max-width: 360px;
-      padding: 15px 17px;
-      border: 1px solid var(--border);
-      background: rgba(20,20,28,.9);
-      backdrop-filter: blur(18px);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      animation: toastIn .35s both;
-      font-size: .82rem;
-    }
-
-    .toast strong {
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .toast p {
-      color: var(--muted);
-    }
-
-    @keyframes toastIn {
-      from {
-        opacity: 0;
-        transform: translateX(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    /* =========================
-       BACK TO TOP
-    ========================= */
-
-    #topBtn {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      width: 45px;
-      height: 45px;
-      border-radius: 13px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: var(--text);
-      z-index: 900;
-      opacity: 0;
-      transform: translateY(20px);
-      pointer-events: none;
-      transition: .3s;
-    }
-
-    #topBtn.visible {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 1000px) {
-      .video-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .achievements {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .player-panel {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .nav-links {
-        position: fixed;
-        top: calc(var(--nav-height) + 10px);
-        left: 20px;
-        right: 20px;
-        padding: 10px;
-        flex-direction: column;
-        align-items: stretch;
-        background: rgba(15,15,22,.95);
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        backdrop-filter: blur(20px);
-        transform: translateY(-20px);
-        opacity: 0;
-        pointer-events: none;
-        transition: .25s;
-      }
-
-      .nav-links.open {
-        transform: translateY(0);
-        opacity: 1;
-        pointer-events: auto;
-      }
-
-      .nav-links a {
-        padding: 14px;
-      }
-
-      .menu-btn {
-        display: block;
-      }
-
-      .nav-actions .desktop-only {
-        display: none;
-      }
-
-      .hero {
-        padding-top: 120px;
-      }
-
-      .hero h1 {
-        font-size: clamp(3.6rem, 18vw, 7rem);
-      }
-
-      .hero-feature-content {
-        min-height: 340px;
-        padding: 28px;
-      }
-
-      .section-head {
-        display: block;
-      }
-
-      .section-description {
-        margin-top: 15px;
-      }
-
-      .video-grid,
-      .community-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .stats {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      footer {
-        flex-direction: column;
-      }
-    }
-
-    @media (max-width: 480px) {
-      section {
-        width: min(100% - 28px, var(--max-width));
-        padding: 80px 0;
-      }
-
-      .hero {
-        padding-left: 14px;
-        padding-right: 14px;
-      }
-
-      .stats,
-      .achievements {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-buttons {
-        flex-direction: column;
-      }
-
-      .hero-buttons .btn {
-        width: 100%;
-      }
-
-      .cta {
-        padding: 85px 20px;
-      }
-    }
-
-    /* =========================
-       REDUCED MOTION
-    ========================= */
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: .001ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: .001ms !important;
-      }
-    }
-
-    /* =========================
-       GLITCH EASTER EGG
-    ========================= */
-
-    .glitch-mode {
-      animation: screenShake .08s infinite;
-    }
-
-    @keyframes screenShake {
-      0% { transform: translate(0); }
-      25% { transform: translate(2px,-1px); }
-      50% { transform: translate(-2px,1px); }
-      75% { transform: translate(1px,2px); }
-      100% { transform: translate(0); }
-    }
-
-    .chaos-mode {
-      filter: saturate(1.5) contrast(1.1);
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07070b">
+<meta name="description" content="JJ PLAYZ — Enter the Chaos.">
+<link rel="manifest" href="./manifest.json">
+
+<title>JJ PLAYZ — Enter the Chaos</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#06060a;
+  --bg2:#0b0b12;
+  --panel:rgba(17,17,27,.72);
+  --panel2:rgba(255,255,255,.055);
+  --text:#f7f7fb;
+  --muted:#9696aa;
+  --line:rgba(255,255,255,.09);
+  --accent:#8b5cf6;
+  --accent2:#ec4899;
+  --good:#22c55e;
+  --warning:#f59e0b;
+  --danger:#ef4444;
+  --radius:22px;
+  --shadow:0 20px 70px rgba(0,0,0,.45);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 15% 15%,rgba(139,92,246,.16),transparent 28%),
+    radial-gradient(circle at 85% 30%,rgba(236,72,153,.10),transparent 25%),
+    var(--bg);
+  font-family:Inter,sans-serif;
+}
+
+body.light{
+  --bg:#f4f4f8;
+  --bg2:#fff;
+  --panel:rgba(255,255,255,.8);
+  --panel2:rgba(0,0,0,.045);
+  --text:#111118;
+  --muted:#666676;
+  --line:rgba(0,0,0,.1);
+}
+
+body.amoled{
+  --bg:#000;
+  --bg2:#000;
+  --panel:rgba(10,10,10,.9);
+}
+
+button,
+input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+::-webkit-scrollbar{
+  width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(var(--accent),var(--accent2));
+  border-radius:20px;
+}
+
+/* LOADER */
+
+#loader{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  display:grid;
+  place-items:center;
+  background:#050507;
+  transition:.7s ease;
+}
+
+#loader.hide{
+  opacity:0;
+  pointer-events:none;
+}
+
+.loader-inner{
+  text-align:center;
+}
+
+.loader-logo{
+  width:86px;
+  height:86px;
+  margin:auto auto 22px;
+  display:grid;
+  place-items:center;
+  border-radius:24px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  font-size:34px;
+  font-weight:900;
+  box-shadow:0 0 80px rgba(139,92,246,.5);
+  animation:pulse 1.2s infinite;
+}
+
+.loader-bar{
+  width:240px;
+  height:5px;
+  margin:20px auto;
+  overflow:hidden;
+  border-radius:20px;
+  background:#20202a;
+}
+
+.loader-progress{
+  width:0;
+  height:100%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  animation:load 1.8s forwards;
+}
+
+@keyframes load{
+  to{width:100%}
+}
+
+@keyframes pulse{
+  50%{transform:scale(1.08)}
+}
+
+/* BACKGROUND */
+
+.grid{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  opacity:.24;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:45px 45px;
+  mask-image:linear-gradient(to bottom,black,transparent 85%);
+}
+
+.orb{
+  position:fixed;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  filter:blur(100px);
+  opacity:.13;
+  z-index:-2;
+  pointer-events:none;
+}
+
+.orb.one{
+  background:var(--accent);
+  top:-180px;
+  left:-150px;
+}
+
+.orb.two{
+  background:var(--accent2);
+  right:-160px;
+  top:35%;
+}
+
+.orb.three{
+  background:#06b6d4;
+  bottom:-220px;
+  left:35%;
+}
+
+#particles{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+}
+
+.cursor-glow{
+  position:fixed;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(139,92,246,.15),transparent 65%);
+  z-index:0;
+}
+
+/* NAV */
+
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:1000;
+  padding:15px 5%;
+  background:rgba(6,6,10,.58);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
+}
+
+body.light nav{
+  background:rgba(255,255,255,.7);
+}
+
+.nav-inner{
+  max-width:1450px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:900;
+  letter-spacing:-.8px;
+}
+
+.brand-mark{
+  width:40px;
+  height:40px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 0 25px rgba(139,92,246,.35);
+}
+
+.nav-links{
+  display:flex;
+  gap:6px;
+}
+
+.nav-links a,
+.nav-btn{
+  border:0;
+  background:none;
+  color:var(--muted);
+  padding:10px 14px;
+  border-radius:12px;
+  transition:.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active,
+.nav-btn:hover{
+  color:var(--text);
+  background:var(--panel2);
+}
+
+.nav-actions{
+  display:flex;
+  gap:8px;
+}
+
+.icon-btn{
+  width:42px;
+  height:42px;
+  border:1px solid var(--line);
+  background:var(--panel);
+  color:var(--text);
+  border-radius:12px;
+}
+
+.mobile-menu{
+  display:none;
+}
+
+/* HUD */
+
+.hud{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:900;
+  width:285px;
+  padding:17px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:rgba(10,10,16,.82);
+  backdrop-filter:blur(20px);
+  box-shadow:var(--shadow);
+}
+
+.hud-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:13px;
+}
+
+.live-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  display:inline-block;
+  background:var(--good);
+  box-shadow:0 0 12px var(--good);
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{
+  50%{opacity:.3}
+}
+
+.xp-track{
+  height:8px;
+  overflow:hidden;
+  border-radius:20px;
+  background:#24242d;
+}
+
+.xp-fill{
+  width:0;
+  height:100%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transition:1s ease;
+}
+
+.hud-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:12px;
+}
+
+.hud-stat{
+  padding:8px;
+  border-radius:10px;
+  background:var(--panel2);
+  text-align:center;
+}
+
+.hud-stat b{
+  display:block;
+}
+
+.hud-stat span{
+  font-size:10px;
+  color:var(--muted);
+}
+
+/* COMMON */
+
+.container{
+  width:min(1380px,90%);
+  margin:auto;
+}
+
+section{
+  padding:105px 0;
+}
+
+.section-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:30px;
+  margin-bottom:35px;
+}
+
+.eyebrow{
+  color:#c4b5fd;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+h1,h2,h3{
+  font-family:"Space Grotesk",sans-serif;
+}
+
+.section-head h2{
+  margin-top:8px;
+  font-size:clamp(32px,5vw,62px);
+  letter-spacing:-2px;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+/* HERO */
+
+.hero{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding-top:130px;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:70px;
+  align-items:center;
+}
+
+.hero h1{
+  max-width:850px;
+  font-size:clamp(55px,8vw,120px);
+  line-height:.9;
+  letter-spacing:-7px;
+}
+
+.gradient{
+  background:linear-gradient(90deg,#fff,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.hero-copy{
+  max-width:650px;
+  margin:28px 0;
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.8;
+}
+
+.hero-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.btn{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px 19px;
+  color:var(--text);
+  background:var(--panel);
+  transition:.25s;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+  border-color:rgba(139,92,246,.55);
+}
+
+.btn.primary{
+  border:0;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 10px 35px rgba(139,92,246,.28);
+}
+
+.hero-card{
+  position:relative;
+  min-height:440px;
+  overflow:hidden;
+  padding:25px;
+  border:1px solid var(--line);
+  border-radius:30px;
+  background:
+    linear-gradient(145deg,rgba(139,92,246,.2),rgba(236,72,153,.05)),
+    var(--panel);
+  box-shadow:var(--shadow);
+}
+
+.hero-card::before{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:260px;
+  right:-80px;
+  top:-90px;
+  border-radius:50%;
+  background:var(--accent);
+  filter:blur(80px);
+  opacity:.3;
+}
+
+.hero-card h3{
+  position:absolute;
+  bottom:25px;
+  left:25px;
+  font-size:36px;
+  max-width:360px;
+}
+
+.scanlines{
+  position:absolute;
+  inset:0;
+  opacity:.08;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent 0 4px,
+    #fff 5px
+  );
+  pointer-events:none;
+}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.stat-card{
+  padding:27px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:var(--panel);
+}
+
+.stat-number{
+  font-size:42px;
+  font-weight:900;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* MARQUEE */
+
+.marquee{
+  overflow:hidden;
+  border-block:1px solid var(--line);
+  background:var(--panel2);
+}
+
+.marquee-track{
+  width:max-content;
+  display:flex;
+  gap:50px;
+  padding:17px 0;
+  animation:marquee 25s linear infinite;
+}
+
+@keyframes marquee{
+  to{transform:translateX(-50%)}
+}
+
+/* TOOLBAR */
+
+.toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:25px;
+}
+
+.search{
+  flex:1;
+  min-width:220px;
+  padding:14px 17px;
+  color:var(--text);
+  border:1px solid var(--line);
+  outline:none;
+  border-radius:14px;
+  background:var(--panel);
+}
+
+.filter{
+  padding:13px 15px;
+  color:var(--text);
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--panel);
+}
+
+/* VIDEO GRID */
+
+.video-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.video-card{
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:var(--panel);
+  transition:.3s;
+}
+
+.video-card:hover{
+  transform:translateY(-7px);
+  border-color:rgba(139,92,246,.5);
+  box-shadow:0 20px 55px rgba(0,0,0,.3);
+}
+
+.thumbnail{
+  position:relative;
+  aspect-ratio:16/9;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 25% 30%,rgba(139,92,246,.45),transparent 35%),
+    radial-gradient(circle at 75% 70%,rgba(236,72,153,.3),transparent 35%),
+    #14141d;
+}
+
+.thumbnail img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.play{
+  width:60px;
+  height:60px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(255,255,255,.3);
+  border-radius:50%;
+  color:#fff;
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(10px);
+  transition:.2s;
+}
+
+.video-card:hover .play{
+  transform:scale(1.15);
+}
+
+.video-info{
+  padding:19px;
+}
+
+.video-info h3{
+  font-size:19px;
+}
+
+.video-meta{
+  display:flex;
+  justify-content:space-between;
+  margin-top:12px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.card-actions{
+  display:flex;
+  gap:7px;
+  margin-top:15px;
+}
+
+.small-btn{
+  flex:1;
+  padding:9px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  color:var(--text);
+  background:var(--panel2);
+}
+
+/* FEATURE GRID */
+
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.feature{
+  padding:28px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:var(--panel);
+}
+
+.feature-icon{
+  font-size:35px;
+  margin-bottom:20px;
+}
+
+.feature h3{
+  margin-bottom:10px;
+  font-size:22px;
+}
+
+.feature p{
+  color:var(--muted);
+  line-height:1.7;
+}
+
+/* QUESTS */
+
+.quest-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.quest{
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:var(--panel);
+}
+
+.quest-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.quest-progress{
+  height:7px;
+  margin-top:18px;
+  overflow:hidden;
+  border-radius:10px;
+  background:#24242d;
+}
+
+.quest-progress span{
+  display:block;
+  width:0;
+  height:100%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+}
+
+/* ACHIEVEMENTS */
+
+.achievement-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:12px;
+}
+
+.badge{
+  min-height:145px;
+  display:grid;
+  place-items:center;
+  padding:15px;
+  text-align:center;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:var(--panel);
+  transition:.25s;
+}
+
+.badge.locked{
+  filter:grayscale(1);
+  opacity:.35;
+}
+
+.badge:hover{
+  transform:translateY(-4px);
+}
+
+.badge-icon{
+  font-size:36px;
+}
+
+/* LEADERBOARD */
+
+.leaderboard{
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:var(--panel);
+}
+
+.player-row{
+  display:grid;
+  grid-template-columns:55px 1fr 100px 100px;
+  align-items:center;
+  gap:15px;
+  padding:17px 20px;
+  border-bottom:1px solid var(--line);
+}
+
+.player-row:last-child{
+  border-bottom:0;
+}
+
+.rank{
+  font-size:20px;
+  font-weight:900;
+}
+
+.player-name{
+  font-weight:800;
+}
+
+.player-sub{
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* RAGE */
+
+.rage-card{
+  padding:30px;
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:var(--panel);
+}
+
+.rage-meter{
+  height:25px;
+  overflow:hidden;
+  margin:20px 0;
+  border-radius:20px;
+  background:#22222c;
+}
+
+.rage-fill{
+  width:37%;
+  height:100%;
+  background:linear-gradient(90deg,#22c55e,#f59e0b,#ef4444);
+  transition:.5s;
+}
+
+/* COMMUNITY */
+
+.community-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.community{
+  padding:23px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:var(--panel);
+}
+
+.community-header{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.avatar{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  font-weight:900;
+}
+
+.community p{
+  margin-top:16px;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* MINI GAME */
+
+.game{
+  position:relative;
+  height:450px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:
+    radial-gradient(circle at center,rgba(139,92,246,.14),transparent 50%),
+    #07070c;
+  box-shadow:var(--shadow);
+}
+
+.game-ui{
+  position:absolute;
+  z-index:4;
+  top:18px;
+  left:18px;
+  right:18px;
+  display:flex;
+  justify-content:space-between;
+}
+
+.game-score{
+  padding:10px 14px;
+  border-radius:12px;
+  background:rgba(0,0,0,.5);
+}
+
+.game-player{
+  position:absolute;
+  width:35px;
+  height:35px;
+  left:50%;
+  bottom:30px;
+  transform:translateX(-50%);
+  border-radius:9px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 0 25px rgba(139,92,246,.7);
+}
+
+.hazard{
+  position:absolute;
+  top:-40px;
+  width:24px;
+  height:24px;
+  border-radius:5px;
+  background:#ef4444;
+  box-shadow:0 0 20px rgba(239,68,68,.6);
+}
+
+.coin{
+  position:absolute;
+  top:-30px;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:#facc15;
+  box-shadow:0 0 20px rgba(250,204,21,.6);
+}
+
+.game-over{
+  position:absolute;
+  inset:0;
+  z-index:8;
+  display:none;
+  place-items:center;
+  text-align:center;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(8px);
+}
+
+.game-over.show{
+  display:grid;
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  display:none;
+  place-items:center;
+  padding:25px;
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(15px);
+}
+
+.modal.show{
+  display:grid;
+}
+
+.modal-box{
+  width:min(1050px,100%);
+  max-height:90vh;
+  overflow:auto;
+  border:1px solid var(--line);
+  border-radius:25px;
+  background:#0d0d14;
+  box-shadow:0 30px 100px rgba(0,0,0,.7);
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  padding:17px 20px;
+  border-bottom:1px solid var(--line);
+}
+
+.video-player{
+  width:100%;
+  max-height:65vh;
+  display:block;
+  background:#000;
+}
+
+.modal-body{
+  padding:20px;
+}
+
+/* CHAT */
+
+.chat{
+  height:360px;
+  overflow:auto;
+  padding:17px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:var(--panel);
+}
+
+.chat-msg{
+  margin-bottom:13px;
+}
+
+.chat-user{
+  font-weight:800;
+  font-size:13px;
+}
+
+.chat-text{
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* COMMAND PALETTE */
+
+.command{
+  position:fixed;
+  inset:0;
+  z-index:8000;
+  display:none;
+  place-items:start center;
+  padding-top:15vh;
+  background:rgba(0,0,0,.7);
+  backdrop-filter:blur(12px);
+}
+
+.command.show{
+  display:grid;
+}
+
+.command-box{
+  width:min(650px,90%);
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:#111118;
+  box-shadow:var(--shadow);
+}
+
+.command input{
+  width:100%;
+  padding:15px;
+  border:0;
+  outline:0;
+  color:#fff;
+  background:transparent;
+}
+
+.command-item{
+  padding:13px;
+  border-radius:10px;
+  color:#aaa;
+}
+
+.command-item:hover{
+  color:#fff;
+  background:#20202a;
+}
+
+/* TOAST */
+
+#toast{
+  position:fixed;
+  left:50%;
+  bottom:30px;
+  z-index:10000;
+  transform:translate(-50%,30px);
+  opacity:0;
+  pointer-events:none;
+  padding:14px 19px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#14141d;
+  box-shadow:var(--shadow);
+  transition:.3s;
+}
+
+#toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* FOOTER */
+
+footer{
+  padding:50px 0 110px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+}
+
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+}
+
+/* CHAOS */
+
+body.chaos *{
+  animation-duration:.3s !important;
+}
+
+body.chaos .hero h1{
+  animation:glitch .15s infinite;
+}
+
+body.chaos{
+  filter:saturate(1.35) contrast(1.08);
+}
+
+@keyframes glitch{
+  0%{transform:translate(0)}
+  25%{transform:translate(3px,-2px)}
+  50%{transform:translate(-3px,2px)}
+  75%{transform:translate(2px,1px)}
+  100%{transform:translate(0)}
+}
+
+/* REVEAL */
+
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:.8s ease;
+}
+
+.reveal.visible{
+  opacity:1;
+  transform:none;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1050px){
+  .hero-grid{
+    grid-template-columns:1fr;
+  }
+
+  .video-grid,
+  .feature-grid,
+  .community-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .achievement-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .hud{
+    display:none;
+  }
+}
+
+@media(max-width:750px){
+  section{
+    padding:75px 0;
+  }
+
+  nav{
+    padding:12px 4%;
+  }
+
+  .nav-links{
+    display:none;
+    position:absolute;
+    left:4%;
+    right:4%;
+    top:65px;
+    padding:10px;
+    flex-direction:column;
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:#101018;
+  }
+
+  .nav-links.show{
+    display:flex;
+  }
+
+  .mobile-menu{
+    display:block;
+  }
+
+  .hero{
+    padding-top:120px;
+  }
+
+  .hero h1{
+    font-size:clamp(52px,16vw,80px);
+    letter-spacing:-4px;
+  }
+
+  .video-grid,
+  .feature-grid,
+  .community-grid,
+  .quest-grid{
+    grid-template-columns:1fr;
+  }
+
+  .achievement-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .player-row{
+    grid-template-columns:40px 1fr 70px;
+  }
+
+  .player-row .rank-title{
+    display:none;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="background-grid"></div>
-  <div class="orb one"></div>
-  <div class="orb two"></div>
-  <div class="orb three"></div>
-  <canvas id="particles"></canvas>
-  <div id="cursorGlow"></div>
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">JJ</div>
+    <h2>BOOTING JJ PLAYZ OS</h2>
+    <div class="loader-bar">
+      <div class="loader-progress"></div>
+    </div>
+    <p class="muted">Initializing chaos...</p>
+  </div>
+</div>
 
-  <!-- =========================
-       NAV
-  ========================== -->
+<div class="grid"></div>
+<div class="orb one"></div>
+<div class="orb two"></div>
+<div class="orb three"></div>
+<canvas id="particles"></canvas>
+<div class="cursor-glow" id="cursorGlow"></div>
 
-  <header class="nav" id="navbar">
-    <div class="nav-inner">
+<nav>
+  <div class="nav-inner">
 
-      <a href="#home" class="brand">
-        <!--
-          OPTIONAL LOGO:
-          Put your logo at:
-          ./assets/logo.png
+    <a class="brand" href="#home">
+      <div class="brand-mark">JJ</div>
+      <span>JJ PLAYZ</span>
+    </a>
 
-          Then uncomment this:
-          <img class="brand-logo" src="./assets/logo.png" alt="JJ PLAYZ">
-        -->
+    <div class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#videos">Videos</a>
+      <a href="#quests">Quests</a>
+      <a href="#achievements">Badges</a>
+      <a href="#leaderboard">Rank</a>
+      <a href="#game">Game</a>
+    </div>
 
-        <span class="brand-mark">JJ</span>
-        <span>JJ PLAYZ</span>
-      </a>
+    <div class="nav-actions">
+      <button class="icon-btn" id="commandBtn" title="Command palette">⌘</button>
+      <button class="icon-btn" id="themeBtn" title="Theme">☼</button>
+      <button class="icon-btn mobile-menu" id="mobileBtn">☰</button>
+    </div>
 
-      <nav class="nav-links" id="navLinks">
-        <a href="#home" class="active">Home</a>
-        <a href="#videos">Videos</a>
-        <a href="#progress">Progress</a>
-        <a href="#community">Community</a>
-        <a href="#about">About</a>
-      </nav>
+  </div>
+</nav>
 
-      <div class="nav-actions">
-        <button
-          class="icon-btn desktop-only"
-          id="commandBtn"
-          title="Command palette"
-        >⌘</button>
+<div class="hud">
+  <div class="hud-top">
+    <strong>⚡ JJ PLAYER</strong>
+    <span><i class="live-dot"></i> ONLINE</span>
+  </div>
 
-        <button
-          class="icon-btn"
-          id="themeBtn"
-          title="Toggle theme"
-        >☼</button>
+  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:7px">
+    <span id="levelText">LEVEL 1</span>
+    <span id="xpText">0 / 100 XP</span>
+  </div>
 
-        <button
-          class="icon-btn menu-btn"
-          id="menuBtn"
-          title="Menu"
-        >☰</button>
+  <div class="xp-track">
+    <div class="xp-fill" id="xpFill"></div>
+  </div>
+
+  <div class="hud-stats">
+    <div class="hud-stat">
+      <b id="streakHUD">1</b>
+      <span>STREAK</span>
+    </div>
+    <div class="hud-stat">
+      <b id="rankHUD">#999</b>
+      <span>RANK</span>
+    </div>
+    <div class="hud-stat">
+      <b id="likesHUD">0</b>
+      <span>LIKES</span>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<section class="hero" id="home">
+  <div class="container hero-grid">
+
+    <div class="reveal">
+      <div class="eyebrow">SYSTEM ONLINE // PLAYER DETECTED</div>
+
+      <h1>
+        ENTER<br>
+        THE <span class="gradient">CHAOS.</span>
+      </h1>
+
+      <p class="hero-copy">
+        Welcome to JJ PLAYZ — a gaming universe packed with videos,
+        challenges, achievements, rankings, ridiculous energy,
+        and absolutely unnecessary amounts of chaos.
+      </p>
+
+      <div class="hero-buttons">
+        <a class="btn primary" href="#videos">▶ WATCH CHAOS</a>
+        <a class="btn" href="#game">🎮 PLAY MINI GAME</a>
+        <button class="btn" id="chaosBtn">💀 ACTIVATE CHAOS</button>
+      </div>
+    </div>
+
+    <div class="hero-card reveal">
+      <div class="scanlines"></div>
+
+      <div class="eyebrow">NOW PLAYING</div>
+
+      <div style="margin-top:30px;font-size:80px">🎮</div>
+
+      <div style="margin-top:20px;color:var(--muted)">
+        JJ PLAYZ SYSTEM
+      </div>
+
+      <h3>
+        THE NEXT LEVEL
+        OF GAMING CHAOS.
+      </h3>
+    </div>
+
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>🔥 NEW VIDEOS</span>
+    <span>⚡ LEVEL UP</span>
+    <span>💀 ABSOLUTE CHAOS</span>
+    <span>🎮 PLAY EVERYTHING</span>
+    <span>🏆 CLIMB THE RANKS</span>
+    <span>🔥 NEW VIDEOS</span>
+    <span>⚡ LEVEL UP</span>
+    <span>💀 ABSOLUTE CHAOS</span>
+    <span>🎮 PLAY EVERYTHING</span>
+    <span>🏆 CLIMB THE RANKS</span>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="stats">
+      <div class="stat-card reveal">
+        <div class="stat-number" data-count="127">0</div>
+        <div class="stat-label">VIDEOS</div>
+      </div>
+
+      <div class="stat-card reveal">
+        <div class="stat-number" data-count="8432">0</div>
+        <div class="stat-label">CHAOS POINTS</div>
+      </div>
+
+      <div class="stat-card reveal">
+        <div class="stat-number" data-count="291">0</div>
+        <div class="stat-label">PLAYERS ONLINE</div>
+      </div>
+
+      <div class="stat-card reveal">
+        <div class="stat-number" data-count="99">0</div>
+        <div class="stat-label">RAGE LEVEL</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="videos">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">VIDEO DATABASE</div>
+        <h2>WATCH THE DAMAGE.</h2>
+      </div>
+
+      <div class="muted" id="videoCount">Loading...</div>
+    </div>
+
+    <div class="toolbar reveal">
+      <input
+        class="search"
+        id="search"
+        placeholder="Search videos...  Press /"
+      >
+
+      <select class="filter" id="category">
+        <option value="all">All categories</option>
+        <option value="gaming">Gaming</option>
+        <option value="funny">Funny</option>
+        <option value="shorts">Shorts</option>
+        <option value="challenge">Challenge</option>
+      </select>
+
+      <select class="filter" id="sort">
+        <option value="new">Newest</option>
+        <option value="old">Oldest</option>
+        <option value="views">Most viewed</option>
+        <option value="likes">Most liked</option>
+      </select>
+
+      <button class="btn" id="roulette">🎰 ROULETTE</button>
+    </div>
+
+    <div class="video-grid" id="videoGrid"></div>
+
+  </div>
+</section>
+
+<section id="quests">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">DAILY MISSIONS</div>
+        <h2>QUEST LOG.</h2>
+      </div>
+    </div>
+
+    <div class="quest-grid">
+
+      <div class="quest reveal">
+        <div class="quest-top">
+          <strong>🎬 Watch 3 Videos</strong>
+          <span>+100 XP</span>
+        </div>
+        <p class="muted" style="margin-top:9px">
+          Consume the content.
+        </p>
+        <div class="quest-progress">
+          <span style="width:33%"></span>
+        </div>
+      </div>
+
+      <div class="quest reveal">
+        <div class="quest-top">
+          <strong>❤️ Like 5 Videos</strong>
+          <span>+150 XP</span>
+        </div>
+        <p class="muted" style="margin-top:9px">
+          Spread the chaos.
+        </p>
+        <div class="quest-progress">
+          <span style="width:60%"></span>
+        </div>
+      </div>
+
+      <div class="quest reveal">
+        <div class="quest-top">
+          <strong>🎮 Survive 30 Seconds</strong>
+          <span>+250 XP</span>
+        </div>
+        <p class="muted" style="margin-top:9px">
+          Good luck.
+        </p>
+        <div class="quest-progress">
+          <span style="width:12%"></span>
+        </div>
       </div>
 
     </div>
-  </header>
+  </div>
+</section>
 
-  <!-- =========================
-       HERO
-  ========================== -->
+<section id="achievements">
+  <div class="container">
 
-  <main>
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">COLLECTION</div>
+        <h2>ACHIEVEMENTS.</h2>
+      </div>
+    </div>
 
-    <section class="hero" id="home">
-      <div class="hero-inner">
+    <div class="achievement-grid">
 
-        <div class="status-pill">
-          <span class="status-dot"></span>
-          CHAOS LEVEL: MAXIMUM
+      <div class="badge reveal">
+        <div>
+          <div class="badge-icon">🌱</div>
+          <strong>FIRST STEP</strong>
+          <p class="muted">Visit JJ PLAYZ</p>
+        </div>
+      </div>
+
+      <div class="badge reveal">
+        <div>
+          <div class="badge-icon">🎬</div>
+          <strong>MOVIE MARATHON</strong>
+          <p class="muted">Watch 10 videos</p>
+        </div>
+      </div>
+
+      <div class="badge reveal">
+        <div>
+          <div class="badge-icon">❤️</div>
+          <strong>SUPPORTER</strong>
+          <p class="muted">Like 10 videos</p>
+        </div>
+      </div>
+
+      <div class="badge reveal locked">
+        <div>
+          <div class="badge-icon">🔥</div>
+          <strong>ON FIRE</strong>
+          <p class="muted">7 day streak</p>
+        </div>
+      </div>
+
+      <div class="badge reveal locked">
+        <div>
+          <div class="badge-icon">👑</div>
+          <strong>CHAOS KING</strong>
+          <p class="muted">Reach level 10</p>
+        </div>
+      </div>
+
+      <div class="badge reveal locked">
+        <div>
+          <div class="badge-icon">💀</div>
+          <strong>UNHINGED</strong>
+          <p class="muted">Activate Chaos Mode</p>
+        </div>
+      </div>
+
+      <div class="badge reveal locked">
+        <div>
+          <div class="badge-icon">🎰</div>
+          <strong>LUCKY</strong>
+          <p class="muted">Use roulette</p>
+        </div>
+      </div>
+
+      <div class="badge reveal locked">
+        <div>
+          <div class="badge-icon">🎮</div>
+          <strong>SURVIVOR</strong>
+          <p class="muted">Score 1000</p>
+        </div>
+      </div>
+
+      <div class="badge reveal locked">
+        <div>
+          <div class="badge-icon">⚡</div>
+          <strong>OVERCLOCKED</strong>
+          <p class="muted">Reach level 25</p>
+        </div>
+      </div>
+
+      <div class="badge reveal locked">
+        <div>
+          <div class="badge-icon">👽</div>
+          <strong>???</strong>
+          <p class="muted">Secret</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="leaderboard">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">GLOBAL RANKING</div>
+        <h2>THE LEADERBOARD.</h2>
+      </div>
+    </div>
+
+    <div class="leaderboard reveal">
+
+      <div class="player-row">
+        <div class="rank">🥇</div>
+        <div>
+          <div class="player-name">JJ_THE_BEAST</div>
+          <div class="player-sub">CHAOS LEGEND</div>
+        </div>
+        <strong>LVL 87</strong>
+        <strong>98,421 XP</strong>
+      </div>
+
+      <div class="player-row">
+        <div class="rank">🥈</div>
+        <div>
+          <div class="player-name">GAMER_X</div>
+          <div class="player-sub">RAGE MASTER</div>
+        </div>
+        <strong>LVL 71</strong>
+        <strong>74,290 XP</strong>
+      </div>
+
+      <div class="player-row">
+        <div class="rank">🥉</div>
+        <div>
+          <div class="player-name">PIXEL_DESTROYER</div>
+          <div class="player-sub">SPEED DEMON</div>
+        </div>
+        <strong>LVL 66</strong>
+        <strong>69,002 XP</strong>
+      </div>
+
+      <div class="player-row">
+        <div class="rank">#4</div>
+        <div>
+          <div class="player-name">CHAOS_GOBLIN</div>
+          <div class="player-sub">UNSTABLE</div>
+        </div>
+        <strong>LVL 54</strong>
+        <strong>51,822 XP</strong>
+      </div>
+
+      <div class="player-row">
+        <div class="rank">#5</div>
+        <div>
+          <div class="player-name">YOU</div>
+          <div class="player-sub">CURRENT PLAYER</div>
+        </div>
+        <strong id="yourLevel">LVL 1</strong>
+        <strong id="yourXP">0 XP</strong>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">SYSTEM STATUS</div>
+        <h2>RAGE METER.</h2>
+      </div>
+    </div>
+
+    <div class="rage-card reveal">
+
+      <div style="display:flex;justify-content:space-between">
+        <strong>PLAYER RAGE</strong>
+        <strong id="rageText">37%</strong>
+      </div>
+
+      <div class="rage-meter">
+        <div class="rage-fill" id="rageFill"></div>
+      </div>
+
+      <button class="btn primary" id="rageBtn">
+        💢 INCREASE RAGE
+      </button>
+
+    </div>
+
+  </div>
+</section>
+
+<section id="game">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">MINI GAME // SURVIVE</div>
+        <h2>SURVIVE THE CHAOS.</h2>
+      </div>
+    </div>
+
+    <div class="game reveal" id="gameArena">
+
+      <div class="game-ui">
+        <div class="game-score">
+          SCORE: <strong id="gameScore">0</strong>
         </div>
 
-        <h1>
-          ENTER THE<br>
-          <span>CHAOS.</span>
-        </h1>
+        <div class="game-score">
+          BEST: <strong id="bestScore">0</strong>
+        </div>
+      </div>
 
+      <div class="game-player" id="gamePlayer"></div>
+
+      <div class="game-over" id="gameOver">
+        <div>
+          <div style="font-size:60px">💀</div>
+          <h2>YOU DIED.</h2>
+          <p class="muted" id="finalScore">Score: 0</p>
+          <button class="btn primary" id="restartGame" style="margin-top:20px">
+            TRY AGAIN
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="muted" style="text-align:center;margin-top:15px">
+      Move with ← → or A / D. Dodge red. Collect yellow.
+    </p>
+
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">COMMUNITY ACTIVITY</div>
+        <h2>THE WALL.</h2>
+      </div>
+    </div>
+
+    <div class="community-grid">
+
+      <div class="community reveal">
+        <div class="community-header">
+          <div class="avatar">J</div>
+          <div>
+            <strong>JJ</strong>
+            <div class="muted">2 minutes ago</div>
+          </div>
+        </div>
         <p>
-          Welcome to JJ PLAYZ — where gaming clips, ridiculous moments,
-          questionable decisions and absolute chaos collide.
+          Bro WHAT was that ending 😭💀
         </p>
+      </div>
 
-        <div class="hero-buttons">
-          <a href="#videos" class="btn btn-primary">
-            ▶ Watch the madness
-          </a>
+      <div class="community reveal">
+        <div class="community-header">
+          <div class="avatar">X</div>
+          <div>
+            <strong>GAMER_X</strong>
+            <div class="muted">5 minutes ago</div>
+          </div>
+        </div>
+        <p>
+          Just hit level 20. The grind never stops.
+        </p>
+      </div>
 
-          <button class="btn btn-secondary" id="randomBtn">
-            ⚡ Random chaos
+      <div class="community reveal">
+        <div class="community-header">
+          <div class="avatar">C</div>
+          <div>
+            <strong>CHAOS_GOBLIN</strong>
+            <div class="muted">8 minutes ago</div>
+          </div>
+        </div>
+        <p>
+          Someone please explain how I survived that 💀
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">LIVE FEED</div>
+        <h2>CHAOS CHAT.</h2>
+      </div>
+      <span class="muted">
+        <i class="live-dot"></i> 291 online
+      </span>
+    </div>
+
+    <div class="chat reveal" id="chat">
+
+      <div class="chat-msg">
+        <div class="chat-user">🔥 gamer_22</div>
+        <div class="chat-text">THAT WAS INSANE</div>
+      </div>
+
+      <div class="chat-msg">
+        <div class="chat-user">💀 chaos_goblin</div>
+        <div class="chat-text">bro is actually cooking</div>
+      </div>
+
+      <div class="chat-msg">
+        <div class="chat-user">⚡ speedrunner</div>
+        <div class="chat-text">new record incoming</div>
+      </div>
+
+      <div class="chat-msg">
+        <div class="chat-user">🎮 pixelboy</div>
+        <div class="chat-text">JJ PLAYZ never disappoints</div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <div class="feature-grid">
+
+      <div class="feature reveal">
+        <div class="feature-icon">⚡</div>
+        <h3>LEVEL SYSTEM</h3>
+        <p>
+          Every action earns XP. Watch, interact, play and
+          slowly become dangerously powerful.
+        </p>
+      </div>
+
+      <div class="feature reveal">
+        <div class="feature-icon">🏆</div>
+        <h3>ACHIEVEMENTS</h3>
+        <p>
+          Unlock badges by discovering hidden features
+          throughout the site.
+        </p>
+      </div>
+
+      <div class="feature reveal">
+        <div class="feature-icon">🎮</div>
+        <h3>PLAYGROUND</h3>
+        <p>
+          The site isn't just a site anymore. It's a place
+          to play, explore and cause problems.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <div class="hero-card reveal" style="min-height:350px">
+
+      <div class="eyebrow">FINAL WARNING</div>
+
+      <h2 style="font-size:clamp(40px,7vw,90px);margin-top:20px">
+        YOU'VE ENTERED
+        <span class="gradient">JJ PLAYZ.</span>
+      </h2>
+
+      <p class="hero-copy">
+        There is no tutorial.
+        There is no exit.
+        There is only chaos.
+      </p>
+
+      <button class="btn primary" id="partyBtn">
+        🎉 PARTY MODE
+      </button>
+
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <div>
+      <strong>JJ PLAYZ</strong>
+      <p style="margin-top:7px">Enter the Chaos.</p>
+    </div>
+
+    <div>
+      © 2026 JJ PLAYZ • Built for absolute chaos.
+    </div>
+  </div>
+</footer>
+
+<!-- VIDEO MODAL -->
+
+<div class="modal" id="videoModal">
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <strong id="modalTitle">Video</strong>
+      <button class="icon-btn" id="closeModal">✕</button>
+    </div>
+
+    <video
+      class="video-player"
+      id="videoPlayer"
+      controls
+      playsinline
+    ></video>
+
+    <div class="modal-body">
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn" id="modalLike">❤️ Like</button>
+        <button class="btn" id="modalLater">🔖 Watch Later</button>
+        <button class="btn" id="modalFullscreen">⛶ Theater</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- COMMAND PALETTE -->
+
+<div class="command" id="commandPalette">
+
+  <div class="command-box">
+
+    <input
+      id="commandInput"
+      placeholder="Type a command..."
+      autocomplete="off"
+    >
+
+    <div id="commandList">
+
+      <div class="command-item" data-command="home">
+        🏠 Go Home
+      </div>
+
+      <div class="command-item" data-command="videos">
+        🎬 Open Videos
+      </div>
+
+      <div class="command-item" data-command="game">
+        🎮 Play Mini Game
+      </div>
+
+      <div class="command-item" data-command="chaos">
+        💀 Activate Chaos
+      </div>
+
+      <div class="command-item" data-command="theme">
+        ☼ Change Theme
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* =========================================================
+   JJ PLAYZ OS
+   ========================================================= */
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+/* STATE */
+
+const state = {
+  xp: Number(localStorage.getItem("jj_xp") || 0),
+  likes: Number(localStorage.getItem("jj_likes") || 0),
+  streak: Number(localStorage.getItem("jj_streak") || 1),
+  rage: Number(localStorage.getItem("jj_rage") || 37),
+  bestScore: Number(localStorage.getItem("jj_best") || 0),
+  videosWatched: Number(localStorage.getItem("jj_watched") || 0),
+  theme: localStorage.getItem("jj_theme") || "dark"
+};
+
+let videos = [];
+let currentVideo = null;
+
+/* TOAST */
+
+function toast(message){
+  const box = $("#toast");
+  box.textContent = message;
+  box.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer = setTimeout(()=>{
+    box.classList.remove("show");
+  },2400);
+}
+
+/* XP */
+
+function levelInfo(){
+  const level = Math.floor(state.xp / 100) + 1;
+  const current = state.xp % 100;
+  return {level,current};
+}
+
+function saveState(){
+  localStorage.setItem("jj_xp",state.xp);
+  localStorage.setItem("jj_likes",state.likes);
+  localStorage.setItem("jj_streak",state.streak);
+  localStorage.setItem("jj_rage",state.rage);
+  localStorage.setItem("jj_best",state.bestScore);
+  localStorage.setItem("jj_watched",state.videosWatched);
+}
+
+function addXP(amount){
+  state.xp += amount;
+  saveState();
+  updateHUD();
+
+  if(state.xp % 100 < amount){
+    toast("🎉 LEVEL UP!");
+    confetti();
+  }
+}
+
+function updateHUD(){
+
+  const info = levelInfo();
+
+  $("#levelText").textContent = `LEVEL ${info.level}`;
+  $("#xpText").textContent = `${info.current} / 100 XP`;
+  $("#xpFill").style.width = `${info.current}%`;
+
+  $("#streakHUD").textContent = state.streak;
+  $("#likesHUD").textContent = state.likes;
+
+  const rank = Math.max(1,999 - Math.floor(state.xp / 12));
+  $("#rankHUD").textContent = `#${rank}`;
+
+  $("#yourLevel").textContent = `LVL ${info.level}`;
+  $("#yourXP").textContent = `${state.xp} XP`;
+}
+
+/* THEME */
+
+function applyTheme(){
+
+  document.body.classList.remove("light","amoled");
+
+  if(state.theme === "light"){
+    document.body.classList.add("light");
+  }
+
+  if(state.theme === "amoled"){
+    document.body.classList.add("amoled");
+  }
+}
+
+$("#themeBtn").addEventListener("click",()=>{
+
+  if(state.theme === "dark"){
+    state.theme = "light";
+  }else if(state.theme === "light"){
+    state.theme = "amoled";
+  }else{
+    state.theme = "dark";
+  }
+
+  localStorage.setItem("jj_theme",state.theme);
+  applyTheme();
+
+  toast(`Theme: ${state.theme.toUpperCase()}`);
+});
+
+applyTheme();
+
+/* MOBILE MENU */
+
+$("#mobileBtn").addEventListener("click",()=>{
+  $("#navLinks").classList.toggle("show");
+});
+
+/* CURSOR */
+
+document.addEventListener("mousemove",e=>{
+  $("#cursorGlow").style.left=e.clientX+"px";
+  $("#cursorGlow").style.top=e.clientY+"px";
+});
+
+/* PARTICLES */
+
+const canvas = $("#particles");
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+
+function resizeCanvas(){
+  canvas.width=innerWidth;
+  canvas.height=innerHeight;
+}
+
+function createParticles(){
+
+  particles=[];
+
+  for(let i=0;i<70;i++){
+
+    particles.push({
+      x:Math.random()*innerWidth,
+      y:Math.random()*innerHeight,
+      r:Math.random()*2+0.5,
+      dx:(Math.random()-.5)*.25,
+      dy:(Math.random()-.5)*.25
+    });
+
+  }
+}
+
+function drawParticles(){
+
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  particles.forEach(p=>{
+
+    p.x+=p.dx;
+    p.y+=p.dy;
+
+    if(p.x<0)p.x=innerWidth;
+    if(p.x>innerWidth)p.x=0;
+    if(p.y<0)p.y=innerHeight;
+    if(p.y>innerHeight)p.y=0;
+
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle="rgba(255,255,255,.3)";
+    ctx.fill();
+
+  });
+
+  requestAnimationFrame(drawParticles);
+}
+
+resizeCanvas();
+createParticles();
+drawParticles();
+
+addEventListener("resize",()=>{
+  resizeCanvas();
+  createParticles();
+});
+
+/* COUNTERS */
+
+$$("[data-count]").forEach(el=>{
+
+  const target=Number(el.dataset.count);
+  let value=0;
+
+  const timer=setInterval(()=>{
+
+    value+=Math.ceil(target/40);
+
+    if(value>=target){
+      value=target;
+      clearInterval(timer);
+    }
+
+    el.textContent=value.toLocaleString();
+
+  },30);
+
+});
+
+/* REVEAL */
+
+const observer=new IntersectionObserver(entries=>{
+
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+    }
+  });
+
+},{threshold:.1});
+
+$$(".reveal").forEach(el=>observer.observe(el));
+
+/* VIDEOS */
+
+const fallbackVideos=[
+  {
+    id:1,
+    title:"THE MOST CHAOTIC GAME EVER",
+    category:"gaming",
+    views:4210,
+    likes:421,
+    video:"./assets/videos/video1.mp4"
+  },
+  {
+    id:2,
+    title:"THIS WAS A TERRIBLE IDEA",
+    category:"funny",
+    views:8910,
+    likes:702,
+    video:"./assets/videos/video2.mp4"
+  },
+  {
+    id:3,
+    title:"CAN WE ACTUALLY WIN?",
+    category:"challenge",
+    views:6320,
+    likes:531,
+    video:"./assets/videos/video3.mp4"
+  },
+  {
+    id:4,
+    title:"JJ PLAYZ MOMENTS",
+    category:"shorts",
+    views:12200,
+    likes:1100,
+    video:"./assets/videos/video4.mp4"
+  },
+  {
+    id:5,
+    title:"ABSOLUTE GAMING DISASTER",
+    category:"gaming",
+    views:5190,
+    likes:398,
+    video:"./assets/videos/video5.mp4"
+  },
+  {
+    id:6,
+    title:"WE SHOULD NOT HAVE DONE THIS",
+    category:"funny",
+    views:7740,
+    likes:644,
+    video:"./assets/videos/video6.mp4"
+  }
+];
+
+async function loadVideos(){
+
+  try{
+
+    const response=await fetch("./videos.json");
+
+    if(!response.ok){
+      throw new Error("videos.json missing");
+    }
+
+    videos=await response.json();
+
+  }catch{
+
+    videos=fallbackVideos;
+
+  }
+
+  renderVideos(videos);
+}
+
+function renderVideos(list){
+
+  const grid=$("#videoGrid");
+
+  grid.innerHTML="";
+
+  $("#videoCount").textContent=
+    `${list.length} VIDEO${list.length===1?"":"S"}`;
+
+  if(!list.length){
+
+    grid.innerHTML=`
+      <div style="grid-column:1/-1;padding:50px;text-align:center">
+        <div style="font-size:50px">💀</div>
+        <h3>No chaos found.</h3>
+        <p class="muted">Try another search.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  list.forEach(video=>{
+
+    const card=document.createElement("article");
+
+    card.className="video-card reveal";
+
+    card.innerHTML=`
+      <div class="thumbnail">
+
+        ${
+          video.thumbnail
+          ? `<img src="${escapeHTML(video.thumbnail)}" alt="">`
+          : `<div style="font-size:70px">🎮</div>`
+        }
+
+        <button class="play" aria-label="Play">
+          ▶
+        </button>
+
+      </div>
+
+      <div class="video-info">
+
+        <div class="eyebrow">${escapeHTML(video.category || "gaming")}</div>
+
+        <h3 style="margin-top:7px">
+          ${escapeHTML(video.title || "Untitled Chaos")}
+        </h3>
+
+        <div class="video-meta">
+          <span>👁 ${Number(video.views||0).toLocaleString()}</span>
+          <span>❤️ ${Number(video.likes||0).toLocaleString()}</span>
+        </div>
+
+        <div class="card-actions">
+          <button class="small-btn like-btn">
+            ❤️ Like
+          </button>
+
+          <button class="small-btn later-btn">
+            🔖 Later
           </button>
         </div>
 
-        <div class="hero-feature">
-          <div class="hero-feature-card">
-
-            <div class="hero-feature-bg"></div>
-
-            <div class="hero-feature-content">
-
-              <div class="eyebrow">
-                ★ Featured chaos
-              </div>
-
-              <h2 id="featuredTitle">
-                THE MOMENT EVERYTHING WENT WRONG.
-              </h2>
-
-              <p id="featuredDescription">
-                One match. Zero brain cells. Infinite entertainment.
-              </p>
-
-              <button class="btn btn-primary" id="featuredBtn">
-                ▶ PLAY FEATURED
-              </button>
-
-            </div>
-
-          </div>
-        </div>
-
       </div>
-    </section>
+    `;
 
-    <!-- =========================
-         STATS
-    ========================== -->
-
-    <section id="about">
-
-      <div class="section-head">
-        <div>
-          <div class="section-kicker">THE NUMBERS</div>
-          <h2 class="section-title">CHAOS<br>STATS.</h2>
-        </div>
-
-        <p class="section-description">
-          Completely serious statistics about a completely unserious gaming
-          experience.
-        </p>
-      </div>
-
-      <div class="stats">
-
-        <div class="stat">
-          <div class="stat-value counter" data-target="999">0</div>
-          <div class="stat-label">Clips survived</div>
-        </div>
-
-        <div class="stat">
-          <div class="stat-value counter" data-target="420">0</div>
-          <div class="stat-label">Brain cells remaining</div>
-        </div>
-
-        <div class="stat">
-          <div class="stat-value counter" data-target="69">0</div>
-          <div class="stat-label">Questionable plays</div>
-        </div>
-
-        <div class="stat">
-          <div class="stat-value counter" data-target="100">0</div>
-          <div class="stat-label">Chaos percentage</div>
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- =========================
-         MARQUEE
-    ========================== -->
-
-    <div class="marquee-wrap">
-      <div class="marquee">
-        <span>JJ PLAYZ</span>
-        <span>NO BRAKES</span>
-        <span>PURE CHAOS</span>
-        <span>CLIPS</span>
-        <span>GAMING</span>
-        <span>COMMUNITY</span>
-        <span>JJ PLAYZ</span>
-        <span>NO BRAKES</span>
-        <span>PURE CHAOS</span>
-        <span>CLIPS</span>
-        <span>GAMING</span>
-        <span>COMMUNITY</span>
-      </div>
-    </div>
-
-    <!-- =========================
-         VIDEOS
-    ========================== -->
-
-    <section id="videos">
-
-      <div class="section-head">
-
-        <div>
-          <div class="section-kicker">THE VAULT</div>
-          <h2 class="section-title">LATEST<br>CHAOS.</h2>
-        </div>
-
-        <p class="section-description">
-          Browse the latest clips, highlights and moments that probably
-          should not have happened.
-        </p>
-
-      </div>
-
-      <div class="toolbar">
-
-        <div class="search">
-          <span class="search-icon">⌕</span>
-          <input
-            id="videoSearch"
-            type="search"
-            placeholder="Search the chaos..."
-            autocomplete="off"
-          >
-        </div>
-
-        <select class="filter" id="categoryFilter">
-          <option value="all">All categories</option>
-          <option value="funny">Funny</option>
-          <option value="clutch">Clutch</option>
-          <option value="rage">Rage</option>
-          <option value="fails">Fails</option>
-          <option value="highlights">Highlights</option>
-        </select>
-
-        <button class="btn btn-secondary" id="sortBtn">
-          ↕ Sort
-        </button>
-
-      </div>
-
-      <div class="video-grid" id="videoGrid">
-
-        <!--
-          JavaScript loads videos.json.
-
-          Example videos.json:
-
-          [
-            {
-              "title": "THE MOST INSANE CLUTCH",
-              "description": "I genuinely don't know how this happened.",
-              "thumbnail": "./assets/thumb1.jpg",
-              "video": "./assets/video1.mp4",
-              "category": "clutch",
-              "duration": "08:42",
-              "views": 1200
-            }
-          ]
-        -->
-
-      </div>
-
-      <div
-        id="emptyVideos"
-        style="
-          display:none;
-          text-align:center;
-          padding:60px;
-          color:var(--muted);
-        "
-      >
-        <div style="font-size:3rem;">💀</div>
-        <h3 style="margin-top:15px;color:var(--text);">
-          NO CHAOS FOUND
-        </h3>
-        <p style="margin-top:8px;">
-          Try a different search.
-        </p>
-      </div>
-
-    </section>
-
-    <!-- =========================
-         PROGRESS
-    ========================== -->
-
-    <section id="progress">
-
-      <div class="section-head">
-
-        <div>
-          <div class="section-kicker">PLAYER PROFILE</div>
-          <h2 class="section-title">YOUR<br>CHAOS ARC.</h2>
-        </div>
-
-        <p class="section-description">
-          Every interaction gives you XP. Yes, this website has gamification.
-          No, nobody asked for it.
-        </p>
-
-      </div>
-
-      <div class="player-panel">
-
-        <div class="xp-card">
-
-          <div class="xp-top">
-
-            <div>
-              <div class="level">
-                LEVEL <span id="level">7</span>
-              </div>
-
-              <div
-                style="
-                  color:var(--muted);
-                  font-size:.8rem;
-                  margin-top:5px;
-                "
-              >
-                Certified Chaos Gremlin
-              </div>
-            </div>
-
-            <div class="xp-number">
-              <span id="xp">720</span> XP
-            </div>
-
-          </div>
-
-          <div class="xp-track">
-            <div class="xp-fill" id="xpFill"></div>
-          </div>
-
-          <div class="xp-small">
-            <span>720 XP</span>
-            <span>1000 XP</span>
-          </div>
-
-          <div
-            style="
-              margin-top:25px;
-              display:flex;
-              gap:10px;
-              flex-wrap:wrap;
-            "
-          >
-            <button class="btn btn-primary" id="xpBtn">
-              + XP CHAOS
-            </button>
-
-            <button class="btn btn-secondary" id="achievementBtn">
-              🏆 Unlock achievement
-            </button>
-          </div>
-
-        </div>
-
-        <div class="live-card">
-
-          <div class="live-header">
-            <span class="live-dot"></span>
-            CHAOS CHAT
-          </div>
-
-          <div class="chat" id="chat">
-
-            <div class="message">
-              <b>PixelGoblin:</b> BRO WHAT WAS THAT
-            </div>
-
-            <div class="message">
-              <b>JJFan:</b> 💀💀💀
-            </div>
-
-            <div class="message">
-              <b>ControllerDestroyer:</b> THAT AIM???
-            </div>
-
-            <div class="message">
-              <b>ChaosEnjoyer:</b> LET HIM COOK
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- =========================
-         ACHIEVEMENTS
-    ========================== -->
-
-    <section>
-
-      <div class="section-head">
-
-        <div>
-          <div class="section-kicker">ACHIEVEMENTS</div>
-          <h2 class="section-title">UNLOCK<br>THE STUPID.</h2>
-        </div>
-
-        <p class="section-description">
-          Some are skill-based. Some are completely ridiculous.
-        </p>
-
-      </div>
-
-      <div class="achievements">
-
-        <div class="achievement unlocked">
-          <div class="achievement-icon">🔥</div>
-          <h3>First Flame</h3>
-          <p>Welcome to JJ PLAYZ.</p>
-        </div>
-
-        <div class="achievement">
-          <div class="achievement-icon">⚡</div>
-          <h3>Speed Demon</h3>
-          <p>Watch three videos.</p>
-        </div>
-
-        <div class="achievement">
-          <div class="achievement-icon">💀</div>
-          <h3>Skill Issue</h3>
-          <p>Find the secret button.</p>
-        </div>
-
-        <div class="achievement">
-          <div class="achievement-icon">👑</div>
-          <h3>Chaos Lord</h3>
-          <p>Unlock everything.</p>
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- =========================
-         COMMUNITY
-    ========================== -->
-
-    <section id="community">
-
-      <div class="section-head">
-
-        <div>
-          <div class="section-kicker">COMMUNITY</div>
-          <h2 class="section-title">JOIN THE<br>MESS.</h2>
-        </div>
-
-        <p class="section-description">
-          Gaming is better when everyone is yelling at the same time.
-        </p>
-
-      </div>
-
-      <div class="community-grid">
-
-        <a class="community-card" href="#" onclick="fakeLink(event, 'Discord')">
-          <div class="community-icon">💬</div>
-          <h3>Discord</h3>
-          <p>
-            Talk trash. Share clips. Overreact together.
-          </p>
-        </a>
-
-        <a class="community-card" href="#" onclick="fakeLink(event, 'YouTube')">
-          <div class="community-icon">▶</div>
-          <h3>YouTube</h3>
-          <p>
-            Full videos, highlights and completely unnecessary screaming.
-          </p>
-        </a>
-
-        <a class="community-card" href="#" onclick="fakeLink(event, 'GitHub')">
-          <div class="community-icon">⌘</div>
-          <h3>GitHub</h3>
-          <p>
-            The home of this website and its increasingly questionable code.
-          </p>
-        </a>
-
-      </div>
-
-    </section>
-
-    <!-- =========================
-         CTA
-    ========================== -->
-
-    <section>
-
-      <div class="cta">
-
-        <div class="section-kicker">
-          FINAL WARNING
-        </div>
-
-        <h2>
-          READY TO<br>
-          <span style="
-            background:linear-gradient(90deg,var(--accent),var(--accent-2));
-            -webkit-background-clip:text;
-            background-clip:text;
-            color:transparent;
-          ">
-            LOSE IT?
-          </span>
-        </h2>
-
-        <p>
-          You have officially reached the part of the website where
-          absolutely nothing productive happens.
-        </p>
-
-        <button class="btn btn-primary" id="chaosBtn">
-          💥 ACTIVATE CHAOS
-        </button>
-
-      </div>
-
-    </section>
-
-  </main>
-
-  <!-- =========================
-       FOOTER
-  ========================== -->
-
-  <footer>
-
-    <div>
-      © <span id="year"></span> JJ PLAYZ.
-      Built for chaos.
-    </div>
-
-    <div class="footer-links">
-      <a href="#home">Home</a>
-      <a href="#videos">Videos</a>
-      <a href="#community">Community</a>
-    </div>
-
-  </footer>
-
-  <!-- =========================
-       VIDEO MODAL
-  ========================== -->
-
-  <div class="modal" id="videoModal">
-
-    <div class="modal-box">
-
-      <div class="modal-video" id="modalVideo"></div>
-
-      <div class="modal-info">
-
-        <div>
-          <div
-            style="
-              color:var(--accent-2);
-              font-size:.7rem;
-              font-weight:900;
-              text-transform:uppercase;
-              letter-spacing:.1em;
-              margin-bottom:5px;
-            "
-          >
-            NOW PLAYING
-          </div>
-
-          <h3 id="modalTitle">
-            Video
-          </h3>
-        </div>
-
-        <button class="close-modal" id="closeModal">
-          ✕
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- =========================
-       COMMAND PALETTE
-  ========================== -->
-
-  <div class="command" id="commandPalette">
-
-    <div class="command-box">
-
-      <input
-        class="command-input"
-        id="commandInput"
-        placeholder="Type a command..."
-        autocomplete="off"
-      >
-
-      <div class="command-list">
-
-        <div class="command-item" data-action="videos">
-          <span>Go to videos</span>
-          <span class="shortcut">V</span>
-        </div>
-
-        <div class="command-item" data-action="random">
-          <span>Random chaos</span>
-          <span class="shortcut">R</span>
-        </div>
-
-        <div class="command-item" data-action="theme">
-          <span>Toggle theme</span>
-          <span class="shortcut">T</span>
-        </div>
-
-        <div class="command-item" data-action="top">
-          <span>Back to top</span>
-          <span class="shortcut">H</span>
-        </div>
-
-        <div class="command-item" data-action="chaos">
-          <span>Activate chaos</span>
-          <span class="shortcut">C</span>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- =========================
-       TOASTS
-  ========================== -->
-
-  <div id="toast-container"></div>
-
-  <button id="topBtn" title="Back to top">
-    ↑
-  </button>
-
-  <script>
-    /* =========================================================
-       JJ PLAYZ — FINAL BOSS JAVASCRIPT
-    ========================================================= */
-
-    const $ = selector => document.querySelector(selector);
-    const $$ = selector => [...document.querySelectorAll(selector)];
-
-    /* =========================
-       BASIC
-    ========================== */
-
-    $("#year").textContent = new Date().getFullYear();
-
-    /* =========================
-       NAV
-    ========================== */
-
-    const navbar = $("#navbar");
-    const topBtn = $("#topBtn");
-
-    window.addEventListener("scroll", () => {
-
-      navbar.classList.toggle("scrolled", window.scrollY > 20);
-      topBtn.classList.toggle("visible", window.scrollY > 600);
-
-      updateActiveNav();
-
-    });
-
-    topBtn.addEventListener("click", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    });
-
-    const navLinks = $$(".nav-links a");
-
-    function updateActiveNav() {
-
-      const sections = $$("section[id]");
-
-      let current = "home";
-
-      sections.forEach(section => {
-
-        const top = section.offsetTop - 150;
-
-        if (window.scrollY >= top) {
-          current = section.id;
-        }
-
-      });
-
-      navLinks.forEach(link => {
-
-        link.classList.toggle(
-          "active",
-          link.getAttribute("href") === "#" + current
-        );
-
-      });
-
-    }
-
-    /* =========================
-       MOBILE MENU
-    ========================== */
-
-    $("#menuBtn").addEventListener("click", () => {
-      $("#navLinks").classList.toggle("open");
-    });
-
-    navLinks.forEach(link => {
-
-      link.addEventListener("click", () => {
-        $("#navLinks").classList.remove("open");
-      });
-
-    });
-
-    /* =========================
-       THEME
-    ========================== */
-
-    const savedTheme = localStorage.getItem("jj-theme");
-
-    if (savedTheme === "light") {
-      document.body.classList.add("light");
-    }
-
-    $("#themeBtn").addEventListener("click", toggleTheme);
-
-    function toggleTheme() {
-
-      document.body.classList.toggle("light");
-
-      localStorage.setItem(
-        "jj-theme",
-        document.body.classList.contains("light")
-          ? "light"
-          : "dark"
-      );
-
-      toast(
-        "THEME SWITCHED",
-        document.body.classList.contains("light")
-          ? "Bright mode activated."
-          : "Dark mode restored."
-      );
-
-      addXP(15);
-    }
-
-    /* =========================
-       CURSOR GLOW
-    ========================== */
-
-    const cursorGlow = $("#cursorGlow");
-
-    window.addEventListener("pointermove", event => {
-
-      cursorGlow.animate(
-        {
-          left: event.clientX + "px",
-          top: event.clientY + "px"
-        },
-        {
-          duration: 600,
-          fill: "forwards"
-        }
-      );
-
-    });
-
-    /* =========================
-       PARTICLES
-    ========================== */
-
-    const canvas = $("#particles");
-    const ctx = canvas.getContext("2d");
-
-    let particles = [];
-
-    function resizeCanvas() {
-
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-    }
-
-    resizeCanvas();
-
-    window.addEventListener("resize", resizeCanvas);
-
-    for (let i = 0; i < 75; i++) {
-
-      particles.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        r: Math.random() * 1.7 + .3,
-        vx: (Math.random() - .5) * .25,
-        vy: (Math.random() - .5) * .25,
-        alpha: Math.random() * .5 + .1
-      });
-
-    }
-
-    function animateParticles() {
-
-      ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-
-      particles.forEach(p => {
-
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-
-        ctx.beginPath();
-
-        ctx.arc(
-          p.x,
-          p.y,
-          p.r,
-          0,
-          Math.PI * 2
-        );
-
-        ctx.fillStyle =
-          `rgba(180,160,255,${p.alpha})`;
-
-        ctx.fill();
-
-      });
-
-      requestAnimationFrame(animateParticles);
-
-    }
-
-    animateParticles();
-
-    /* =========================
-       COUNTERS
-    ========================== */
-
-    const counters = $$(".counter");
-
-    const counterObserver =
-      new IntersectionObserver(entries => {
-
-        entries.forEach(entry => {
-
-          if (!entry.isIntersecting) return;
-
-          const el = entry.target;
-          const target = Number(el.dataset.target);
-
-          let current = 0;
-
-          const increment =
-            Math.max(1, Math.ceil(target / 80));
-
-          const timer = setInterval(() => {
-
-            current += increment;
-
-            if (current >= target) {
-
-              current = target;
-              clearInterval(timer);
-
-            }
-
-            el.textContent =
-              current >= 1000
-                ? (current / 1000).toFixed(1) + "K"
-                : current;
-
-          }, 20);
-
-          counterObserver.unobserve(el);
-
-        });
-
-      }, {
-        threshold: .6
-      });
-
-    counters.forEach(counter =>
-      counterObserver.observe(counter)
-    );
-
-    /* =========================
-       XP SYSTEM
-    ========================== */
-
-    let xp =
-      Number(localStorage.getItem("jj-xp")) || 720;
-
-    let level =
-      Number(localStorage.getItem("jj-level")) || 7;
-
-    function renderXP() {
-
-      $("#xp").textContent = xp;
-      $("#level").textContent = level;
-
-      const progress =
-        Math.min(100, (xp % 1000) / 10);
-
-      $("#xpFill").style.width =
-        progress + "%";
-
-    }
-
-    function addXP(amount) {
-
-      xp += amount;
-
-      if (xp >= (level + 1) * 1000) {
-
-        level++;
-
-        toast(
-          "LEVEL UP 🔥",
-          `You reached level ${level}.`
-        );
-
-        confetti();
-
-      }
-
-      localStorage.setItem("jj-xp", xp);
-      localStorage.setItem("jj-level", level);
-
-      renderXP();
-
-    }
-
-    renderXP();
-
-    $("#xpBtn").addEventListener("click", () => {
-
-      addXP(Math.floor(Math.random() * 50) + 10);
-
-      toast(
-        "CHAOS XP",
-        "You gained some completely legitimate XP."
-      );
-
-    });
-
-    /* =========================
-       ACHIEVEMENTS
-    ========================== */
-
-    $("#achievementBtn").addEventListener(
-      "click",
-      unlockAchievement
-    );
-
-    function unlockAchievement() {
-
-      const locked =
-        $$(".achievement:not(.unlocked)");
-
-      if (!locked.length) {
-
-        toast(
-          "MAXED OUT 👑",
-          "You somehow unlocked everything."
-        );
-
-        confetti();
-        return;
-
-      }
-
-      const target =
-        locked[Math.floor(Math.random() * locked.length)];
-
-      target.classList.add("unlocked");
-
-      addXP(100);
-
-      toast(
-        "ACHIEVEMENT UNLOCKED 🏆",
-        target.querySelector("h3").textContent
-      );
-
-      confetti();
-
-    }
-
-    /* =========================
-       VIDEO SYSTEM
-    ========================== */
-
-    let videos = [];
-    let sortNewest = true;
-
-    const videoGrid = $("#videoGrid");
-
-    async function loadVideos() {
-
-      try {
-
-        const response =
-          await fetch("./videos.json");
-
-        if (!response.ok) {
-          throw new Error("videos.json missing");
-        }
-
-        videos = await response.json();
-
-      } catch (error) {
-
-        /*
-          Fallback content so the website never looks broken.
-        */
-
-        videos = [
-
-          {
-            title: "THE MOST INSANE CLUTCH",
-            description: "Absolutely no idea how this worked.",
-            thumbnail: "",
-            video: "",
-            category: "clutch",
-            duration: "08:42",
-            views: 1240
-          },
-
-          {
-            title: "I SHOULD NOT HAVE DONE THAT",
-            description: "This was a terrible decision.",
-            thumbnail: "",
-            video: "",
-            category: "fails",
-            duration: "05:21",
-            views: 890
-          },
-
-          {
-            title: "THE RAGE WAS REAL",
-            description: "Controller status: deceased.",
-            thumbnail: "",
-            video: "",
-            category: "rage",
-            duration: "11:03",
-            views: 2310
-          },
-
-          {
-            title: "ZERO BRAIN CELLS",
-            description: "Pure gaming excellence.",
-            thumbnail: "",
-            video: "",
-            category: "funny",
-            duration: "04:18",
-            views: 760
-          },
-
-          {
-            title: "HOW DID I HIT THAT?",
-            description: "Calculated. Obviously.",
-            thumbnail: "",
-            video: "",
-            category: "highlights",
-            duration: "07:35",
-            views: 3520
-          },
-
-          {
-            title: "THE WORST PLAY OF MY LIFE",
-            description: "We don't talk about this one.",
-            thumbnail: "",
-            video: "",
-            category: "fails",
-            duration: "03:44",
-            views: 642
-          }
-
-        ];
-
-      }
-
-      renderVideos();
-
-    }
-
-    function renderVideos() {
-
-      const search =
-        $("#videoSearch").value
-          .trim()
-          .toLowerCase();
-
-      const category =
-        $("#categoryFilter").value;
-
-      let filtered =
-        videos.filter(video => {
-
-          const matchesSearch =
-            video.title
-              .toLowerCase()
-              .includes(search) ||
-            (video.description || "")
-              .toLowerCase()
-              .includes(search);
-
-          const matchesCategory =
-            category === "all" ||
-            video.category === category;
-
-          return matchesSearch &&
-            matchesCategory;
-
-        });
-
-      if (!sortNewest) {
-
-        filtered.reverse();
-
-      }
-
-      videoGrid.innerHTML = "";
-
-      $("#emptyVideos").style.display =
-        filtered.length ? "none" : "block";
-
-      filtered.forEach((video, index) => {
-
-        const card =
-          document.createElement("article");
-
-        card.className = "video-card";
-
-        card.dataset.index = index;
-
-        const thumb =
-          video.thumbnail
-            ? `
-              <img
-                src="${escapeHTML(video.thumbnail)}"
-                alt=""
-                loading="lazy"
-              >
-            `
-            : `
-              <div style="
-                width:100%;
-                height:100%;
-                display:grid;
-                place-items:center;
-                background:
-                  radial-gradient(
-                    circle at 30% 30%,
-                    rgba(139,92,246,.4),
-                    transparent 40%
-                  ),
-                  linear-gradient(
-                    135deg,
-                    #171127,
-                    #35142b
-                  );
-                font-size:3rem;
-              ">
-                🎮
-              </div>
-            `;
-
-        card.innerHTML = `
-
-          <div class="video-thumb">
-
-            ${thumb}
-
-            <div class="play">
-              <span>▶</span>
-            </div>
-
-            <div class="video-badge">
-              ${escapeHTML(video.category || "chaos")}
-            </div>
-
-            <div class="video-duration">
-              ${escapeHTML(video.duration || "00:00")}
-            </div>
-
-          </div>
-
-          <div class="video-info">
-
-            <div class="video-title">
-              ${escapeHTML(video.title)}
-            </div>
-
-            <div class="video-meta">
-              <span>
-                ${Number(video.views || 0).toLocaleString()} views
-              </span>
-
-              <span>
-                +${Math.floor(Math.random() * 40) + 10} XP
-              </span>
-            </div>
-
-          </div>
-
-        `;
-
-        card.addEventListener("click", () => {
-
-          openVideo(video);
-
-          addXP(35);
-
-        });
-
-        videoGrid.appendChild(card);
-
-      });
-
-    }
-
-    $("#videoSearch").addEventListener(
-      "input",
-      renderVideos
-    );
-
-    $("#categoryFilter").addEventListener(
-      "change",
-      renderVideos
-    );
-
-    $("#sortBtn").addEventListener(
-      "click",
-      () => {
-
-        sortNewest = !sortNewest;
-
-        $("#sortBtn").textContent =
-          sortNewest ? "↕ Sort" : "↕ Reverse";
-
-        renderVideos();
-
-      }
-    );
-
-    loadVideos();
-
-    /* =========================
-       VIDEO MODAL
-    ========================== */
-
-    const modal = $("#videoModal");
-
-    function openVideo(video) {
-
-      $("#modalTitle").textContent =
-        video.title;
-
-      const container =
-        $("#modalVideo");
-
-      container.innerHTML = "";
-
-      if (video.video) {
-
-        const videoElement =
-          document.createElement("video");
-
-        videoElement.controls = true;
-        videoElement.autoplay = true;
-        videoElement.src = video.video;
-
-        container.appendChild(videoElement);
-
-      } else {
-
-        container.innerHTML = `
-          <div style="
-            width:100%;
-            height:100%;
-            display:grid;
-            place-items:center;
-            color:#777;
-            text-align:center;
-            padding:30px;
-          ">
-            <div>
-              <div style="font-size:4rem;">🎮</div>
-              <h3 style="color:white;margin-top:15px;">
-                Video not linked yet
-              </h3>
-              <p style="margin-top:8px;">
-                Add a "video" path inside videos.json.
-              </p>
-            </div>
-          </div>
-        `;
-
-      }
-
-      modal.classList.add("open");
-      document.body.classList.add("modal-open");
-
-    }
-
-    function closeVideo() {
-
-      modal.classList.remove("open");
-      document.body.classList.remove("modal-open");
-
-      $("#modalVideo").innerHTML = "";
-
-    }
-
-    $("#closeModal")
-      .addEventListener("click", closeVideo);
-
-    modal.addEventListener("click", event => {
-
-      if (event.target === modal) {
-        closeVideo();
-      }
-
-    });
-
-    /* =========================
-       FEATURED
-    ========================== */
-
-    $("#featuredBtn").addEventListener(
-      "click",
-      () => {
-
-        if (videos.length) {
-          openVideo(videos[0]);
-          addXP(50);
-        }
-
-      }
-    );
-
-    /* =========================
-       RANDOM CHAOS
-    ========================== */
-
-    function randomChaos() {
-
-      if (!videos.length) return;
-
-      const video =
-        videos[Math.floor(Math.random() * videos.length)];
-
+    card.querySelector(".play").addEventListener("click",()=>{
       openVideo(video);
+    });
 
-      addXP(75);
+    card.querySelector(".like-btn").addEventListener("click",()=>{
+      state.likes++;
+      addXP(10);
+      saveState();
+      updateHUD();
+      toast("❤️ Liked! +10 XP");
+    });
 
-      toast(
-        "RANDOM CHAOS ⚡",
-        video.title
+    card.querySelector(".later-btn").addEventListener("click",()=>{
+      const later=JSON.parse(
+        localStorage.getItem("jj_later")||"[]"
       );
 
-    }
-
-    $("#randomBtn")
-      .addEventListener("click", randomChaos);
-
-    /* =========================
-       COMMAND PALETTE
-    ========================== */
-
-    const commandPalette =
-      $("#commandPalette");
-
-    const commandInput =
-      $("#commandInput");
-
-    function openCommandPalette() {
-
-      commandPalette.classList.add("open");
-
-      commandInput.value = "";
-
-      setTimeout(() =>
-        commandInput.focus(),
-        50
-      );
-
-    }
-
-    function closeCommandPalette() {
-
-      commandPalette.classList.remove("open");
-
-    }
-
-    $("#commandBtn")
-      .addEventListener(
-        "click",
-        openCommandPalette
-      );
-
-    commandPalette.addEventListener(
-      "click",
-      event => {
-
-        if (event.target === commandPalette) {
-          closeCommandPalette();
-        }
-
+      if(!later.includes(video.id)){
+        later.push(video.id);
+        localStorage.setItem("jj_later",JSON.stringify(later));
+        addXP(5);
+        toast("🔖 Added to Watch Later");
+      }else{
+        toast("Already saved.");
       }
+    });
+
+    grid.appendChild(card);
+    observer.observe(card);
+
+  });
+}
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+/* SEARCH */
+
+function filterVideos(){
+
+  const query=$("#search").value.toLowerCase();
+  const category=$("#category").value;
+  const sort=$("#sort").value;
+
+  let result=videos.filter(video=>{
+
+    const title=String(video.title||"").toLowerCase();
+    const cat=String(video.category||"").toLowerCase();
+
+    return (
+      title.includes(query) &&
+      (category==="all" || cat===category)
     );
 
-    $$(".command-item").forEach(item => {
+  });
 
-      item.addEventListener("click", () => {
+  if(sort==="new"){
+    result=result.slice().reverse();
+  }
 
-        const action =
-          item.dataset.action;
+  if(sort==="views"){
+    result=result.slice().sort((a,b)=>
+      Number(b.views||0)-Number(a.views||0)
+    );
+  }
 
-        closeCommandPalette();
+  if(sort==="likes"){
+    result=result.slice().sort((a,b)=>
+      Number(b.likes||0)-Number(a.likes||0)
+    );
+  }
 
-        if (action === "videos") {
-          $("#videos").scrollIntoView({
-            behavior: "smooth"
-          });
+  renderVideos(result);
+}
+
+$("#search").addEventListener("input",filterVideos);
+$("#category").addEventListener("change",filterVideos);
+$("#sort").addEventListener("change",filterVideos);
+
+/* VIDEO MODAL */
+
+function openVideo(video){
+
+  currentVideo=video;
+
+  $("#modalTitle").textContent=video.title || "JJ PLAYZ";
+
+  const player=$("#videoPlayer");
+
+  player.src=video.video || "";
+
+  $("#videoModal").classList.add("show");
+
+  state.videosWatched++;
+
+  localStorage.setItem(
+    "jj_watched",
+    state.videosWatched
+  );
+
+  addXP(15);
+
+  player.play().catch(()=>{});
+
+}
+
+function closeVideo(){
+
+  const player=$("#videoPlayer");
+
+  player.pause();
+  player.removeAttribute("src");
+  player.load();
+
+  $("#videoModal").classList.remove("show");
+
+}
+
+$("#closeModal").addEventListener("click",closeVideo);
+
+$("#videoModal").addEventListener("click",e=>{
+  if(e.target===e.currentTarget){
+    closeVideo();
+  }
+});
+
+$("#modalLike").addEventListener("click",()=>{
+
+  state.likes++;
+  saveState();
+  addXP(10);
+  updateHUD();
+
+  toast("❤️ LIKE +10 XP");
+
+});
+
+$("#modalLater").addEventListener("click",()=>{
+
+  if(!currentVideo)return;
+
+  const later=JSON.parse(
+    localStorage.getItem("jj_later")||"[]"
+  );
+
+  if(!later.includes(currentVideo.id)){
+    later.push(currentVideo.id);
+    localStorage.setItem(
+      "jj_later",
+      JSON.stringify(later)
+    );
+
+    addXP(5);
+    toast("🔖 Saved!");
+  }
+
+});
+
+$("#modalFullscreen").addEventListener("click",async()=>{
+
+  const player=$("#videoPlayer");
+
+  if(player.requestFullscreen){
+    await player.requestFullscreen();
+  }
+
+});
+
+/* ROULETTE */
+
+$("#roulette").addEventListener("click",()=>{
+
+  if(!videos.length)return;
+
+  const video=
+    videos[Math.floor(Math.random()*videos.length)];
+
+  toast("🎰 ROULETTE CHOSE...");
+
+  setTimeout(()=>{
+    openVideo(video);
+  },700);
+
+  addXP(20);
+
+});
+
+/* RAGE */
+
+$("#rageBtn").addEventListener("click",()=>{
+
+  state.rage+=Math.floor(Math.random()*13)+5;
+
+  if(state.rage>100){
+    state.rage=100;
+  }
+
+  $("#rageFill").style.width=state.rage+"%";
+  $("#rageText").textContent=state.rage+"%";
+
+  saveState();
+  addXP(8);
+
+  if(state.rage>=100){
+    toast("💀 RAGE CRITICAL");
+    confetti();
+  }else{
+    toast("💢 RAGE INCREASED");
+  }
+
+});
+
+/* COMMAND PALETTE */
+
+function toggleCommand(){
+
+  $("#commandPalette").classList.toggle("show");
+
+  if($("#commandPalette").classList.contains("show")){
+    setTimeout(()=>$("#commandInput").focus(),50);
+  }
+
+}
+
+$("#commandBtn").addEventListener("click",toggleCommand);
+
+$("#commandPalette").addEventListener("click",e=>{
+  if(e.target===e.currentTarget){
+    toggleCommand();
+  }
+});
+
+$$(".command-item").forEach(item=>{
+
+  item.addEventListener("click",()=>{
+
+    const command=item.dataset.command;
+
+    $("#commandPalette").classList.remove("show");
+
+    if(command==="chaos"){
+      activateChaos();
+      return;
+    }
+
+    if(command==="theme"){
+      $("#themeBtn").click();
+      return;
+    }
+
+    document.getElementById(command)?.scrollIntoView({
+      behavior:"smooth"
+    });
+
+  });
+
+});
+
+$("#commandInput").addEventListener("input",e=>{
+
+  const q=e.target.value.toLowerCase();
+
+  $$(".command-item").forEach(item=>{
+
+    item.style.display=
+      item.textContent.toLowerCase().includes(q)
+      ? ""
+      : "none";
+
+  });
+
+});
+
+/* KEYBOARD */
+
+document.addEventListener("keydown",e=>{
+
+  if(e.key==="/"){
+    e.preventDefault();
+    $("#search").focus();
+  }
+
+  if(e.key.toLowerCase()==="k"){
+    toggleCommand();
+  }
+
+  if(e.key==="Escape"){
+
+    if($("#videoModal").classList.contains("show")){
+      closeVideo();
+    }
+
+    if($("#commandPalette").classList.contains("show")){
+      $("#commandPalette").classList.remove("show");
+    }
+
+  }
+
+  if(e.key.toLowerCase()==="c"){
+    activateChaos();
+  }
+
+  if(e.key.toLowerCase()==="t"){
+    $("#themeBtn").click();
+  }
+
+});
+
+/* CHAOS */
+
+function activateChaos(){
+
+  document.body.classList.toggle("chaos");
+
+  const active=document.body.classList.contains("chaos");
+
+  toast(
+    active
+    ? "💀 CHAOS MODE ACTIVATED"
+    : "😌 Chaos contained... temporarily."
+  );
+
+  addXP(25);
+
+  if(active){
+    confetti();
+  }
+
+}
+
+$("#chaosBtn").addEventListener("click",activateChaos);
+
+/* PARTY */
+
+$("#partyBtn").addEventListener("click",()=>{
+
+  activateChaos();
+
+  for(let i=0;i<3;i++){
+    setTimeout(confetti,i*300);
+  }
+
+  toast("🎉 PARTY MODE ACTIVATED");
+
+});
+
+/* CONFETTI */
+
+function confetti(){
+
+  const symbols=["🎉","🔥","⚡","💀","🎮","👑","✨"];
+
+  for(let i=0;i<55;i++){
+
+    const el=document.createElement("div");
+
+    el.textContent=
+      symbols[Math.floor(Math.random()*symbols.length)];
+
+    el.style.position="fixed";
+    el.style.left=Math.random()*100+"vw";
+    el.style.top="-30px";
+    el.style.zIndex="99999";
+    el.style.fontSize=(14+Math.random()*20)+"px";
+    el.style.pointerEvents="none";
+
+    document.body.appendChild(el);
+
+    const duration=1200+Math.random()*1500;
+
+    el.animate(
+      [
+        {
+          transform:"translateY(0) rotate(0deg)",
+          opacity:1
+        },
+        {
+          transform:
+            `translateY(${innerHeight+80}px) rotate(${720+Math.random()*720}deg)`,
+          opacity:0
         }
+      ],
+      {
+        duration,
+        easing:"cubic-bezier(.2,.8,.3,1)"
+      }
+    ).onfinish=()=>el.remove();
 
-        if (action === "random") {
-          randomChaos();
-        }
+  }
 
-        if (action === "theme") {
-          toggleTheme();
-        }
+}
 
-        if (action === "top") {
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-          });
-        }
+/* MINI GAME */
 
-        if (action === "chaos") {
-          activateChaos();
+const arena=$("#gameArena");
+const player=$("#gamePlayer");
+
+let gameRunning=false;
+let gameScore=0;
+let playerX=50;
+let gameTimer=null;
+let spawnTimer=null;
+
+$("#bestScore").textContent=state.bestScore;
+
+function startGame(){
+
+  gameRunning=true;
+  gameScore=0;
+  playerX=50;
+
+  $("#gameScore").textContent="0";
+  $("#gameOver").classList.remove("show");
+
+  player.style.left=playerX+"%";
+
+  clearInterval(gameTimer);
+  clearInterval(spawnTimer);
+
+  gameTimer=setInterval(()=>{
+
+    gameScore++;
+    $("#gameScore").textContent=gameScore;
+
+    if(gameScore%100===0){
+      addXP(25);
+    }
+
+  },100);
+
+  spawnTimer=setInterval(spawnObject,650);
+
+}
+
+function stopGame(){
+
+  gameRunning=false;
+
+  clearInterval(gameTimer);
+  clearInterval(spawnTimer);
+
+  if(gameScore>state.bestScore){
+
+    state.bestScore=gameScore;
+    saveState();
+
+    $("#bestScore").textContent=state.bestScore;
+
+    toast("🏆 NEW HIGH SCORE!");
+
+  }
+
+  $("#finalScore").textContent=
+    `Score: ${gameScore}`;
+
+  $("#gameOver").classList.add("show");
+
+  if(gameScore>=1000){
+    addXP(150);
+    confetti();
+  }
+
+}
+
+function spawnObject(){
+
+  if(!gameRunning)return;
+
+  const isCoin=Math.random()<.25;
+
+  const object=document.createElement("div");
+
+  object.className=isCoin?"coin":"hazard";
+
+  const x=5+Math.random()*90;
+
+  object.style.left=x+"%";
+
+  arena.appendChild(object);
+
+  const duration=1800-Math.min(gameScore*2,800);
+
+  const animation=object.animate(
+    [
+      {transform:"translateY(0)"},
+      {transform:"translateY(500px)"}
+    ],
+    {
+      duration,
+      easing:"linear"
+    }
+  );
+
+  const collision=setInterval(()=>{
+
+    if(!gameRunning){
+      clearInterval(collision);
+      return;
+    }
+
+    const a=object.getBoundingClientRect();
+    const b=player.getBoundingClientRect();
+
+    const hit=
+      a.left<b.right &&
+      a.right>b.left &&
+      a.top<b.bottom &&
+      a.bottom>b.top;
+
+    if(hit){
+
+      clearInterval(collision);
+
+      if(isCoin){
+
+        gameScore+=100;
+        $("#gameScore").textContent=gameScore;
+
+        addXP(20);
+        toast("🪙 +100");
+
+        object.remove();
+
+      }else{
+
+        object.remove();
+        stopGame();
+
+      }
+
+    }
+
+  },30);
+
+  animation.onfinish=()=>{
+
+    clearInterval(collision);
+    object.remove();
+
+  };
+
+}
+
+function movePlayer(direction){
+
+  if(!gameRunning)return;
+
+  playerX+=direction*4;
+
+  playerX=Math.max(4,Math.min(96,playerX));
+
+  player.style.left=playerX+"%";
+
+}
+
+document.addEventListener("keydown",e=>{
+
+  if(e.key==="ArrowLeft" || e.key.toLowerCase()==="a"){
+    movePlayer(-1);
+  }
+
+  if(e.key==="ArrowRight" || e.key.toLowerCase()==="d"){
+    movePlayer(1);
+  }
+
+});
+
+arena.addEventListener("pointermove",e=>{
+
+  if(!gameRunning)return;
+
+  const rect=arena.getBoundingClientRect();
+
+  playerX=((e.clientX-rect.left)/rect.width)*100;
+
+  playerX=Math.max(4,Math.min(96,playerX));
+
+  player.style.left=playerX+"%";
+
+});
+
+$("#gameArena").addEventListener("click",()=>{
+
+  if(!gameRunning && !$("#gameOver").classList.contains("show")){
+    startGame();
+  }
+
+});
+
+$("#restartGame").addEventListener("click",e=>{
+
+  e.stopPropagation();
+  startGame();
+
+});
+
+/* KONAMI CODE */
+
+const konami=[
+  "ArrowUp",
+  "ArrowUp",
+  "ArrowDown",
+  "ArrowDown",
+  "ArrowLeft",
+  "ArrowRight",
+  "ArrowLeft",
+  "ArrowRight",
+  "b",
+  "a"
+];
+
+let konamiIndex=0;
+
+document.addEventListener("keydown",e=>{
+
+  if(e.key===konami[konamiIndex]){
+    konamiIndex++;
+
+    if(konamiIndex===konami.length){
+
+      konamiIndex=0;
+
+      toast("👽 SECRET MODE UNLOCKED");
+
+      document.body.classList.add("chaos");
+
+      addXP(500);
+      confetti();
+
+    }
+
+  }else{
+    konamiIndex=0;
+  }
+
+});
+
+/* ACTIVE NAV */
+
+const sections=$$("section[id]");
+
+window.addEventListener("scroll",()=>{
+
+  const position=scrollY+180;
+
+  sections.forEach(section=>{
+
+    if(
+      position>=section.offsetTop &&
+      position<section.offsetTop+section.offsetHeight
+    ){
+
+      $$(".nav-links a").forEach(a=>{
+        a.classList.remove("active");
+
+        if(a.getAttribute("href")==="#"+section.id){
+          a.classList.add("active");
         }
 
       });
 
-    });
-
-    /* =========================
-       KEYBOARD SHORTCUTS
-    ========================== */
-
-    let konami = [];
-
-    const konamiCode = [
-      "ArrowUp",
-      "ArrowUp",
-      "ArrowDown",
-      "ArrowDown",
-      "ArrowLeft",
-      "ArrowRight",
-      "ArrowLeft",
-      "ArrowRight",
-      "b",
-      "a"
-    ];
-
-    window.addEventListener("keydown", event => {
-
-      if (
-        event.key === "/" &&
-        document.activeElement.tagName !== "INPUT"
-      ) {
-
-        event.preventDefault();
-        openCommandPalette();
-
-      }
-
-      if (event.key === "Escape") {
-
-        closeCommandPalette();
-        closeVideo();
-
-      }
-
-      if (
-        event.key.toLowerCase() === "r" &&
-        document.activeElement.tagName !== "INPUT"
-      ) {
-
-        randomChaos();
-
-      }
-
-      if (
-        event.key.toLowerCase() === "c" &&
-        document.activeElement.tagName !== "INPUT"
-      ) {
-
-        activateChaos();
-
-      }
-
-      konami.push(event.key);
-
-      if (konami.length > konamiCode.length) {
-        konami.shift();
-      }
-
-      if (
-        JSON.stringify(konami) ===
-        JSON.stringify(konamiCode)
-      ) {
-
-        activateChaos();
-
-        toast(
-          "SECRET CODE ACTIVATED 👀",
-          "You found the forbidden button."
-        );
-
-        confetti();
-
-      }
-
-    });
-
-    /* =========================
-       CHAOS MODE
-    ========================== */
-
-    function activateChaos() {
-
-      document.body.classList.add("chaos-mode");
-      document.documentElement.classList.add("glitch-mode");
-
-      toast(
-        "⚠ CHAOS MODE",
-        "You have made a terrible decision."
-      );
-
-      confetti();
-
-      addXP(250);
-
-      setTimeout(() => {
-
-        document.body.classList.remove("chaos-mode");
-        document.documentElement.classList.remove("glitch-mode");
-
-      }, 4500);
-
     }
 
-    $("#chaosBtn")
-      .addEventListener(
-        "click",
-        activateChaos
-      );
+  });
 
-    /* =========================
-       FAKE CHAT
-    ========================== */
+});
 
-    const chatMessages = [
+/* LOADER */
 
-      ["AimBotEnjoyer", "BROOOOO 😭"],
-      ["JJFan", "THAT WAS CLEAN"],
-      ["PixelGoblin", "NO WAY"],
-      ["ChaosEnjoyer", "LET HIM COOK 🔥"],
-      ["ControllerDestroyer", "MY CONTROLLER IS GONE"],
-      ["GGNoRe", "ABSOLUTE CINEMA"],
-      ["DefinitelyNotAI", "what am I watching"],
-      ["SpeedRunner", "CLIP IT CLIP IT CLIP IT"]
+setTimeout(()=>{
+  $("#loader").classList.add("hide");
+},1900);
 
-    ];
+/* PWA */
 
-    setInterval(() => {
+if("serviceWorker" in navigator){
 
-      const chat = $("#chat");
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker
+      .register("./sw.js")
+      .catch(()=>{});
+  });
 
-      const message =
-        chatMessages[
-          Math.floor(
-            Math.random() *
-            chatMessages.length
-          )
-        ];
+}
 
-      const el =
-        document.createElement("div");
+/* INIT */
 
-      el.className = "message";
+updateHUD();
 
-      el.innerHTML =
-        `<b>${escapeHTML(message[0])}:</b>
-         ${escapeHTML(message[1])}`;
-
-      chat.appendChild(el);
-
-      while (chat.children.length > 6) {
-        chat.removeChild(chat.firstChild);
-      }
-
-    }, 3500);
-
-    /* =========================
-       TOAST
-    ========================== */
-
-    function toast(title, message) {
-
-      const container =
-        $("#toast-container");
-
-      const el =
-        document.createElement("div");
-
-      el.className = "toast";
-
-      el.innerHTML = `
-        <strong>${escapeHTML(title)}</strong>
-        <p>${escapeHTML(message)}</p>
-      `;
-
-      container.appendChild(el);
+$("#rageFill").style.width=state.rage+"%";
+$("#rageText").textContent=state.rage+"%";
 
-      setTimeout(() => {
+loadVideos();
 
-        el.style.opacity = "0";
-        el.style.transform = "translateX(30px)";
+/* WELCOME XP */
 
-        setTimeout(() => {
-          el.remove();
-        }, 300);
+if(!localStorage.getItem("jj_first_visit")){
 
-      }, 3200);
+  localStorage.setItem("jj_first_visit","yes");
 
-    }
+  setTimeout(()=>{
+    addXP(25);
+    toast("🌱 FIRST STEP UNLOCKED +25 XP");
+  },2500);
 
-    /* =========================
-       CONFETTI
-    ========================== */
-
-    function confetti() {
-
-      const symbols = [
-        "✦",
-        "✧",
-        "◆",
-        "★",
-        "●"
-      ];
-
-      for (let i = 0; i < 45; i++) {
-
-        const piece =
-          document.createElement("div");
-
-        piece.textContent =
-          symbols[
-            Math.floor(
-              Math.random() *
-              symbols.length
-            )
-          ];
-
-        piece.style.position = "fixed";
-        piece.style.left =
-          Math.random() * 100 + "vw";
-        piece.style.top = "-30px";
-        piece.style.zIndex = "6000";
-        piece.style.pointerEvents = "none";
-        piece.style.fontSize =
-          Math.random() * 18 + 10 + "px";
-        piece.style.color =
-          `hsl(${Math.random() * 360} 90% 70%)`;
-
-        document.body.appendChild(piece);
-
-        const duration =
-          Math.random() * 1800 + 1500;
-
-        piece.animate(
-          [
-            {
-              transform:
-                `translateY(0) rotate(0deg)`,
-              opacity: 1
-            },
-            {
-              transform:
-                `translateY(110vh)
-                 translateX(${(Math.random()-.5)*300}px)
-                 rotate(${Math.random()*720}deg)`,
-              opacity: 0
-            }
-          ],
-          {
-            duration,
-            easing: "cubic-bezier(.2,.8,.2,1)"
-          }
-        );
-
-        setTimeout(
-          () => piece.remove(),
-          duration
-        );
-
-      }
-
-    }
-
-    /* =========================
-       FAKE COMMUNITY LINKS
-    ========================== */
-
-    function fakeLink(event, name) {
-
-      event.preventDefault();
-
-      toast(
-        `${name.toUpperCase()}`,
-        `${name} link ready — replace this href with your real link.`
-      );
-
-      addXP(20);
-
-    }
-
-    /* =========================
-       ESCAPE HTML
-    ========================== */
-
-    function escapeHTML(value) {
-
-      return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-
-    }
-
-    /* =========================
-       SCROLL REVEAL
-    ========================== */
-
-    const revealObserver =
-      new IntersectionObserver(
-        entries => {
-
-          entries.forEach(entry => {
-
-            if (!entry.isIntersecting) return;
-
-            entry.target.animate(
-              [
-                {
-                  opacity: 0,
-                  transform: "translateY(25px)"
-                },
-                {
-                  opacity: 1,
-                  transform: "translateY(0)"
-                }
-              ],
-              {
-                duration: 700,
-                easing: "cubic-bezier(.2,.8,.2,1)",
-                fill: "forwards"
-              }
-            );
-
-            revealObserver.unobserve(
-              entry.target
-            );
-
-          });
-
-        },
-        {
-          threshold: .12
-        }
-      );
-
-    $$(
-      ".stat, .achievement, .community-card, .video-card"
-    ).forEach(el =>
-      revealObserver.observe(el)
-    );
-
-    /* =========================
-       WELCOME
-    ========================== */
-
-    setTimeout(() => {
-
-      toast(
-        "WELCOME TO JJ PLAYZ 👾",
-        "Press / for the command palette."
-      );
-
-    }, 1400);
-
-    /* =========================
-       FEATURED ROTATION
-    ========================== */
-
-    const featuredTitles = [
-
-      [
-        "THE MOMENT EVERYTHING WENT WRONG.",
-        "One match. Zero brain cells. Infinite entertainment."
-      ],
-
-      [
-        "I DEFINITELY MEANT TO DO THAT.",
-        "Calculated. Planned. Absolutely not accidental."
-      ],
-
-      [
-        "THIS SHOULD NOT HAVE WORKED.",
-        "Sometimes the universe simply chooses chaos."
-      ],
-
-      [
-        "ZERO BRAIN CELLS. MAXIMUM RESULTS.",
-        "The strategy was questionable. The result was beautiful."
-      ]
-
-    ];
-
-    let featuredIndex = 0;
-
-    setInterval(() => {
-
-      featuredIndex =
-        (featuredIndex + 1) %
-        featuredTitles.length;
-
-      $("#featuredTitle").textContent =
-        featuredTitles[featuredIndex][0];
-
-      $("#featuredDescription").textContent =
-        featuredTitles[featuredIndex][1];
-
-    }, 5000);
-
-  </script>
+}
+</script>
 
 </body>
 </html>
