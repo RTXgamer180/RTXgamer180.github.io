@@ -1,1206 +1,243 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>JJ PLAYZ | Gaming</title><meta name="description" content="JJ PLAYZ — Gaming, chaos, funny moments and more."><style>
-:root {
-    --bg: #070711;
-    --panel: #11111d;
-    --panel2: #181827;
-    --text: #ffffff;
-    --muted: #a5a5bb;
-    --purple: #8b5cf6;
-    --cyan: #22d3ee;
-    --red: #ff1744;
-    --border: rgba(255,255,255,.10);
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: Arial, Helvetica, sans-serif;
-    overflow-x: hidden;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-/* BACKGROUND */
-
-.background {
-    position: fixed;
-    inset: 0;
-    z-index: -5;
-    overflow: hidden;
-
-    background:
-        radial-gradient(
-            circle at 20% 20%,
-            rgba(139,92,246,.18),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 80% 80%,
-            rgba(34,211,238,.12),
-            transparent 35%
-        ),
-        #070711;
-}
-
-.background::before {
-    content: "";
-    position: absolute;
-    inset: -50%;
-
-    background-image:
-        linear-gradient(
-            rgba(255,255,255,.025) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.025) 1px,
-            transparent 1px
-        );
-
-    background-size: 55px 55px;
-
-    transform: rotate(12deg);
-
-    animation: gridMove 25s linear infinite;
-}
-
-@keyframes gridMove {
-    from {
-        transform: translate(0,0) rotate(12deg);
-    }
-
-    to {
-        transform: translate(55px,55px) rotate(12deg);
-    }
-}
-
-/* CONTAINER */
-
-.container {
-    width: min(1150px, calc(100% - 32px));
-    margin: auto;
-}
-
-/* NAVIGATION */
-
-nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-
-    background: rgba(7,7,17,.78);
-    backdrop-filter: blur(18px);
-
-    border-bottom:
-        1px solid var(--border);
-}
-
-.nav-inner {
-    min-height: 72px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 20px;
-}
-
-.logo {
-    font-size: 1.35rem;
-    font-weight: 1000;
-    letter-spacing: -1px;
-}
-
-.logo span {
-    color: var(--cyan);
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-
-    color: var(--muted);
-}
-
-.nav-links a:hover {
-    color: white;
-}
-
-.youtube-button {
-    padding: 10px 17px;
-
-    border-radius: 10px;
-
-    background: var(--red);
-    color: white !important;
-
-    font-weight: 800;
-
-    box-shadow:
-        0 8px 25px rgba(255,23,68,.20);
-}
-
-/* HERO */
-
-.hero {
-    min-height: 620px;
-
-    display: flex;
-    align-items: center;
-
-    text-align: center;
-
-    padding: 90px 0;
-}
-
-.hero-content {
-    width: 100%;
-}
-
-.tag {
-    display: inline-block;
-
-    padding: 8px 15px;
-
-    border:
-        1px solid rgba(139,92,246,.45);
-
-    border-radius: 999px;
-
-    background:
-        rgba(139,92,246,.10);
-
-    color: #c4b5fd;
-
-    font-size: .8rem;
-    font-weight: 800;
-
-    letter-spacing: 1px;
-
-    margin-bottom: 25px;
-}
-
-.hero h1 {
-    font-size: clamp(3.3rem, 10vw, 7rem);
-
-    line-height: .88;
-
-    letter-spacing: -6px;
-
-    font-weight: 1000;
-
-    margin-bottom: 28px;
-}
-
-.gradient {
-    background:
-        linear-gradient(
-            90deg,
-            #a78bfa,
-            #22d3ee
-        );
-
-    -webkit-background-clip: text;
-    background-clip: text;
-
-    color: transparent;
-}
-
-.hero p {
-    max-width: 650px;
-
-    margin: auto;
-
-    color: var(--muted);
-
-    font-size: 1.1rem;
-}
-
-.buttons {
-    display: flex;
-
-    justify-content: center;
-
-    flex-wrap: wrap;
-
-    gap: 12px;
-
-    margin-top: 35px;
-}
-
-.btn {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 14px 24px;
-
-    border-radius: 12px;
-
-    font-weight: 900;
-
-    transition: .2s;
-
-    border:
-        1px solid var(--border);
-}
-
-.btn:hover {
-    transform: translateY(-4px);
-}
-
-.btn-red {
-    background: var(--red);
-    border-color: var(--red);
-
-    box-shadow:
-        0 10px 30px rgba(255,23,68,.20);
-}
-
-.btn-dark {
-    background: var(--panel);
-}
-
-/* UPDATE COUNTDOWN */
-
-.update-box {
-    width: min(620px, 100%);
-
-    margin: 35px auto 0;
-
-    padding: 18px 22px;
-
-    border:
-        1px solid rgba(34,211,238,.20);
-
-    border-radius: 16px;
-
-    background:
-        rgba(17,17,29,.75);
-
-    box-shadow:
-        0 10px 40px rgba(0,0,0,.15);
-}
-
-.update-top {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 15px;
-
-    margin-bottom: 10px;
-}
-
-.update-title {
-    font-weight: 800;
-}
-
-.update-time {
-    color: var(--cyan);
-
-    font-weight: 900;
-
-    font-variant-numeric: tabular-nums;
-}
-
-.progress {
-    width: 100%;
-    height: 5px;
-
-    overflow: hidden;
-
-    border-radius: 999px;
-
-    background:
-        rgba(255,255,255,.08);
-}
-
-.progress-bar {
-    width: 100%;
-    height: 100%;
-
-    border-radius: inherit;
-
-    background:
-        linear-gradient(
-            90deg,
-            var(--purple),
-            var(--cyan)
-        );
-
-    transform-origin: left;
-}
-
-/* STATS */
-
-.stats {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap: 15px;
-
-    margin-bottom: 90px;
-}
-
-.stat {
-    background:
-        rgba(17,17,29,.75);
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 17px;
-
-    padding: 25px;
-
-    text-align: center;
-}
-
-.stat-icon {
-    font-size: 1.8rem;
-}
-
-.stat strong {
-    display: block;
-
-    font-size: 1.1rem;
-
-    margin-top: 8px;
-}
-
-.stat span {
-    color: var(--muted);
-
-    font-size: .82rem;
-}
-
-/* SECTIONS */
-
-section {
-    padding: 80px 0;
-}
-
-.section-title {
-    font-size: 2.2rem;
-
-    font-weight: 1000;
-
-    letter-spacing: -1px;
-}
-
-.section-subtitle {
-    color: var(--muted);
-
-    margin-top: 6px;
-
-    margin-bottom: 30px;
-}
-
-/* VIDEOS */
-
-.videos {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap: 20px;
-}
-
-.video-card {
-    display: block;
-
-    overflow: hidden;
-
-    background: var(--panel);
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 18px;
-
-    transition: .25s;
-}
-
-.video-card:hover {
-    transform: translateY(-7px);
-
-    border-color:
-        rgba(139,92,246,.7);
-
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.25);
-}
-
-.thumbnail {
-    width: 100%;
-
-    aspect-ratio: 16 / 9;
-
-    object-fit: cover;
-
-    display: block;
-
-    background:
-        linear-gradient(
-            135deg,
-            #27204a,
-            #111827
-        );
-}
-
-.video-info {
-    padding: 18px;
-}
-
-.video-info h3 {
-    font-size: 1rem;
-
-    line-height: 1.3;
-
-    margin-bottom: 8px;
-}
-
-.video-date {
-    color: var(--muted);
-
-    font-size: .8rem;
-}
-
-.watch {
-    display: inline-block;
-
-    margin-top: 13px;
-
-    color: var(--cyan);
-
-    font-size: .85rem;
-
-    font-weight: 800;
-}
-
-/* LOADING */
-
-.loading {
-    grid-column: 1 / -1;
-
-    text-align: center;
-
-    padding: 60px;
-
-    color: var(--muted);
-}
-
-.spinner {
-    width: 35px;
-    height: 35px;
-
-    margin: 0 auto 15px;
-
-    border:
-        3px solid rgba(255,255,255,.1);
-
-    border-top-color:
-        var(--cyan);
-
-    border-radius: 50%;
-
-    animation:
-        spin .8s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* ABOUT */
-
-.about-grid {
-    display: grid;
-
-    grid-template-columns:
-        1.2fr .8fr;
-
-    gap: 22px;
-}
-
-.about-box {
-    background: var(--panel);
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 20px;
-
-    padding: 30px;
-}
-
-.about-box p {
-    color: var(--muted);
-
-    margin-top: 15px;
-
-    line-height: 1.7;
-}
-
-.about-side {
-    background:
-        linear-gradient(
-            135deg,
-            rgba(139,92,246,.16),
-            rgba(34,211,238,.08)
-        );
-}
-
-.about-side ul {
-    list-style: none;
-
-    color: var(--muted);
-
-    margin-top: 15px;
-}
-
-.about-side li {
-    margin: 12px 0;
-}
-
-.about-side li::before {
-    content: "✦";
-
-    color: var(--cyan);
-
-    margin-right: 10px;
-}
-
-/* CTA */
-
-.cta {
-    text-align: center;
-
-    padding: 80px 20px;
-
-    margin:
-        30px 0 80px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 25px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(139,92,246,.16),
-            rgba(34,211,238,.08)
-        );
-}
-
-.cta h2 {
-    font-size:
-        clamp(2rem,5vw,3rem);
-}
-
-.cta p {
-    color: var(--muted);
-
-    margin: 10px 0 25px;
-}
-
-/* FOOTER */
-
-footer {
-    border-top:
-        1px solid var(--border);
-
-    padding: 35px 0;
-
-    color: var(--muted);
-
-    font-size: .85rem;
-}
-
-.footer-inner {
-    display: flex;
-
-    justify-content:
-        space-between;
-
-    flex-wrap: wrap;
-
-    gap: 15px;
-}
-
-/* MOBILE */
-
-@media(max-width:750px) {
-
-    .nav-links a:not(.youtube-button) {
-        display: none;
-    }
-
-    .hero {
-        min-height: 550px;
-    }
-
-    .hero h1 {
-        letter-spacing: -4px;
-    }
-
-    .stats {
-        grid-template-columns: 1fr;
-    }
-
-    .videos {
-        grid-template-columns: 1fr;
-    }
-
-    .about-grid {
-        grid-template-columns: 1fr;
-    }
-
-    section {
-        padding: 55px 0;
-    }
-
-    .update-top {
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    .footer-inner {
-        justify-content: center;
-
-        text-align: center;
-    }
-}
-</style></head><body><div class="background"></div><!-- NAVIGATION --><nav>
-    <div class="container nav-inner">    <a href="#" class="logo">
-        JJ<span>PLAYZ</span>
-    </a>
-
-    <div class="nav-links">
-
-        <a href="#videos">
-            Videos
-        </a>
-
-        <a href="#about">
-            About
-        </a>
-
-        <a
-            class="youtube-button"
-            href="https://www.youtube.com/@xxx-jj_playz"
-            target="_blank"
-            rel="noopener"
-        >
-            🔴 YouTube
-        </a>
-
-    </div>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JJ PLAYZ — Enter the Chaos</title>
+<meta name="description" content="JJ PLAYZ — gaming, chaos, funny moments, clips, challenges and more.">
+<style>
+:root{
+  --bg:#05050b;--panel:rgba(16,16,29,.78);--panel2:#111123;--text:#fff;
+  --muted:#a9a9c2;--purple:#9b5cff;--cyan:#20e7ff;--pink:#ff3ea5;
+  --red:#ff1744;--green:#58f29b;--border:rgba(255,255,255,.1);
+  --shadow:0 25px 80px rgba(0,0,0,.38);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,Arial,Helvetica,sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.background{position:fixed;inset:0;z-index:-10;overflow:hidden;background:
+ radial-gradient(circle at 15% 15%,rgba(155,92,255,.24),transparent 28%),
+ radial-gradient(circle at 85% 20%,rgba(32,231,255,.14),transparent 25%),
+ radial-gradient(circle at 55% 90%,rgba(255,62,165,.13),transparent 30%),#05050b}
+.background:before{content:"";position:absolute;inset:-30%;background-image:
+ linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+ background-size:55px 55px;transform:rotate(10deg);animation:grid 24s linear infinite}
+.background:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at center,transparent 35%,rgba(0,0,0,.55) 100%)}
+@keyframes grid{to{transform:translate(55px,55px) rotate(10deg)}}
+.orb{position:absolute;border-radius:50%;filter:blur(2px);opacity:.35;animation:float 9s ease-in-out infinite}
+.orb.one{width:280px;height:280px;background:var(--purple);left:-100px;top:28%;box-shadow:0 0 120px var(--purple)}
+.orb.two{width:220px;height:220px;background:var(--cyan);right:-80px;top:55%;animation-delay:-3s;box-shadow:0 0 120px var(--cyan)}
+.orb.three{width:180px;height:180px;background:var(--pink);left:45%;top:5%;animation-delay:-6s;box-shadow:0 0 100px var(--pink)}
+@keyframes float{50%{transform:translateY(-35px) translateX(20px) scale(1.08)}}
+.container{width:min(1240px,calc(100% - 34px));margin:auto}
+nav{position:sticky;top:0;z-index:100;background:rgba(5,5,11,.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.logo{font-size:1.5rem;font-weight:1000;letter-spacing:-1.5px}
+.logo span{color:var(--cyan)}
+.nav-links{display:flex;align-items:center;gap:25px;color:var(--muted);font-weight:700}
+.nav-links a{transition:.2s}.nav-links a:hover{color:#fff;transform:translateY(-2px)}
+.youtube-button{padding:11px 17px;border-radius:12px;background:var(--red);color:#fff!important;box-shadow:0 8px 30px rgba(255,23,68,.25)}
+.hero{min-height:760px;display:flex;align-items:center;text-align:center;padding:105px 0 85px;position:relative}
+.hero-content{width:100%}
+.tag{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border:1px solid rgba(155,92,255,.5);border-radius:999px;background:rgba(155,92,255,.1);color:#d5c5ff;font-size:.82rem;font-weight:900;letter-spacing:1.2px;box-shadow:0 0 35px rgba(155,92,255,.12)}
+.pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 15px var(--green);animation:pulse 1.2s infinite}
+@keyframes pulse{50%{transform:scale(1.6);opacity:.5}}
+.hero h1{font-size:clamp(4.3rem,12vw,10rem);line-height:.8;letter-spacing:-9px;font-weight:1000;margin:30px 0 34px;text-shadow:0 0 55px rgba(155,92,255,.16)}
+.gradient{background:linear-gradient(90deg,#c5a8ff,var(--cyan),#fff,var(--pink));background-size:300%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
+@keyframes shine{to{background-position:300%}}
+.hero p{max-width:730px;margin:auto;color:var(--muted);font-size:1.18rem;line-height:1.7}
+.buttons{display:flex;justify-content:center;flex-wrap:wrap;gap:13px;margin-top:34px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:15px 23px;border-radius:13px;font-weight:950;transition:.2s;border:1px solid var(--border);cursor:pointer}
+.btn:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 18px 45px rgba(0,0,0,.25)}
+.btn-red{background:var(--red);border-color:var(--red);box-shadow:0 10px 35px rgba(255,23,68,.23)}
+.btn-dark{background:var(--panel)}
+.btn-purple{background:linear-gradient(135deg,var(--purple),#6d45ff);border:0}
+.update-box{width:min(700px,100%);margin:36px auto 0;padding:19px 22px;border:1px solid rgba(32,231,255,.2);border-radius:17px;background:rgba(16,16,29,.75);box-shadow:var(--shadow)}
+.update-top{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:11px}
+.update-title{font-weight:850}.update-time{color:var(--cyan);font-weight:950;font-variant-numeric:tabular-nums}
+.progress{width:100%;height:6px;overflow:hidden;border-radius:999px;background:rgba(255,255,255,.08)}
+.progress-bar{width:100%;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--purple),var(--cyan),var(--pink));transform-origin:left}
+.mini-note{color:var(--muted);font-size:.76rem;margin-top:9px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:90px}
+.stat{position:relative;overflow:hidden;background:var(--panel);border:1px solid var(--border);border-radius:19px;padding:25px;text-align:center;box-shadow:0 15px 45px rgba(0,0,0,.14)}
+.stat:after{content:"";position:absolute;inset:auto -40px -60px;height:100px;background:radial-gradient(circle,rgba(32,231,255,.12),transparent 65%)}
+.stat-icon{font-size:2rem}.stat strong{display:block;font-size:1.08rem;margin-top:9px}.stat span{color:var(--muted);font-size:.82rem}
+section{padding:95px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:31px}
+.section-title{font-size:clamp(2.1rem,5vw,3.4rem);font-weight:1000;letter-spacing:-2px}.section-subtitle{color:var(--muted);margin-top:8px;line-height:1.6}
+.kicker{color:var(--cyan);font-size:.75rem;font-weight:950;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.videos{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.video-card{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--border);border-radius:20px;transition:.25s;box-shadow:0 15px 45px rgba(0,0,0,.14)}
+.video-card:hover{transform:translateY(-9px);border-color:rgba(155,92,255,.75);box-shadow:0 25px 70px rgba(0,0,0,.35)}
+.thumbnail{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:linear-gradient(135deg,#27204a,#111827)}
+.video-info{padding:19px}.video-info h3{font-size:1.02rem;line-height:1.35;margin-bottom:8px}.video-date{color:var(--muted);font-size:.8rem}.watch{display:inline-block;margin-top:13px;color:var(--cyan);font-size:.86rem;font-weight:850}
+.loading{grid-column:1/-1;text-align:center;padding:70px;color:var(--muted)}
+.spinner{width:38px;height:38px;margin:0 auto 15px;border:3px solid rgba(255,255,255,.1);border-top-color:var(--cyan);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.feature-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}
+.feature{background:var(--panel);border:1px solid var(--border);border-radius:24px;padding:32px;box-shadow:var(--shadow)}
+.feature.big{min-height:330px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(145deg,rgba(155,92,255,.16),rgba(16,16,29,.8) 55%)}
+.feature h3{font-size:2rem;margin-bottom:12px}.feature p{color:var(--muted);line-height:1.7}
+.feature-row{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
+.feature .emoji{font-size:2.5rem;margin-bottom:20px}.feature ul{list-style:none;margin-top:17px;color:var(--muted)}.feature li{margin:12px 0}.feature li:before{content:"✦";color:var(--cyan);margin-right:10px}
+.about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:22px}
+.about-box{background:var(--panel);border:1px solid var(--border);border-radius:22px;padding:32px}.about-box p{color:var(--muted);margin-top:15px;line-height:1.75}
+.marquee{overflow:hidden;border-block:1px solid var(--border);padding:15px 0;margin:25px 0;background:rgba(255,255,255,.025)}
+.marquee-track{display:flex;width:max-content;gap:30px;animation:marquee 24s linear infinite;font-weight:950;letter-spacing:1px}
+.marquee-track span{color:var(--muted)}.marquee-track b{color:#fff}
+@keyframes marquee{to{transform:translateX(-50%)}}
+.community{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.community-card{padding:27px;border:1px solid var(--border);border-radius:20px;background:var(--panel);transition:.2s}.community-card:hover{transform:translateY(-6px);border-color:rgba(32,231,255,.45)}
+.community-card .big-icon{font-size:2.1rem}.community-card h3{margin:14px 0 7px}.community-card p{color:var(--muted);line-height:1.6}
+.cta{text-align:center;padding:95px 25px;margin:30px 0 90px;border:1px solid rgba(155,92,255,.28);border-radius:30px;background:radial-gradient(circle at 50% 0,rgba(155,92,255,.25),transparent 55%),linear-gradient(135deg,rgba(155,92,255,.11),rgba(32,231,255,.06));box-shadow:var(--shadow)}
+.cta h2{font-size:clamp(2.4rem,6vw,4.5rem);letter-spacing:-3px}.cta p{color:var(--muted);margin:13px 0 28px;font-size:1.05rem}
+footer{border-top:1px solid var(--border);padding:38px 0;color:var(--muted);font-size:.85rem}.footer-inner{display:flex;justify-content:space-between;flex-wrap:wrap;gap:15px}
+.top{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border:1px solid var(--border);border-radius:50%;background:rgba(16,16,29,.85);color:#fff;cursor:pointer;z-index:90;backdrop-filter:blur(10px)}
+@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}.videos{grid-template-columns:repeat(2,1fr)}.feature-grid,.about-grid{grid-template-columns:1fr}.community{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){
+ .nav-links a:not(.youtube-button){display:none}.hero{min-height:690px;padding-top:85px}.hero h1{letter-spacing:-5px;font-size:clamp(4rem,21vw,7rem)}
+ .stats,.videos,.community,.feature-row{grid-template-columns:1fr}.section-head{display:block}.update-top{flex-direction:column;gap:5px}.footer-inner{justify-content:center;text-align:center}
+ section{padding:70px 0}
+}
+</style>
+</head>
+<body>
+<div class="background"><div class="orb one"></div><div class="orb two"></div><div class="orb three"></div></div>
+
+<nav>
+<div class="container nav-inner">
+<a href="#" class="logo">JJ<span>PLAYZ</span> ⚡</a>
+<div class="nav-links">
+<a href="#videos">Videos</a><a href="#vibes">Vibes</a><a href="#about">About</a><a href="#community">Community</a>
+<a class="youtube-button" href="https://www.youtube.com/@xxx-jj_playz" target="_blank" rel="noopener">🔴 YouTube</a>
+</div>
+</div>
+</nav>
+
+<main>
+<section class="hero">
+<div class="container hero-content">
+<div class="tag"><i class="pulse"></i> 🎮 WELCOME TO JJ PLAYZ</div>
+<h1>PLAY.<br><span class="gradient">CHAOS.</span><br>REPEAT.</h1>
+<p>Gaming, funny moments, ridiculous fails, insane clips and whatever happens when the controller meets pure chaos. 🚀</p>
+<div class="buttons">
+<a class="btn btn-red" href="https://www.youtube.com/@xxx-jj_playz" target="_blank" rel="noopener">▶ WATCH ON YOUTUBE</a>
+<a class="btn btn-purple" href="#videos">🔥 EXPLORE THE CHAOS</a>
+<a class="btn btn-dark" href="#about">WHO IS JJ? ↓</a>
+</div>
+<div class="update-box">
+<div class="update-top"><div class="update-title">🔄 Next video update</div><div class="update-time" id="countdown">Calculating...</div></div>
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+<div class="mini-note">The video feed checks for fresh uploads automatically.</div>
+</div>
+</div>
+</section>
+
+<div class="container">
+<div class="stats">
+<div class="stat"><div class="stat-icon">🎮</div><strong>GAMING</strong><span>Games. Obviously.</span></div>
+<div class="stat"><div class="stat-icon">💥</div><strong>CHAOS</strong><span>Expect the unexpected.</span></div>
+<div class="stat"><div class="stat-icon">😂</div><strong>FUNNY</strong><span>Zero guarantees of sanity.</span></div>
+<div class="stat"><div class="stat-icon">⚡</div><strong>AUTO UPDATED</strong><span>Fresh channel feed.</span></div>
+</div>
 </div>
 
-</nav><main><!-- HERO --><section class="hero"><div class="container hero-content">
+<div class="marquee"><div class="marquee-track">
+<b>JJ PLAYZ</b><span>✦</span><b>GAMING</b><span>✦</span><b>CHAOS</b><span>✦</span><b>FUNNY MOMENTS</b><span>✦</span><b>EPIC FAILS</b><span>✦</span><b>CLIPS</b><span>✦</span><b>JJ PLAYZ</b><span>✦</span><b>GAMING</b><span>✦</span><b>CHAOS</b><span>✦</span><b>FUNNY MOMENTS</b><span>✦</span><b>EPIC FAILS</b><span>✦</span><b>CLIPS</b><span>✦</span>
+</div></div>
 
-    <div class="tag">
-        🎮 WELCOME TO JJ PLAYZ
-    </div>
-
-    <h1>
-        PLAY.<br>
-        <span class="gradient">CHAOS.</span><br>
-        REPEAT.
-    </h1>
-
-    <p>
-        Gaming, funny moments, crazy clips
-        and whatever happens next. 🚀
-    </p>
-
-    <div class="buttons">
-
-        <a
-            class="btn btn-red"
-            href="https://www.youtube.com/@xxx-jj_playz"
-            target="_blank"
-            rel="noopener"
-        >
-            ▶ WATCH ON YOUTUBE
-        </a>
-
-        <a
-            class="btn btn-dark"
-            href="#videos"
-        >
-            EXPLORE VIDEOS ↓
-        </a>
-
-    </div>
-
-    <!-- AUTOMATIC COUNTDOWN -->
-
-    <div class="update-box">
-
-        <div class="update-top">
-
-            <div class="update-title">
-                🔄 Next video update
-            </div>
-
-            <div
-                class="update-time"
-                id="countdown"
-            >
-                Calculating...
-            </div>
-
-        </div>
-
-        <div class="progress">
-            <div
-                class="progress-bar"
-                id="progressBar"
-            ></div>
-        </div>
-
-    </div>
-
+<section id="videos">
+<div class="container">
+<div class="section-head"><div><div class="kicker">THE FEED</div><h2 class="section-title">Latest Videos 📺</h2><p class="section-subtitle">Automatically loaded from the JJ PLAYZ YouTube feed.</p></div><a class="btn btn-dark" href="https://www.youtube.com/@xxx-jj_playz" target="_blank" rel="noopener">VIEW CHANNEL ↗</a></div>
+<div class="videos" id="video-list"><div class="loading"><div class="spinner"></div>Loading the chaos...</div></div>
 </div>
+</section>
 
-</section><!-- STATS --><div class="container"><div class="stats">
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            🎮
-        </div>
-
-        <strong>
-            Gaming
-        </strong>
-
-        <span>
-            That's what we do
-        </span>
-
-    </div>
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            🔄
-        </div>
-
-        <strong>
-            Auto Updated
-        </strong>
-
-        <span>
-            Every 5 minutes
-        </span>
-
-    </div>
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            💜
-        </div>
-
-        <strong>
-            JJ PLAYZ
-        </strong>
-
-        <span>
-            Join the community
-        </span>
-
-    </div>
-
+<section id="vibes">
+<div class="container">
+<div class="section-head"><div><div class="kicker">THE EXPERIENCE</div><h2 class="section-title">More Than Just Videos.</h2><p class="section-subtitle">A little corner of the internet built for gaming energy.</p></div></div>
+<div class="feature-grid">
+<div class="feature big"><div><div class="emoji">🕹️</div><h3>Enter the chaos zone.</h3><p>Come for the gameplay. Stay for the moments that absolutely were NOT supposed to happen. Every upload is another excuse to press play.</p></div><div><a class="btn btn-purple" href="#community">JOIN THE VIBE ↓</a></div></div>
+<div>
+<div class="feature"><div class="emoji">🔥</div><h3>What you'll find</h3><ul><li>Gaming adventures</li><li>Funny moments</li><li>Crazy clips</li><li>Epic fails</li><li>Unexpected nonsense</li></ul></div>
+<div class="feature-row">
+<div class="feature"><div class="emoji">🏆</div><h3>Big moments</h3><p>Wins, fails and everything in between.</p></div>
+<div class="feature"><div class="emoji">👀</div><h3>Stay tuned</h3><p>There is always another upload.</p></div>
 </div>
-
-</div><!-- VIDEOS --><section id="videos"><div class="container">
-
-    <h2 class="section-title">
-        Latest Videos
-    </h2>
-
-    <p class="section-subtitle">
-        Automatically updated from the JJ PLAYZ YouTube channel.
-    </p>
-
-    <div
-        class="videos"
-        id="video-list"
-    >
-
-        <div class="loading">
-
-            <div class="spinner"></div>
-
-            Loading videos...
-
-        </div>
-
-    </div>
-
 </div>
-
-</section><!-- ABOUT --><section id="about"><div class="container">
-
-    <div class="about-grid">
-
-        <div class="about-box">
-
-            <h2 class="section-title">
-                About JJ PLAYZ
-            </h2>
-
-            <p>
-                Yo! 👋 I'm JJ PLAYZ!
-            </p>
-
-            <p>
-                Welcome to my little corner
-                of the internet where gaming,
-                funny moments and chaos happen.
-            </p>
-
-            <p>
-                Check out the channel and
-                subscribe if you enjoy the videos! 🔥
-            </p>
-
-        </div>
-
-        <div class="about-box about-side">
-
-            <h3>
-                What you'll find here
-            </h3>
-
-            <ul>
-
-                <li>
-                    Gaming adventures
-                </li>
-
-                <li>
-                    Funny moments
-                </li>
-
-                <li>
-                    Crazy clips
-                </li>
-
-                <li>
-                    Epic fails
-                </li>
-
-                <li>
-                    New uploads
-                </li>
-
-            </ul>
-
-        </div>
-
-    </div>
-
 </div>
-
-</section><!-- CTA --><div class="container"><div class="cta">
-
-    <h2>
-        READY TO JOIN THE CHAOS?
-    </h2>
-
-    <p>
-        Subscribe to JJ PLAYZ on YouTube.
-    </p>
-
-    <a
-        class="btn btn-red"
-        href="https://www.youtube.com/@xxx-jj_playz"
-        target="_blank"
-        rel="noopener"
-    >
-        🔴 SUBSCRIBE
-    </a>
-
 </div>
+</section>
 
-</div></main><!-- FOOTER --><footer><div class="container footer-inner">
-
-    <div>
-        © 2026 JJ PLAYZ
-    </div>
-
-    <div>
-        Gaming • Chaos • Fun 🎮
-    </div>
-
+<section id="about">
+<div class="container">
+<div class="section-head"><div><div class="kicker">THE PERSON BEHIND IT</div><h2 class="section-title">About JJ PLAYZ 👋</h2></div></div>
+<div class="about-grid">
+<div class="about-box"><h2 class="section-title">Yo! I'm JJ PLAYZ.</h2><p>Welcome to my little corner of the internet where gaming, funny moments and chaos happen.</p><p>Whether it's an absolutely cursed play, an unexpected win or a moment that makes no sense whatsoever — this is where it belongs.</p><p>Check out the channel and subscribe if you enjoy the videos! 🔥</p></div>
+<div class="about-box"><h3>THE RULES OF JJ PLAYZ</h3><ul style="list-style:none;color:var(--muted);margin-top:18px;line-height:2"><li>⚡ Have fun.</li><li>🎮 Play games.</li><li>😂 Laugh at the fails.</li><li>💥 Embrace the chaos.</li><li>🚀 Repeat.</li></ul></div>
 </div>
+</div>
+</section>
 
-</footer><script>
+<section id="community">
+<div class="container">
+<div class="section-head"><div><div class="kicker">COME HANG OUT</div><h2 class="section-title">Join the Community 🌐</h2><p class="section-subtitle">Pick your doorway into the JJ PLAYZ universe.</p></div></div>
+<div class="community">
+<a class="community-card" href="https://www.youtube.com/@xxx-jj_playz" target="_blank" rel="noopener"><div class="big-icon">🔴</div><h3>YouTube</h3><p>Watch the latest uploads, clips and gaming chaos.</p></a>
+<a class="community-card" href="#videos"><div class="big-icon">🎬</div><h3>Video Vault</h3><p>Scroll through the latest videos right here.</p></a>
+<a class="community-card" href="#about"><div class="big-icon">💜</div><h3>JJ PLAYZ</h3><p>Stay around. The next ridiculous moment is coming.</p></a>
+</div>
+</div>
+</section>
 
-/* =========================================
-   VIDEO LOADER
-   ========================================= */
+<div class="container">
+<div class="cta">
+<div class="kicker">FINAL WARNING</div>
+<h2>READY TO JOIN THE CHAOS?</h2>
+<p>Subscribe to JJ PLAYZ and become part of the madness. 🎮💥</p>
+<a class="btn btn-red" href="https://www.youtube.com/@xxx-jj_playz" target="_blank" rel="noopener">🔴 SUBSCRIBE TO JJ PLAYZ</a>
+</div>
+</div>
+</main>
 
-async function loadVideos() {
+<footer><div class="container footer-inner"><div>© 2026 JJ PLAYZ</div><div>Gaming • Chaos • Fun • Repeat 🎮</div></div></footer>
+<button class="top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 
-    const list =
-        document.getElementById("video-list");
-
-    try {
-
-        const response =
-            await fetch(
-                "videos.json?cache=" + Date.now()
-            );
-
-        if (!response.ok) {
-            throw new Error(
-                "videos.json not found"
-            );
-        }
-
-        const videos =
-            await response.json();
-
-        if (!videos.length) {
-
-            list.innerHTML = `
-                <div class="loading">
-                    No videos found yet. 👀
-                </div>
-            `;
-
-            return;
-        }
-
-        list.innerHTML =
-            videos.map(video => `
-
-                <a
-                    class="video-card"
-                    href="${video.url}"
-                    target="_blank"
-                    rel="noopener"
-                >
-
-                    <img
-                        class="thumbnail"
-                        src="${video.thumbnail}"
-                        alt="${escapeHTML(video.title)}"
-                        loading="lazy"
-                    >
-
-                    <div class="video-info">
-
-                        <h3>
-                            ${escapeHTML(video.title)}
-                        </h3>
-
-                        <div class="video-date">
-                            ${escapeHTML(video.date)}
-                        </div>
-
-                        <span class="watch">
-                            ▶ Watch Video ↗
-                        </span>
-
-                    </div>
-
-                </a>
-
-            `).join("");
-
-    } catch (error) {
-
-        console.error(error);
-
-        list.innerHTML = `
-            <div class="loading">
-                Couldn't load videos right now.<br>
-                <br>
-                <a
-                    href="https://www.youtube.com/@xxx-jj_playz"
-                    target="_blank"
-                    style="color:#22d3ee;font-weight:bold;"
-                >
-                    Open JJ PLAYZ on YouTube ↗
-                </a>
-            </div>
-        `;
-    }
+<script>
+async function loadVideos(){
+ const list=document.getElementById("video-list");
+ try{
+  const response=await fetch("videos.json?cache="+Date.now());
+  if(!response.ok) throw new Error("videos.json not found");
+  const videos=await response.json();
+  if(!videos.length){list.innerHTML='<div class="loading">No videos found yet. 👀</div>';return}
+  list.innerHTML=videos.map(video=>`
+   <a class="video-card" href="${video.url}" target="_blank" rel="noopener">
+    <img class="thumbnail" src="${video.thumbnail}" alt="${escapeHTML(video.title)}" loading="lazy">
+    <div class="video-info"><h3>${escapeHTML(video.title)}</h3><div class="video-date">${escapeHTML(video.date)}</div><span class="watch">▶ Watch Video ↗</span></div>
+   </a>`).join("");
+ }catch(error){
+  console.error(error);
+  list.innerHTML=`<div class="loading">Couldn't load videos right now.<br><br><a href="https://www.youtube.com/@xxx-jj_playz" target="_blank" style="color:#20e7ff;font-weight:bold">Open JJ PLAYZ on YouTube ↗</a></div>`;
+ }
 }
-
-
-/* =========================================
-   HTML ESCAPING
-   ========================================= */
-
-function escapeHTML(text) {
-
-    const div =
-        document.createElement("div");
-
-    div.textContent = text;
-
-    return div.innerHTML;
+function escapeHTML(text){const div=document.createElement("div");div.textContent=text;return div.innerHTML}
+const UPDATE_INTERVAL=5*60*1000;
+function updateCountdown(){
+ const now=new Date(),next=new Date(now);next.setSeconds(0);next.setMilliseconds(0);
+ const nextMinutes=Math.floor(next.getMinutes()/5)*5+5;
+ if(nextMinutes>=60){next.setHours(next.getHours()+1);next.setMinutes(0)}else next.setMinutes(nextMinutes);
+ const difference=next-now,totalSeconds=Math.max(0,Math.floor(difference/1000));
+ const minutesLeft=Math.floor(totalSeconds/60),secondsLeft=totalSeconds%60;
+ document.getElementById("countdown").textContent=`${minutesLeft}m ${String(secondsLeft).padStart(2,"0")}s`;
+ const elapsed=UPDATE_INTERVAL-difference;
+ const progress=Math.min(100,Math.max(0,elapsed/UPDATE_INTERVAL*100));
+ document.getElementById("progressBar").style.transform=`scaleX(${progress/100})`;
+ if(difference<=1000)setTimeout(loadVideos,1500);
 }
-
-
-/* =========================================
-   5-MINUTE UPDATE COUNTDOWN
-   ========================================= */
-
-const UPDATE_INTERVAL = 5 * 60 * 1000;
-
-function updateCountdown() {
-
-    const now =
-        new Date();
-
-    /*
-       GitHub Actions is scheduled every
-       5 minutes, so calculate the next
-       5-minute boundary.
-    */
-
-    const next =
-        new Date(now);
-
-    next.setSeconds(0);
-    next.setMilliseconds(0);
-
-    const minutes =
-        next.getMinutes();
-
-    const nextMinutes =
-        Math.floor(minutes / 5) * 5 + 5;
-
-    if (nextMinutes >= 60) {
-
-        next.setHours(
-            next.getHours() + 1
-        );
-
-        next.setMinutes(0);
-
-    } else {
-
-        next.setMinutes(
-            nextMinutes
-        );
-    }
-
-    const difference =
-        next - now;
-
-    let totalSeconds =
-        Math.max(
-            0,
-            Math.floor(
-                difference / 1000
-            )
-        );
-
-    const minutesLeft =
-        Math.floor(
-            totalSeconds / 60
-        );
-
-    const secondsLeft =
-        totalSeconds % 60;
-
-    const countdown =
-        document.getElementById(
-            "countdown"
-        );
-
-    countdown.textContent =
-        `${minutesLeft}m ${String(secondsLeft).padStart(2, "0")}s`;
-
-    /*
-       Progress bar:
-       0% = beginning of cycle
-       100% = almost next update
-    */
-
-    const elapsed =
-        UPDATE_INTERVAL - difference;
-
-    const progress =
-        Math.min(
-            100,
-            Math.max(
-                0,
-                elapsed /
-                UPDATE_INTERVAL *
-                100
-            )
-        );
-
-    document.getElementById(
-        "progressBar"
-    ).style.transform =
-        `scaleX(${progress / 100})`;
-
-    /*
-       Refresh the video list when
-       the countdown reaches zero.
-    */
-
-    if (difference <= 1000) {
-
-        setTimeout(() => {
-
-            loadVideos();
-
-        }, 1500);
-    }
-}
-
-
-/* START */
-
-loadVideos();
-
-updateCountdown();
-
-setInterval(
-    updateCountdown,
-    1000
-);
-
-</script></body>
+loadVideos();updateCountdown();setInterval(updateCountdown,1000);
+</script>
+</body>
 </html>
