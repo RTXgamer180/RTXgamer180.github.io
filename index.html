@@ -1,243 +1,3280 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JJ PLAYZ — Enter the Chaos</title>
-<meta name="description" content="JJ PLAYZ — gaming, chaos, funny moments, clips, challenges and more.">
-<style>
-:root{
-  --bg:#05050b;--panel:rgba(16,16,29,.78);--panel2:#111123;--text:#fff;
-  --muted:#a9a9c2;--purple:#9b5cff;--cyan:#20e7ff;--pink:#ff3ea5;
-  --red:#ff1744;--green:#58f29b;--border:rgba(255,255,255,.1);
-  --shadow:0 25px 80px rgba(0,0,0,.38);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:Inter,Arial,Helvetica,sans-serif;overflow-x:hidden}
-a{color:inherit;text-decoration:none}
-button{font:inherit}
-.background{position:fixed;inset:0;z-index:-10;overflow:hidden;background:
- radial-gradient(circle at 15% 15%,rgba(155,92,255,.24),transparent 28%),
- radial-gradient(circle at 85% 20%,rgba(32,231,255,.14),transparent 25%),
- radial-gradient(circle at 55% 90%,rgba(255,62,165,.13),transparent 30%),#05050b}
-.background:before{content:"";position:absolute;inset:-30%;background-image:
- linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
- linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
- background-size:55px 55px;transform:rotate(10deg);animation:grid 24s linear infinite}
-.background:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at center,transparent 35%,rgba(0,0,0,.55) 100%)}
-@keyframes grid{to{transform:translate(55px,55px) rotate(10deg)}}
-.orb{position:absolute;border-radius:50%;filter:blur(2px);opacity:.35;animation:float 9s ease-in-out infinite}
-.orb.one{width:280px;height:280px;background:var(--purple);left:-100px;top:28%;box-shadow:0 0 120px var(--purple)}
-.orb.two{width:220px;height:220px;background:var(--cyan);right:-80px;top:55%;animation-delay:-3s;box-shadow:0 0 120px var(--cyan)}
-.orb.three{width:180px;height:180px;background:var(--pink);left:45%;top:5%;animation-delay:-6s;box-shadow:0 0 100px var(--pink)}
-@keyframes float{50%{transform:translateY(-35px) translateX(20px) scale(1.08)}}
-.container{width:min(1240px,calc(100% - 34px));margin:auto}
-nav{position:sticky;top:0;z-index:100;background:rgba(5,5,11,.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.nav-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-.logo{font-size:1.5rem;font-weight:1000;letter-spacing:-1.5px}
-.logo span{color:var(--cyan)}
-.nav-links{display:flex;align-items:center;gap:25px;color:var(--muted);font-weight:700}
-.nav-links a{transition:.2s}.nav-links a:hover{color:#fff;transform:translateY(-2px)}
-.youtube-button{padding:11px 17px;border-radius:12px;background:var(--red);color:#fff!important;box-shadow:0 8px 30px rgba(255,23,68,.25)}
-.hero{min-height:760px;display:flex;align-items:center;text-align:center;padding:105px 0 85px;position:relative}
-.hero-content{width:100%}
-.tag{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border:1px solid rgba(155,92,255,.5);border-radius:999px;background:rgba(155,92,255,.1);color:#d5c5ff;font-size:.82rem;font-weight:900;letter-spacing:1.2px;box-shadow:0 0 35px rgba(155,92,255,.12)}
-.pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 15px var(--green);animation:pulse 1.2s infinite}
-@keyframes pulse{50%{transform:scale(1.6);opacity:.5}}
-.hero h1{font-size:clamp(4.3rem,12vw,10rem);line-height:.8;letter-spacing:-9px;font-weight:1000;margin:30px 0 34px;text-shadow:0 0 55px rgba(155,92,255,.16)}
-.gradient{background:linear-gradient(90deg,#c5a8ff,var(--cyan),#fff,var(--pink));background-size:300%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
-@keyframes shine{to{background-position:300%}}
-.hero p{max-width:730px;margin:auto;color:var(--muted);font-size:1.18rem;line-height:1.7}
-.buttons{display:flex;justify-content:center;flex-wrap:wrap;gap:13px;margin-top:34px}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:15px 23px;border-radius:13px;font-weight:950;transition:.2s;border:1px solid var(--border);cursor:pointer}
-.btn:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 18px 45px rgba(0,0,0,.25)}
-.btn-red{background:var(--red);border-color:var(--red);box-shadow:0 10px 35px rgba(255,23,68,.23)}
-.btn-dark{background:var(--panel)}
-.btn-purple{background:linear-gradient(135deg,var(--purple),#6d45ff);border:0}
-.update-box{width:min(700px,100%);margin:36px auto 0;padding:19px 22px;border:1px solid rgba(32,231,255,.2);border-radius:17px;background:rgba(16,16,29,.75);box-shadow:var(--shadow)}
-.update-top{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:11px}
-.update-title{font-weight:850}.update-time{color:var(--cyan);font-weight:950;font-variant-numeric:tabular-nums}
-.progress{width:100%;height:6px;overflow:hidden;border-radius:999px;background:rgba(255,255,255,.08)}
-.progress-bar{width:100%;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--purple),var(--cyan),var(--pink));transform-origin:left}
-.mini-note{color:var(--muted);font-size:.76rem;margin-top:9px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:90px}
-.stat{position:relative;overflow:hidden;background:var(--panel);border:1px solid var(--border);border-radius:19px;padding:25px;text-align:center;box-shadow:0 15px 45px rgba(0,0,0,.14)}
-.stat:after{content:"";position:absolute;inset:auto -40px -60px;height:100px;background:radial-gradient(circle,rgba(32,231,255,.12),transparent 65%)}
-.stat-icon{font-size:2rem}.stat strong{display:block;font-size:1.08rem;margin-top:9px}.stat span{color:var(--muted);font-size:.82rem}
-section{padding:95px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:31px}
-.section-title{font-size:clamp(2.1rem,5vw,3.4rem);font-weight:1000;letter-spacing:-2px}.section-subtitle{color:var(--muted);margin-top:8px;line-height:1.6}
-.kicker{color:var(--cyan);font-size:.75rem;font-weight:950;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
-.videos{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.video-card{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--border);border-radius:20px;transition:.25s;box-shadow:0 15px 45px rgba(0,0,0,.14)}
-.video-card:hover{transform:translateY(-9px);border-color:rgba(155,92,255,.75);box-shadow:0 25px 70px rgba(0,0,0,.35)}
-.thumbnail{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:linear-gradient(135deg,#27204a,#111827)}
-.video-info{padding:19px}.video-info h3{font-size:1.02rem;line-height:1.35;margin-bottom:8px}.video-date{color:var(--muted);font-size:.8rem}.watch{display:inline-block;margin-top:13px;color:var(--cyan);font-size:.86rem;font-weight:850}
-.loading{grid-column:1/-1;text-align:center;padding:70px;color:var(--muted)}
-.spinner{width:38px;height:38px;margin:0 auto 15px;border:3px solid rgba(255,255,255,.1);border-top-color:var(--cyan);border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.feature-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}
-.feature{background:var(--panel);border:1px solid var(--border);border-radius:24px;padding:32px;box-shadow:var(--shadow)}
-.feature.big{min-height:330px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(145deg,rgba(155,92,255,.16),rgba(16,16,29,.8) 55%)}
-.feature h3{font-size:2rem;margin-bottom:12px}.feature p{color:var(--muted);line-height:1.7}
-.feature-row{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
-.feature .emoji{font-size:2.5rem;margin-bottom:20px}.feature ul{list-style:none;margin-top:17px;color:var(--muted)}.feature li{margin:12px 0}.feature li:before{content:"✦";color:var(--cyan);margin-right:10px}
-.about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:22px}
-.about-box{background:var(--panel);border:1px solid var(--border);border-radius:22px;padding:32px}.about-box p{color:var(--muted);margin-top:15px;line-height:1.75}
-.marquee{overflow:hidden;border-block:1px solid var(--border);padding:15px 0;margin:25px 0;background:rgba(255,255,255,.025)}
-.marquee-track{display:flex;width:max-content;gap:30px;animation:marquee 24s linear infinite;font-weight:950;letter-spacing:1px}
-.marquee-track span{color:var(--muted)}.marquee-track b{color:#fff}
-@keyframes marquee{to{transform:translateX(-50%)}}
-.community{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.community-card{padding:27px;border:1px solid var(--border);border-radius:20px;background:var(--panel);transition:.2s}.community-card:hover{transform:translateY(-6px);border-color:rgba(32,231,255,.45)}
-.community-card .big-icon{font-size:2.1rem}.community-card h3{margin:14px 0 7px}.community-card p{color:var(--muted);line-height:1.6}
-.cta{text-align:center;padding:95px 25px;margin:30px 0 90px;border:1px solid rgba(155,92,255,.28);border-radius:30px;background:radial-gradient(circle at 50% 0,rgba(155,92,255,.25),transparent 55%),linear-gradient(135deg,rgba(155,92,255,.11),rgba(32,231,255,.06));box-shadow:var(--shadow)}
-.cta h2{font-size:clamp(2.4rem,6vw,4.5rem);letter-spacing:-3px}.cta p{color:var(--muted);margin:13px 0 28px;font-size:1.05rem}
-footer{border-top:1px solid var(--border);padding:38px 0;color:var(--muted);font-size:.85rem}.footer-inner{display:flex;justify-content:space-between;flex-wrap:wrap;gap:15px}
-.top{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border:1px solid var(--border);border-radius:50%;background:rgba(16,16,29,.85);color:#fff;cursor:pointer;z-index:90;backdrop-filter:blur(10px)}
-@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}.videos{grid-template-columns:repeat(2,1fr)}.feature-grid,.about-grid{grid-template-columns:1fr}.community{grid-template-columns:1fr 1fr}}
-@media(max-width:680px){
- .nav-links a:not(.youtube-button){display:none}.hero{min-height:690px;padding-top:85px}.hero h1{letter-spacing:-5px;font-size:clamp(4rem,21vw,7rem)}
- .stats,.videos,.community,.feature-row{grid-template-columns:1fr}.section-head{display:block}.update-top{flex-direction:column;gap:5px}.footer-inner{justify-content:center;text-align:center}
- section{padding:70px 0}
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#08080d" />
+
+  <title>JJ PLAYZ — Enter the Chaos</title>
+  <meta
+    name="description"
+    content="JJ PLAYZ — gaming, chaos, clips, community and unforgettable moments."
+  />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --bg: #07070b;
+      --bg-2: #0d0d14;
+      --card: rgba(255,255,255,.055);
+      --card-hover: rgba(255,255,255,.09);
+      --border: rgba(255,255,255,.10);
+      --text: #f8f8ff;
+      --muted: #9696a9;
+
+      --accent: #8b5cf6;
+      --accent-2: #ec4899;
+      --cyan: #22d3ee;
+      --green: #22c55e;
+      --yellow: #facc15;
+      --red: #ef4444;
+
+      --shadow:
+        0 25px 80px rgba(0,0,0,.45);
+
+      --radius: 22px;
+      --nav-height: 76px;
+
+      --max-width: 1280px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(139,92,246,.16), transparent 28%),
+        radial-gradient(circle at 85% 20%, rgba(236,72,153,.12), transparent 25%),
+        radial-gradient(circle at 50% 100%, rgba(34,211,238,.08), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body.light {
+      --bg: #f5f5f9;
+      --bg-2: #ffffff;
+      --card: rgba(0,0,0,.045);
+      --card-hover: rgba(0,0,0,.07);
+      --border: rgba(0,0,0,.09);
+      --text: #11111a;
+      --muted: #666675;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* =========================
+       BACKGROUND FX
+    ========================= */
+
+    .background-grid {
+      position: fixed;
+      inset: 0;
+      z-index: -5;
+      pointer-events: none;
+      opacity: .25;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 55px 55px;
+      mask-image: linear-gradient(to bottom, black, transparent 80%);
+    }
+
+    .orb {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: -4;
+      opacity: .13;
+    }
+
+    .orb.one {
+      background: var(--accent);
+      top: -180px;
+      left: -120px;
+      animation: floatOrb 12s ease-in-out infinite;
+    }
+
+    .orb.two {
+      background: var(--accent-2);
+      right: -150px;
+      top: 30%;
+      animation: floatOrb 15s ease-in-out infinite reverse;
+    }
+
+    .orb.three {
+      background: var(--cyan);
+      bottom: -200px;
+      left: 30%;
+      animation: floatOrb 18s ease-in-out infinite;
+    }
+
+    @keyframes floatOrb {
+      0%,100% {
+        transform: translate(0,0) scale(1);
+      }
+      50% {
+        transform: translate(50px,-40px) scale(1.15);
+      }
+    }
+
+    #particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    #cursorGlow {
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(139,92,246,.12), transparent 65%);
+      mix-blend-mode: screen;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      z-index: 1000;
+      backdrop-filter: blur(18px);
+      background: rgba(7,7,11,.65);
+      border-bottom: 1px solid transparent;
+      transition: .3s;
+    }
+
+    body.light .nav {
+      background: rgba(245,245,249,.75);
+    }
+
+    .nav.scrolled {
+      border-bottom-color: var(--border);
+      box-shadow: 0 10px 50px rgba(0,0,0,.15);
+    }
+
+    .nav-inner {
+      width: min(var(--max-width), calc(100% - 40px));
+      height: 100%;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -.04em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow:
+        0 0 30px rgba(139,92,246,.35);
+      font-size: .9rem;
+    }
+
+    /* Optional repository logo:
+       Put your logo here:
+       ./assets/logo.png
+    */
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      padding: 10px 14px;
+      color: var(--muted);
+      font-size: .88rem;
+      border-radius: 10px;
+      transition: .25s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+      background: var(--card);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      transition: .25s;
+    }
+
+    .icon-btn:hover {
+      transform: translateY(-2px);
+      background: var(--card-hover);
+    }
+
+    .menu-btn {
+      display: none;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: calc(var(--nav-height) + 70px) 20px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      width: min(var(--max-width), 100%);
+      margin: auto;
+      text-align: center;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 13px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.045);
+      backdrop-filter: blur(15px);
+      border-radius: 999px;
+      font-size: .78rem;
+      color: var(--muted);
+      margin-bottom: 25px;
+      animation: heroIn .8s both;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 15px var(--green);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      50% {
+        opacity: .35;
+        transform: scale(.75);
+      }
+    }
+
+    .hero h1 {
+      max-width: 1000px;
+      margin: auto;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(4rem, 11vw, 9rem);
+      line-height: .82;
+      letter-spacing: -.075em;
+      font-weight: 800;
+      animation: heroIn .8s .1s both;
+    }
+
+    .hero h1 span {
+      display: inline-block;
+      background: linear-gradient(
+        110deg,
+        #fff,
+        #b9a7ff 35%,
+        #ff7ccf 65%,
+        #fff
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientMove 4s linear infinite;
+    }
+
+    @keyframes gradientMove {
+      to {
+        background-position: 200% center;
+      }
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 30px auto 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.7;
+      animation: heroIn .8s .2s both;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 35px;
+      animation: heroIn .8s .3s both;
+    }
+
+    @keyframes heroIn {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 14px 20px;
+      border-radius: 13px;
+      font-weight: 700;
+      font-size: .9rem;
+      transition: .25s;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-110%);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.22),
+        transparent
+      );
+      transition: .5s;
+    }
+
+    .btn:hover::after {
+      transform: translateX(110%);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 15px 40px rgba(139,92,246,.25);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: var(--card);
+      border: 1px solid var(--border);
+    }
+
+    /* =========================
+       HERO FEATURE
+    ========================= */
+
+    .hero-feature {
+      width: min(1050px, 100%);
+      margin: 65px auto 0;
+      position: relative;
+      animation: heroIn .9s .4s both;
+    }
+
+    .hero-feature-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background: rgba(255,255,255,.045);
+      box-shadow: var(--shadow);
+      min-height: 380px;
+    }
+
+    .hero-feature-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(0,0,0,.85),
+          rgba(0,0,0,.45),
+          rgba(0,0,0,.1)
+        ),
+        linear-gradient(135deg, #25154c, #4d1639);
+    }
+
+    .hero-feature-content {
+      position: relative;
+      min-height: 380px;
+      padding: 55px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.12);
+      color: #ddd;
+      font-size: .72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 15px;
+    }
+
+    .hero-feature h2 {
+      max-width: 700px;
+      font-family: "Space Grotesk";
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: .95;
+      letter-spacing: -.055em;
+    }
+
+    .hero-feature p {
+      max-width: 620px;
+      margin: 15px 0 22px;
+      color: rgba(255,255,255,.65);
+    }
+
+    /* =========================
+       SECTIONS
+    ========================= */
+
+    section {
+      width: min(var(--max-width), calc(100% - 40px));
+      margin: auto;
+      padding: 110px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 30px;
+      margin-bottom: 35px;
+    }
+
+    .section-kicker {
+      color: var(--accent-2);
+      font-size: .75rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: "Space Grotesk";
+      font-size: clamp(2.4rem, 5vw, 4.5rem);
+      line-height: .95;
+      letter-spacing: -.06em;
+    }
+
+    .section-description {
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 500px;
+    }
+
+    /* =========================
+       STATS
+    ========================= */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .stat {
+      padding: 25px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--card);
+      backdrop-filter: blur(14px);
+      transition: .3s;
+    }
+
+    .stat:hover {
+      transform: translateY(-6px);
+      background: var(--card-hover);
+    }
+
+    .stat-value {
+      font-family: "Space Grotesk";
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -.06em;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      margin-top: 5px;
+      font-size: .85rem;
+    }
+
+    /* =========================
+       MARQUEE
+    ========================= */
+
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+      background: rgba(255,255,255,.02);
+    }
+
+    .marquee {
+      display: flex;
+      width: max-content;
+      animation: marquee 25s linear infinite;
+    }
+
+    .marquee span {
+      font-family: "Space Grotesk";
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: rgba(255,255,255,.3);
+      margin-right: 45px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    @keyframes marquee {
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* =========================
+       VIDEO TOOLBAR
+    ========================= */
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .search {
+      flex: 1;
+      min-width: 220px;
+      position: relative;
+    }
+
+    .search input {
+      width: 100%;
+      padding: 14px 16px 14px 44px;
+      border-radius: 13px;
+      border: 1px solid var(--border);
+      outline: none;
+      color: var(--text);
+      background: var(--card);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+    }
+
+    .filter {
+      padding: 14px 16px;
+      border-radius: 13px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: var(--card);
+      outline: none;
+    }
+
+    /* =========================
+       VIDEO GRID
+    ========================= */
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .video-card {
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: .35s;
+      cursor: pointer;
+    }
+
+    .video-card:hover {
+      transform: translateY(-8px);
+      background: var(--card-hover);
+      border-color: rgba(139,92,246,.4);
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+
+    .video-thumb {
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, #19102d, #35142b);
+    }
+
+    .video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: .5s;
+    }
+
+    .video-card:hover .video-thumb img {
+      transform: scale(1.07);
+    }
+
+    .play {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: rgba(0,0,0,.12);
+    }
+
+    .play span {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,.9);
+      color: #111;
+      font-size: 1.2rem;
+      transform: scale(.8);
+      opacity: 0;
+      transition: .3s;
+    }
+
+    .video-card:hover .play span {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .video-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 6px 9px;
+      border-radius: 8px;
+      background: rgba(0,0,0,.7);
+      backdrop-filter: blur(8px);
+      font-size: .68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .video-duration {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      padding: 5px 7px;
+      border-radius: 6px;
+      background: rgba(0,0,0,.75);
+      font-size: .68rem;
+    }
+
+    .video-info {
+      padding: 18px;
+    }
+
+    .video-title {
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    .video-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: .75rem;
+      margin-top: 10px;
+    }
+
+    /* =========================
+       XP / PLAYER
+    ========================= */
+
+    .player-panel {
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 18px;
+    }
+
+    .xp-card,
+    .live-card {
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .xp-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .level {
+      font-family: "Space Grotesk";
+      font-size: 2rem;
+      font-weight: 800;
+    }
+
+    .xp-number {
+      color: var(--accent-2);
+      font-weight: 800;
+    }
+
+    .xp-track {
+      height: 13px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,.07);
+    }
+
+    .xp-fill {
+      width: 72%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 25px rgba(139,92,246,.45);
+      transition: width 1s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .xp-small {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: .75rem;
+      margin-top: 9px;
+    }
+
+    .live-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--red);
+      border-radius: 50%;
+      box-shadow: 0 0 15px var(--red);
+    }
+
+    .chat {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 190px;
+      overflow: hidden;
+    }
+
+    .message {
+      font-size: .82rem;
+      color: var(--muted);
+    }
+
+    .message b {
+      color: var(--text);
+    }
+
+    /* =========================
+       ACHIEVEMENTS
+    ========================= */
+
+    .achievements {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .achievement {
+      padding: 22px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: var(--radius);
+      transition: .3s;
+    }
+
+    .achievement:hover {
+      transform: translateY(-5px);
+    }
+
+    .achievement-icon {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      filter: grayscale(1);
+      opacity: .45;
+    }
+
+    .achievement.unlocked .achievement-icon {
+      filter: none;
+      opacity: 1;
+    }
+
+    .achievement h3 {
+      font-size: .95rem;
+    }
+
+    .achievement p {
+      color: var(--muted);
+      font-size: .76rem;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* =========================
+       COMMUNITY
+    ========================= */
+
+    .community-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .community-card {
+      padding: 26px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: var(--radius);
+      min-height: 190px;
+    }
+
+    .community-icon {
+      font-size: 1.8rem;
+      margin-bottom: 18px;
+    }
+
+    .community-card h3 {
+      font-family: "Space Grotesk";
+      font-size: 1.25rem;
+    }
+
+    .community-card p {
+      margin-top: 10px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: .9rem;
+    }
+
+    /* =========================
+       CTA
+    ========================= */
+
+    .cta {
+      text-align: center;
+      padding: 130px 30px;
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      overflow: hidden;
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(139,92,246,.2), transparent 45%),
+        var(--card);
+    }
+
+    .cta h2 {
+      font-family: "Space Grotesk";
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      line-height: .9;
+      letter-spacing: -.065em;
+    }
+
+    .cta p {
+      max-width: 600px;
+      margin: 22px auto;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      width: min(var(--max-width), calc(100% - 40px));
+      margin: auto;
+      padding: 45px 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    /* =========================
+       MODAL
+    ========================= */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: none;
+      place-items: center;
+      padding: 20px;
+      background: rgba(0,0,0,.82);
+      backdrop-filter: blur(15px);
+    }
+
+    .modal.open {
+      display: grid;
+    }
+
+    .modal-box {
+      width: min(1050px, 100%);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: #0d0d14;
+      overflow: hidden;
+      box-shadow: 0 40px 120px rgba(0,0,0,.65);
+      animation: modalIn .3s both;
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: scale(.94) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .modal-video {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #000;
+    }
+
+    .modal-video iframe,
+    .modal-video video {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .modal-info {
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .modal-info h3 {
+      font-family: "Space Grotesk";
+      font-size: 1.3rem;
+    }
+
+    .close-modal {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      color: white;
+      background: rgba(255,255,255,.08);
+    }
+
+    /* =========================
+       COMMAND PALETTE
+    ========================= */
+
+    .command {
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 15vh;
+      background: rgba(0,0,0,.65);
+      backdrop-filter: blur(12px);
+    }
+
+    .command.open {
+      display: flex;
+    }
+
+    .command-box {
+      width: min(650px, calc(100% - 30px));
+      border: 1px solid var(--border);
+      background: #111119;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .command-input {
+      width: 100%;
+      padding: 20px;
+      border: 0;
+      outline: 0;
+      color: white;
+      background: transparent;
+      font-size: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .command-list {
+      padding: 8px;
+    }
+
+    .command-item {
+      padding: 13px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      color: #ddd;
+      cursor: pointer;
+    }
+
+    .command-item:hover {
+      background: rgba(255,255,255,.07);
+    }
+
+    .shortcut {
+      color: #777;
+      font-size: .72rem;
+    }
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    #toast-container {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 5000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      min-width: 260px;
+      max-width: 360px;
+      padding: 15px 17px;
+      border: 1px solid var(--border);
+      background: rgba(20,20,28,.9);
+      backdrop-filter: blur(18px);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      animation: toastIn .35s both;
+      font-size: .82rem;
+    }
+
+    .toast strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .toast p {
+      color: var(--muted);
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* =========================
+       BACK TO TOP
+    ========================= */
+
+    #topBtn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 45px;
+      height: 45px;
+      border-radius: 13px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      z-index: 900;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: .3s;
+    }
+
+    #topBtn.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 1000px) {
+      .video-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .achievements {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .player-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav-links {
+        position: fixed;
+        top: calc(var(--nav-height) + 10px);
+        left: 20px;
+        right: 20px;
+        padding: 10px;
+        flex-direction: column;
+        align-items: stretch;
+        background: rgba(15,15,22,.95);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        backdrop-filter: blur(20px);
+        transform: translateY(-20px);
+        opacity: 0;
+        pointer-events: none;
+        transition: .25s;
+      }
+
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .nav-links a {
+        padding: 14px;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .nav-actions .desktop-only {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 120px;
+      }
+
+      .hero h1 {
+        font-size: clamp(3.6rem, 18vw, 7rem);
+      }
+
+      .hero-feature-content {
+        min-height: 340px;
+        padding: 28px;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-description {
+        margin-top: 15px;
+      }
+
+      .video-grid,
+      .community-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      section {
+        width: min(100% - 28px, var(--max-width));
+        padding: 80px 0;
+      }
+
+      .hero {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .stats,
+      .achievements {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+      }
+
+      .cta {
+        padding: 85px 20px;
+      }
+    }
+
+    /* =========================
+       REDUCED MOTION
+    ========================= */
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .001ms !important;
+      }
+    }
+
+    /* =========================
+       GLITCH EASTER EGG
+    ========================= */
+
+    .glitch-mode {
+      animation: screenShake .08s infinite;
+    }
+
+    @keyframes screenShake {
+      0% { transform: translate(0); }
+      25% { transform: translate(2px,-1px); }
+      50% { transform: translate(-2px,1px); }
+      75% { transform: translate(1px,2px); }
+      100% { transform: translate(0); }
+    }
+
+    .chaos-mode {
+      filter: saturate(1.5) contrast(1.1);
+    }
+  </style>
 </head>
+
 <body>
-<div class="background"><div class="orb one"></div><div class="orb two"></div><div class="orb three"></div></div>
 
-<nav>
-<div class="container nav-inner">
-<a href="#" class="logo">JJ<span>PLAYZ</span> ⚡</a>
-<div class="nav-links">
-<a href="#videos">Videos</a><a href="#vibes">Vibes</a><a href="#about">About</a><a href="#community">Community</a>
-<a class="youtube-button" href="https://www.youtube.com/@xxx-jj_playz" target="_blank" rel="noopener">🔴 YouTube</a>
-</div>
-</div>
-</nav>
+  <div class="background-grid"></div>
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
+  <canvas id="particles"></canvas>
+  <div id="cursorGlow"></div>
 
-<main>
-<section class="hero">
-<div class="container hero-content">
-<div class="tag"><i class="pulse"></i> 🎮 WELCOME TO JJ PLAYZ</div>
-<h1>PLAY.<br><span class="gradient">CHAOS.</span><br>REPEAT.</h1>
-<p>Gaming, funny moments, ridiculous fails, insane clips and whatever happens when the controller meets pure chaos. 🚀</p>
-<div class="buttons">
-<a class="btn btn-red" href="https://www.youtube.com/@xxx-jj_playz" target="_blank" rel="noopener">▶ WATCH ON YOUTUBE</a>
-<a class="btn btn-purple" href="#videos">🔥 EXPLORE THE CHAOS</a>
-<a class="btn btn-dark" href="#about">WHO IS JJ? ↓</a>
-</div>
-<div class="update-box">
-<div class="update-top"><div class="update-title">🔄 Next video update</div><div class="update-time" id="countdown">Calculating...</div></div>
-<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-<div class="mini-note">The video feed checks for fresh uploads automatically.</div>
-</div>
-</div>
-</section>
+  <!-- =========================
+       NAV
+  ========================== -->
 
-<div class="container">
-<div class="stats">
-<div class="stat"><div class="stat-icon">🎮</div><strong>GAMING</strong><span>Games. Obviously.</span></div>
-<div class="stat"><div class="stat-icon">💥</div><strong>CHAOS</strong><span>Expect the unexpected.</span></div>
-<div class="stat"><div class="stat-icon">😂</div><strong>FUNNY</strong><span>Zero guarantees of sanity.</span></div>
-<div class="stat"><div class="stat-icon">⚡</div><strong>AUTO UPDATED</strong><span>Fresh channel feed.</span></div>
-</div>
-</div>
+  <header class="nav" id="navbar">
+    <div class="nav-inner">
 
-<div class="marquee"><div class="marquee-track">
-<b>JJ PLAYZ</b><span>✦</span><b>GAMING</b><span>✦</span><b>CHAOS</b><span>✦</span><b>FUNNY MOMENTS</b><span>✦</span><b>EPIC FAILS</b><span>✦</span><b>CLIPS</b><span>✦</span><b>JJ PLAYZ</b><span>✦</span><b>GAMING</b><span>✦</span><b>CHAOS</b><span>✦</span><b>FUNNY MOMENTS</b><span>✦</span><b>EPIC FAILS</b><span>✦</span><b>CLIPS</b><span>✦</span>
-</div></div>
+      <a href="#home" class="brand">
+        <!--
+          OPTIONAL LOGO:
+          Put your logo at:
+          ./assets/logo.png
 
-<section id="videos">
-<div class="container">
-<div class="section-head"><div><div class="kicker">THE FEED</div><h2 class="section-title">Latest Videos 📺</h2><p class="section-subtitle">Automatically loaded from the JJ PLAYZ YouTube feed.</p></div><a class="btn btn-dark" href="https://www.youtube.com/@xxx-jj_playz" target="_blank" rel="noopener">VIEW CHANNEL ↗</a></div>
-<div class="videos" id="video-list"><div class="loading"><div class="spinner"></div>Loading the chaos...</div></div>
-</div>
-</section>
+          Then uncomment this:
+          <img class="brand-logo" src="./assets/logo.png" alt="JJ PLAYZ">
+        -->
 
-<section id="vibes">
-<div class="container">
-<div class="section-head"><div><div class="kicker">THE EXPERIENCE</div><h2 class="section-title">More Than Just Videos.</h2><p class="section-subtitle">A little corner of the internet built for gaming energy.</p></div></div>
-<div class="feature-grid">
-<div class="feature big"><div><div class="emoji">🕹️</div><h3>Enter the chaos zone.</h3><p>Come for the gameplay. Stay for the moments that absolutely were NOT supposed to happen. Every upload is another excuse to press play.</p></div><div><a class="btn btn-purple" href="#community">JOIN THE VIBE ↓</a></div></div>
-<div>
-<div class="feature"><div class="emoji">🔥</div><h3>What you'll find</h3><ul><li>Gaming adventures</li><li>Funny moments</li><li>Crazy clips</li><li>Epic fails</li><li>Unexpected nonsense</li></ul></div>
-<div class="feature-row">
-<div class="feature"><div class="emoji">🏆</div><h3>Big moments</h3><p>Wins, fails and everything in between.</p></div>
-<div class="feature"><div class="emoji">👀</div><h3>Stay tuned</h3><p>There is always another upload.</p></div>
-</div>
-</div>
-</div>
-</div>
-</section>
+        <span class="brand-mark">JJ</span>
+        <span>JJ PLAYZ</span>
+      </a>
 
-<section id="about">
-<div class="container">
-<div class="section-head"><div><div class="kicker">THE PERSON BEHIND IT</div><h2 class="section-title">About JJ PLAYZ 👋</h2></div></div>
-<div class="about-grid">
-<div class="about-box"><h2 class="section-title">Yo! I'm JJ PLAYZ.</h2><p>Welcome to my little corner of the internet where gaming, funny moments and chaos happen.</p><p>Whether it's an absolutely cursed play, an unexpected win or a moment that makes no sense whatsoever — this is where it belongs.</p><p>Check out the channel and subscribe if you enjoy the videos! 🔥</p></div>
-<div class="about-box"><h3>THE RULES OF JJ PLAYZ</h3><ul style="list-style:none;color:var(--muted);margin-top:18px;line-height:2"><li>⚡ Have fun.</li><li>🎮 Play games.</li><li>😂 Laugh at the fails.</li><li>💥 Embrace the chaos.</li><li>🚀 Repeat.</li></ul></div>
-</div>
-</div>
-</section>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home" class="active">Home</a>
+        <a href="#videos">Videos</a>
+        <a href="#progress">Progress</a>
+        <a href="#community">Community</a>
+        <a href="#about">About</a>
+      </nav>
 
-<section id="community">
-<div class="container">
-<div class="section-head"><div><div class="kicker">COME HANG OUT</div><h2 class="section-title">Join the Community 🌐</h2><p class="section-subtitle">Pick your doorway into the JJ PLAYZ universe.</p></div></div>
-<div class="community">
-<a class="community-card" href="https://www.youtube.com/@xxx-jj_playz" target="_blank" rel="noopener"><div class="big-icon">🔴</div><h3>YouTube</h3><p>Watch the latest uploads, clips and gaming chaos.</p></a>
-<a class="community-card" href="#videos"><div class="big-icon">🎬</div><h3>Video Vault</h3><p>Scroll through the latest videos right here.</p></a>
-<a class="community-card" href="#about"><div class="big-icon">💜</div><h3>JJ PLAYZ</h3><p>Stay around. The next ridiculous moment is coming.</p></a>
-</div>
-</div>
-</section>
+      <div class="nav-actions">
+        <button
+          class="icon-btn desktop-only"
+          id="commandBtn"
+          title="Command palette"
+        >⌘</button>
 
-<div class="container">
-<div class="cta">
-<div class="kicker">FINAL WARNING</div>
-<h2>READY TO JOIN THE CHAOS?</h2>
-<p>Subscribe to JJ PLAYZ and become part of the madness. 🎮💥</p>
-<a class="btn btn-red" href="https://www.youtube.com/@xxx-jj_playz" target="_blank" rel="noopener">🔴 SUBSCRIBE TO JJ PLAYZ</a>
-</div>
-</div>
-</main>
+        <button
+          class="icon-btn"
+          id="themeBtn"
+          title="Toggle theme"
+        >☼</button>
 
-<footer><div class="container footer-inner"><div>© 2026 JJ PLAYZ</div><div>Gaming • Chaos • Fun • Repeat 🎮</div></div></footer>
-<button class="top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+        <button
+          class="icon-btn menu-btn"
+          id="menuBtn"
+          title="Menu"
+        >☰</button>
+      </div>
 
-<script>
-async function loadVideos(){
- const list=document.getElementById("video-list");
- try{
-  const response=await fetch("videos.json?cache="+Date.now());
-  if(!response.ok) throw new Error("videos.json not found");
-  const videos=await response.json();
-  if(!videos.length){list.innerHTML='<div class="loading">No videos found yet. 👀</div>';return}
-  list.innerHTML=videos.map(video=>`
-   <a class="video-card" href="${video.url}" target="_blank" rel="noopener">
-    <img class="thumbnail" src="${video.thumbnail}" alt="${escapeHTML(video.title)}" loading="lazy">
-    <div class="video-info"><h3>${escapeHTML(video.title)}</h3><div class="video-date">${escapeHTML(video.date)}</div><span class="watch">▶ Watch Video ↗</span></div>
-   </a>`).join("");
- }catch(error){
-  console.error(error);
-  list.innerHTML=`<div class="loading">Couldn't load videos right now.<br><br><a href="https://www.youtube.com/@xxx-jj_playz" target="_blank" style="color:#20e7ff;font-weight:bold">Open JJ PLAYZ on YouTube ↗</a></div>`;
- }
-}
-function escapeHTML(text){const div=document.createElement("div");div.textContent=text;return div.innerHTML}
-const UPDATE_INTERVAL=5*60*1000;
-function updateCountdown(){
- const now=new Date(),next=new Date(now);next.setSeconds(0);next.setMilliseconds(0);
- const nextMinutes=Math.floor(next.getMinutes()/5)*5+5;
- if(nextMinutes>=60){next.setHours(next.getHours()+1);next.setMinutes(0)}else next.setMinutes(nextMinutes);
- const difference=next-now,totalSeconds=Math.max(0,Math.floor(difference/1000));
- const minutesLeft=Math.floor(totalSeconds/60),secondsLeft=totalSeconds%60;
- document.getElementById("countdown").textContent=`${minutesLeft}m ${String(secondsLeft).padStart(2,"0")}s`;
- const elapsed=UPDATE_INTERVAL-difference;
- const progress=Math.min(100,Math.max(0,elapsed/UPDATE_INTERVAL*100));
- document.getElementById("progressBar").style.transform=`scaleX(${progress/100})`;
- if(difference<=1000)setTimeout(loadVideos,1500);
-}
-loadVideos();updateCountdown();setInterval(updateCountdown,1000);
-</script>
+    </div>
+  </header>
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <main>
+
+    <section class="hero" id="home">
+      <div class="hero-inner">
+
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          CHAOS LEVEL: MAXIMUM
+        </div>
+
+        <h1>
+          ENTER THE<br>
+          <span>CHAOS.</span>
+        </h1>
+
+        <p>
+          Welcome to JJ PLAYZ — where gaming clips, ridiculous moments,
+          questionable decisions and absolute chaos collide.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#videos" class="btn btn-primary">
+            ▶ Watch the madness
+          </a>
+
+          <button class="btn btn-secondary" id="randomBtn">
+            ⚡ Random chaos
+          </button>
+        </div>
+
+        <div class="hero-feature">
+          <div class="hero-feature-card">
+
+            <div class="hero-feature-bg"></div>
+
+            <div class="hero-feature-content">
+
+              <div class="eyebrow">
+                ★ Featured chaos
+              </div>
+
+              <h2 id="featuredTitle">
+                THE MOMENT EVERYTHING WENT WRONG.
+              </h2>
+
+              <p id="featuredDescription">
+                One match. Zero brain cells. Infinite entertainment.
+              </p>
+
+              <button class="btn btn-primary" id="featuredBtn">
+                ▶ PLAY FEATURED
+              </button>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================
+         STATS
+    ========================== -->
+
+    <section id="about">
+
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">THE NUMBERS</div>
+          <h2 class="section-title">CHAOS<br>STATS.</h2>
+        </div>
+
+        <p class="section-description">
+          Completely serious statistics about a completely unserious gaming
+          experience.
+        </p>
+      </div>
+
+      <div class="stats">
+
+        <div class="stat">
+          <div class="stat-value counter" data-target="999">0</div>
+          <div class="stat-label">Clips survived</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-value counter" data-target="420">0</div>
+          <div class="stat-label">Brain cells remaining</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-value counter" data-target="69">0</div>
+          <div class="stat-label">Questionable plays</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-value counter" data-target="100">0</div>
+          <div class="stat-label">Chaos percentage</div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =========================
+         MARQUEE
+    ========================== -->
+
+    <div class="marquee-wrap">
+      <div class="marquee">
+        <span>JJ PLAYZ</span>
+        <span>NO BRAKES</span>
+        <span>PURE CHAOS</span>
+        <span>CLIPS</span>
+        <span>GAMING</span>
+        <span>COMMUNITY</span>
+        <span>JJ PLAYZ</span>
+        <span>NO BRAKES</span>
+        <span>PURE CHAOS</span>
+        <span>CLIPS</span>
+        <span>GAMING</span>
+        <span>COMMUNITY</span>
+      </div>
+    </div>
+
+    <!-- =========================
+         VIDEOS
+    ========================== -->
+
+    <section id="videos">
+
+      <div class="section-head">
+
+        <div>
+          <div class="section-kicker">THE VAULT</div>
+          <h2 class="section-title">LATEST<br>CHAOS.</h2>
+        </div>
+
+        <p class="section-description">
+          Browse the latest clips, highlights and moments that probably
+          should not have happened.
+        </p>
+
+      </div>
+
+      <div class="toolbar">
+
+        <div class="search">
+          <span class="search-icon">⌕</span>
+          <input
+            id="videoSearch"
+            type="search"
+            placeholder="Search the chaos..."
+            autocomplete="off"
+          >
+        </div>
+
+        <select class="filter" id="categoryFilter">
+          <option value="all">All categories</option>
+          <option value="funny">Funny</option>
+          <option value="clutch">Clutch</option>
+          <option value="rage">Rage</option>
+          <option value="fails">Fails</option>
+          <option value="highlights">Highlights</option>
+        </select>
+
+        <button class="btn btn-secondary" id="sortBtn">
+          ↕ Sort
+        </button>
+
+      </div>
+
+      <div class="video-grid" id="videoGrid">
+
+        <!--
+          JavaScript loads videos.json.
+
+          Example videos.json:
+
+          [
+            {
+              "title": "THE MOST INSANE CLUTCH",
+              "description": "I genuinely don't know how this happened.",
+              "thumbnail": "./assets/thumb1.jpg",
+              "video": "./assets/video1.mp4",
+              "category": "clutch",
+              "duration": "08:42",
+              "views": 1200
+            }
+          ]
+        -->
+
+      </div>
+
+      <div
+        id="emptyVideos"
+        style="
+          display:none;
+          text-align:center;
+          padding:60px;
+          color:var(--muted);
+        "
+      >
+        <div style="font-size:3rem;">💀</div>
+        <h3 style="margin-top:15px;color:var(--text);">
+          NO CHAOS FOUND
+        </h3>
+        <p style="margin-top:8px;">
+          Try a different search.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- =========================
+         PROGRESS
+    ========================== -->
+
+    <section id="progress">
+
+      <div class="section-head">
+
+        <div>
+          <div class="section-kicker">PLAYER PROFILE</div>
+          <h2 class="section-title">YOUR<br>CHAOS ARC.</h2>
+        </div>
+
+        <p class="section-description">
+          Every interaction gives you XP. Yes, this website has gamification.
+          No, nobody asked for it.
+        </p>
+
+      </div>
+
+      <div class="player-panel">
+
+        <div class="xp-card">
+
+          <div class="xp-top">
+
+            <div>
+              <div class="level">
+                LEVEL <span id="level">7</span>
+              </div>
+
+              <div
+                style="
+                  color:var(--muted);
+                  font-size:.8rem;
+                  margin-top:5px;
+                "
+              >
+                Certified Chaos Gremlin
+              </div>
+            </div>
+
+            <div class="xp-number">
+              <span id="xp">720</span> XP
+            </div>
+
+          </div>
+
+          <div class="xp-track">
+            <div class="xp-fill" id="xpFill"></div>
+          </div>
+
+          <div class="xp-small">
+            <span>720 XP</span>
+            <span>1000 XP</span>
+          </div>
+
+          <div
+            style="
+              margin-top:25px;
+              display:flex;
+              gap:10px;
+              flex-wrap:wrap;
+            "
+          >
+            <button class="btn btn-primary" id="xpBtn">
+              + XP CHAOS
+            </button>
+
+            <button class="btn btn-secondary" id="achievementBtn">
+              🏆 Unlock achievement
+            </button>
+          </div>
+
+        </div>
+
+        <div class="live-card">
+
+          <div class="live-header">
+            <span class="live-dot"></span>
+            CHAOS CHAT
+          </div>
+
+          <div class="chat" id="chat">
+
+            <div class="message">
+              <b>PixelGoblin:</b> BRO WHAT WAS THAT
+            </div>
+
+            <div class="message">
+              <b>JJFan:</b> 💀💀💀
+            </div>
+
+            <div class="message">
+              <b>ControllerDestroyer:</b> THAT AIM???
+            </div>
+
+            <div class="message">
+              <b>ChaosEnjoyer:</b> LET HIM COOK
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =========================
+         ACHIEVEMENTS
+    ========================== -->
+
+    <section>
+
+      <div class="section-head">
+
+        <div>
+          <div class="section-kicker">ACHIEVEMENTS</div>
+          <h2 class="section-title">UNLOCK<br>THE STUPID.</h2>
+        </div>
+
+        <p class="section-description">
+          Some are skill-based. Some are completely ridiculous.
+        </p>
+
+      </div>
+
+      <div class="achievements">
+
+        <div class="achievement unlocked">
+          <div class="achievement-icon">🔥</div>
+          <h3>First Flame</h3>
+          <p>Welcome to JJ PLAYZ.</p>
+        </div>
+
+        <div class="achievement">
+          <div class="achievement-icon">⚡</div>
+          <h3>Speed Demon</h3>
+          <p>Watch three videos.</p>
+        </div>
+
+        <div class="achievement">
+          <div class="achievement-icon">💀</div>
+          <h3>Skill Issue</h3>
+          <p>Find the secret button.</p>
+        </div>
+
+        <div class="achievement">
+          <div class="achievement-icon">👑</div>
+          <h3>Chaos Lord</h3>
+          <p>Unlock everything.</p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =========================
+         COMMUNITY
+    ========================== -->
+
+    <section id="community">
+
+      <div class="section-head">
+
+        <div>
+          <div class="section-kicker">COMMUNITY</div>
+          <h2 class="section-title">JOIN THE<br>MESS.</h2>
+        </div>
+
+        <p class="section-description">
+          Gaming is better when everyone is yelling at the same time.
+        </p>
+
+      </div>
+
+      <div class="community-grid">
+
+        <a class="community-card" href="#" onclick="fakeLink(event, 'Discord')">
+          <div class="community-icon">💬</div>
+          <h3>Discord</h3>
+          <p>
+            Talk trash. Share clips. Overreact together.
+          </p>
+        </a>
+
+        <a class="community-card" href="#" onclick="fakeLink(event, 'YouTube')">
+          <div class="community-icon">▶</div>
+          <h3>YouTube</h3>
+          <p>
+            Full videos, highlights and completely unnecessary screaming.
+          </p>
+        </a>
+
+        <a class="community-card" href="#" onclick="fakeLink(event, 'GitHub')">
+          <div class="community-icon">⌘</div>
+          <h3>GitHub</h3>
+          <p>
+            The home of this website and its increasingly questionable code.
+          </p>
+        </a>
+
+      </div>
+
+    </section>
+
+    <!-- =========================
+         CTA
+    ========================== -->
+
+    <section>
+
+      <div class="cta">
+
+        <div class="section-kicker">
+          FINAL WARNING
+        </div>
+
+        <h2>
+          READY TO<br>
+          <span style="
+            background:linear-gradient(90deg,var(--accent),var(--accent-2));
+            -webkit-background-clip:text;
+            background-clip:text;
+            color:transparent;
+          ">
+            LOSE IT?
+          </span>
+        </h2>
+
+        <p>
+          You have officially reached the part of the website where
+          absolutely nothing productive happens.
+        </p>
+
+        <button class="btn btn-primary" id="chaosBtn">
+          💥 ACTIVATE CHAOS
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div>
+      © <span id="year"></span> JJ PLAYZ.
+      Built for chaos.
+    </div>
+
+    <div class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#videos">Videos</a>
+      <a href="#community">Community</a>
+    </div>
+
+  </footer>
+
+  <!-- =========================
+       VIDEO MODAL
+  ========================== -->
+
+  <div class="modal" id="videoModal">
+
+    <div class="modal-box">
+
+      <div class="modal-video" id="modalVideo"></div>
+
+      <div class="modal-info">
+
+        <div>
+          <div
+            style="
+              color:var(--accent-2);
+              font-size:.7rem;
+              font-weight:900;
+              text-transform:uppercase;
+              letter-spacing:.1em;
+              margin-bottom:5px;
+            "
+          >
+            NOW PLAYING
+          </div>
+
+          <h3 id="modalTitle">
+            Video
+          </h3>
+        </div>
+
+        <button class="close-modal" id="closeModal">
+          ✕
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- =========================
+       COMMAND PALETTE
+  ========================== -->
+
+  <div class="command" id="commandPalette">
+
+    <div class="command-box">
+
+      <input
+        class="command-input"
+        id="commandInput"
+        placeholder="Type a command..."
+        autocomplete="off"
+      >
+
+      <div class="command-list">
+
+        <div class="command-item" data-action="videos">
+          <span>Go to videos</span>
+          <span class="shortcut">V</span>
+        </div>
+
+        <div class="command-item" data-action="random">
+          <span>Random chaos</span>
+          <span class="shortcut">R</span>
+        </div>
+
+        <div class="command-item" data-action="theme">
+          <span>Toggle theme</span>
+          <span class="shortcut">T</span>
+        </div>
+
+        <div class="command-item" data-action="top">
+          <span>Back to top</span>
+          <span class="shortcut">H</span>
+        </div>
+
+        <div class="command-item" data-action="chaos">
+          <span>Activate chaos</span>
+          <span class="shortcut">C</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- =========================
+       TOASTS
+  ========================== -->
+
+  <div id="toast-container"></div>
+
+  <button id="topBtn" title="Back to top">
+    ↑
+  </button>
+
+  <script>
+    /* =========================================================
+       JJ PLAYZ — FINAL BOSS JAVASCRIPT
+    ========================================================= */
+
+    const $ = selector => document.querySelector(selector);
+    const $$ = selector => [...document.querySelectorAll(selector)];
+
+    /* =========================
+       BASIC
+    ========================== */
+
+    $("#year").textContent = new Date().getFullYear();
+
+    /* =========================
+       NAV
+    ========================== */
+
+    const navbar = $("#navbar");
+    const topBtn = $("#topBtn");
+
+    window.addEventListener("scroll", () => {
+
+      navbar.classList.toggle("scrolled", window.scrollY > 20);
+      topBtn.classList.toggle("visible", window.scrollY > 600);
+
+      updateActiveNav();
+
+    });
+
+    topBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+
+    const navLinks = $$(".nav-links a");
+
+    function updateActiveNav() {
+
+      const sections = $$("section[id]");
+
+      let current = "home";
+
+      sections.forEach(section => {
+
+        const top = section.offsetTop - 150;
+
+        if (window.scrollY >= top) {
+          current = section.id;
+        }
+
+      });
+
+      navLinks.forEach(link => {
+
+        link.classList.toggle(
+          "active",
+          link.getAttribute("href") === "#" + current
+        );
+
+      });
+
+    }
+
+    /* =========================
+       MOBILE MENU
+    ========================== */
+
+    $("#menuBtn").addEventListener("click", () => {
+      $("#navLinks").classList.toggle("open");
+    });
+
+    navLinks.forEach(link => {
+
+      link.addEventListener("click", () => {
+        $("#navLinks").classList.remove("open");
+      });
+
+    });
+
+    /* =========================
+       THEME
+    ========================== */
+
+    const savedTheme = localStorage.getItem("jj-theme");
+
+    if (savedTheme === "light") {
+      document.body.classList.add("light");
+    }
+
+    $("#themeBtn").addEventListener("click", toggleTheme);
+
+    function toggleTheme() {
+
+      document.body.classList.toggle("light");
+
+      localStorage.setItem(
+        "jj-theme",
+        document.body.classList.contains("light")
+          ? "light"
+          : "dark"
+      );
+
+      toast(
+        "THEME SWITCHED",
+        document.body.classList.contains("light")
+          ? "Bright mode activated."
+          : "Dark mode restored."
+      );
+
+      addXP(15);
+    }
+
+    /* =========================
+       CURSOR GLOW
+    ========================== */
+
+    const cursorGlow = $("#cursorGlow");
+
+    window.addEventListener("pointermove", event => {
+
+      cursorGlow.animate(
+        {
+          left: event.clientX + "px",
+          top: event.clientY + "px"
+        },
+        {
+          duration: 600,
+          fill: "forwards"
+        }
+      );
+
+    });
+
+    /* =========================
+       PARTICLES
+    ========================== */
+
+    const canvas = $("#particles");
+    const ctx = canvas.getContext("2d");
+
+    let particles = [];
+
+    function resizeCanvas() {
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+    }
+
+    resizeCanvas();
+
+    window.addEventListener("resize", resizeCanvas);
+
+    for (let i = 0; i < 75; i++) {
+
+      particles.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: Math.random() * 1.7 + .3,
+        vx: (Math.random() - .5) * .25,
+        vy: (Math.random() - .5) * .25,
+        alpha: Math.random() * .5 + .1
+      });
+
+    }
+
+    function animateParticles() {
+
+      ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      particles.forEach(p => {
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+
+        ctx.beginPath();
+
+        ctx.arc(
+          p.x,
+          p.y,
+          p.r,
+          0,
+          Math.PI * 2
+        );
+
+        ctx.fillStyle =
+          `rgba(180,160,255,${p.alpha})`;
+
+        ctx.fill();
+
+      });
+
+      requestAnimationFrame(animateParticles);
+
+    }
+
+    animateParticles();
+
+    /* =========================
+       COUNTERS
+    ========================== */
+
+    const counters = $$(".counter");
+
+    const counterObserver =
+      new IntersectionObserver(entries => {
+
+        entries.forEach(entry => {
+
+          if (!entry.isIntersecting) return;
+
+          const el = entry.target;
+          const target = Number(el.dataset.target);
+
+          let current = 0;
+
+          const increment =
+            Math.max(1, Math.ceil(target / 80));
+
+          const timer = setInterval(() => {
+
+            current += increment;
+
+            if (current >= target) {
+
+              current = target;
+              clearInterval(timer);
+
+            }
+
+            el.textContent =
+              current >= 1000
+                ? (current / 1000).toFixed(1) + "K"
+                : current;
+
+          }, 20);
+
+          counterObserver.unobserve(el);
+
+        });
+
+      }, {
+        threshold: .6
+      });
+
+    counters.forEach(counter =>
+      counterObserver.observe(counter)
+    );
+
+    /* =========================
+       XP SYSTEM
+    ========================== */
+
+    let xp =
+      Number(localStorage.getItem("jj-xp")) || 720;
+
+    let level =
+      Number(localStorage.getItem("jj-level")) || 7;
+
+    function renderXP() {
+
+      $("#xp").textContent = xp;
+      $("#level").textContent = level;
+
+      const progress =
+        Math.min(100, (xp % 1000) / 10);
+
+      $("#xpFill").style.width =
+        progress + "%";
+
+    }
+
+    function addXP(amount) {
+
+      xp += amount;
+
+      if (xp >= (level + 1) * 1000) {
+
+        level++;
+
+        toast(
+          "LEVEL UP 🔥",
+          `You reached level ${level}.`
+        );
+
+        confetti();
+
+      }
+
+      localStorage.setItem("jj-xp", xp);
+      localStorage.setItem("jj-level", level);
+
+      renderXP();
+
+    }
+
+    renderXP();
+
+    $("#xpBtn").addEventListener("click", () => {
+
+      addXP(Math.floor(Math.random() * 50) + 10);
+
+      toast(
+        "CHAOS XP",
+        "You gained some completely legitimate XP."
+      );
+
+    });
+
+    /* =========================
+       ACHIEVEMENTS
+    ========================== */
+
+    $("#achievementBtn").addEventListener(
+      "click",
+      unlockAchievement
+    );
+
+    function unlockAchievement() {
+
+      const locked =
+        $$(".achievement:not(.unlocked)");
+
+      if (!locked.length) {
+
+        toast(
+          "MAXED OUT 👑",
+          "You somehow unlocked everything."
+        );
+
+        confetti();
+        return;
+
+      }
+
+      const target =
+        locked[Math.floor(Math.random() * locked.length)];
+
+      target.classList.add("unlocked");
+
+      addXP(100);
+
+      toast(
+        "ACHIEVEMENT UNLOCKED 🏆",
+        target.querySelector("h3").textContent
+      );
+
+      confetti();
+
+    }
+
+    /* =========================
+       VIDEO SYSTEM
+    ========================== */
+
+    let videos = [];
+    let sortNewest = true;
+
+    const videoGrid = $("#videoGrid");
+
+    async function loadVideos() {
+
+      try {
+
+        const response =
+          await fetch("./videos.json");
+
+        if (!response.ok) {
+          throw new Error("videos.json missing");
+        }
+
+        videos = await response.json();
+
+      } catch (error) {
+
+        /*
+          Fallback content so the website never looks broken.
+        */
+
+        videos = [
+
+          {
+            title: "THE MOST INSANE CLUTCH",
+            description: "Absolutely no idea how this worked.",
+            thumbnail: "",
+            video: "",
+            category: "clutch",
+            duration: "08:42",
+            views: 1240
+          },
+
+          {
+            title: "I SHOULD NOT HAVE DONE THAT",
+            description: "This was a terrible decision.",
+            thumbnail: "",
+            video: "",
+            category: "fails",
+            duration: "05:21",
+            views: 890
+          },
+
+          {
+            title: "THE RAGE WAS REAL",
+            description: "Controller status: deceased.",
+            thumbnail: "",
+            video: "",
+            category: "rage",
+            duration: "11:03",
+            views: 2310
+          },
+
+          {
+            title: "ZERO BRAIN CELLS",
+            description: "Pure gaming excellence.",
+            thumbnail: "",
+            video: "",
+            category: "funny",
+            duration: "04:18",
+            views: 760
+          },
+
+          {
+            title: "HOW DID I HIT THAT?",
+            description: "Calculated. Obviously.",
+            thumbnail: "",
+            video: "",
+            category: "highlights",
+            duration: "07:35",
+            views: 3520
+          },
+
+          {
+            title: "THE WORST PLAY OF MY LIFE",
+            description: "We don't talk about this one.",
+            thumbnail: "",
+            video: "",
+            category: "fails",
+            duration: "03:44",
+            views: 642
+          }
+
+        ];
+
+      }
+
+      renderVideos();
+
+    }
+
+    function renderVideos() {
+
+      const search =
+        $("#videoSearch").value
+          .trim()
+          .toLowerCase();
+
+      const category =
+        $("#categoryFilter").value;
+
+      let filtered =
+        videos.filter(video => {
+
+          const matchesSearch =
+            video.title
+              .toLowerCase()
+              .includes(search) ||
+            (video.description || "")
+              .toLowerCase()
+              .includes(search);
+
+          const matchesCategory =
+            category === "all" ||
+            video.category === category;
+
+          return matchesSearch &&
+            matchesCategory;
+
+        });
+
+      if (!sortNewest) {
+
+        filtered.reverse();
+
+      }
+
+      videoGrid.innerHTML = "";
+
+      $("#emptyVideos").style.display =
+        filtered.length ? "none" : "block";
+
+      filtered.forEach((video, index) => {
+
+        const card =
+          document.createElement("article");
+
+        card.className = "video-card";
+
+        card.dataset.index = index;
+
+        const thumb =
+          video.thumbnail
+            ? `
+              <img
+                src="${escapeHTML(video.thumbnail)}"
+                alt=""
+                loading="lazy"
+              >
+            `
+            : `
+              <div style="
+                width:100%;
+                height:100%;
+                display:grid;
+                place-items:center;
+                background:
+                  radial-gradient(
+                    circle at 30% 30%,
+                    rgba(139,92,246,.4),
+                    transparent 40%
+                  ),
+                  linear-gradient(
+                    135deg,
+                    #171127,
+                    #35142b
+                  );
+                font-size:3rem;
+              ">
+                🎮
+              </div>
+            `;
+
+        card.innerHTML = `
+
+          <div class="video-thumb">
+
+            ${thumb}
+
+            <div class="play">
+              <span>▶</span>
+            </div>
+
+            <div class="video-badge">
+              ${escapeHTML(video.category || "chaos")}
+            </div>
+
+            <div class="video-duration">
+              ${escapeHTML(video.duration || "00:00")}
+            </div>
+
+          </div>
+
+          <div class="video-info">
+
+            <div class="video-title">
+              ${escapeHTML(video.title)}
+            </div>
+
+            <div class="video-meta">
+              <span>
+                ${Number(video.views || 0).toLocaleString()} views
+              </span>
+
+              <span>
+                +${Math.floor(Math.random() * 40) + 10} XP
+              </span>
+            </div>
+
+          </div>
+
+        `;
+
+        card.addEventListener("click", () => {
+
+          openVideo(video);
+
+          addXP(35);
+
+        });
+
+        videoGrid.appendChild(card);
+
+      });
+
+    }
+
+    $("#videoSearch").addEventListener(
+      "input",
+      renderVideos
+    );
+
+    $("#categoryFilter").addEventListener(
+      "change",
+      renderVideos
+    );
+
+    $("#sortBtn").addEventListener(
+      "click",
+      () => {
+
+        sortNewest = !sortNewest;
+
+        $("#sortBtn").textContent =
+          sortNewest ? "↕ Sort" : "↕ Reverse";
+
+        renderVideos();
+
+      }
+    );
+
+    loadVideos();
+
+    /* =========================
+       VIDEO MODAL
+    ========================== */
+
+    const modal = $("#videoModal");
+
+    function openVideo(video) {
+
+      $("#modalTitle").textContent =
+        video.title;
+
+      const container =
+        $("#modalVideo");
+
+      container.innerHTML = "";
+
+      if (video.video) {
+
+        const videoElement =
+          document.createElement("video");
+
+        videoElement.controls = true;
+        videoElement.autoplay = true;
+        videoElement.src = video.video;
+
+        container.appendChild(videoElement);
+
+      } else {
+
+        container.innerHTML = `
+          <div style="
+            width:100%;
+            height:100%;
+            display:grid;
+            place-items:center;
+            color:#777;
+            text-align:center;
+            padding:30px;
+          ">
+            <div>
+              <div style="font-size:4rem;">🎮</div>
+              <h3 style="color:white;margin-top:15px;">
+                Video not linked yet
+              </h3>
+              <p style="margin-top:8px;">
+                Add a "video" path inside videos.json.
+              </p>
+            </div>
+          </div>
+        `;
+
+      }
+
+      modal.classList.add("open");
+      document.body.classList.add("modal-open");
+
+    }
+
+    function closeVideo() {
+
+      modal.classList.remove("open");
+      document.body.classList.remove("modal-open");
+
+      $("#modalVideo").innerHTML = "";
+
+    }
+
+    $("#closeModal")
+      .addEventListener("click", closeVideo);
+
+    modal.addEventListener("click", event => {
+
+      if (event.target === modal) {
+        closeVideo();
+      }
+
+    });
+
+    /* =========================
+       FEATURED
+    ========================== */
+
+    $("#featuredBtn").addEventListener(
+      "click",
+      () => {
+
+        if (videos.length) {
+          openVideo(videos[0]);
+          addXP(50);
+        }
+
+      }
+    );
+
+    /* =========================
+       RANDOM CHAOS
+    ========================== */
+
+    function randomChaos() {
+
+      if (!videos.length) return;
+
+      const video =
+        videos[Math.floor(Math.random() * videos.length)];
+
+      openVideo(video);
+
+      addXP(75);
+
+      toast(
+        "RANDOM CHAOS ⚡",
+        video.title
+      );
+
+    }
+
+    $("#randomBtn")
+      .addEventListener("click", randomChaos);
+
+    /* =========================
+       COMMAND PALETTE
+    ========================== */
+
+    const commandPalette =
+      $("#commandPalette");
+
+    const commandInput =
+      $("#commandInput");
+
+    function openCommandPalette() {
+
+      commandPalette.classList.add("open");
+
+      commandInput.value = "";
+
+      setTimeout(() =>
+        commandInput.focus(),
+        50
+      );
+
+    }
+
+    function closeCommandPalette() {
+
+      commandPalette.classList.remove("open");
+
+    }
+
+    $("#commandBtn")
+      .addEventListener(
+        "click",
+        openCommandPalette
+      );
+
+    commandPalette.addEventListener(
+      "click",
+      event => {
+
+        if (event.target === commandPalette) {
+          closeCommandPalette();
+        }
+
+      }
+    );
+
+    $$(".command-item").forEach(item => {
+
+      item.addEventListener("click", () => {
+
+        const action =
+          item.dataset.action;
+
+        closeCommandPalette();
+
+        if (action === "videos") {
+          $("#videos").scrollIntoView({
+            behavior: "smooth"
+          });
+        }
+
+        if (action === "random") {
+          randomChaos();
+        }
+
+        if (action === "theme") {
+          toggleTheme();
+        }
+
+        if (action === "top") {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+        }
+
+        if (action === "chaos") {
+          activateChaos();
+        }
+
+      });
+
+    });
+
+    /* =========================
+       KEYBOARD SHORTCUTS
+    ========================== */
+
+    let konami = [];
+
+    const konamiCode = [
+      "ArrowUp",
+      "ArrowUp",
+      "ArrowDown",
+      "ArrowDown",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowLeft",
+      "ArrowRight",
+      "b",
+      "a"
+    ];
+
+    window.addEventListener("keydown", event => {
+
+      if (
+        event.key === "/" &&
+        document.activeElement.tagName !== "INPUT"
+      ) {
+
+        event.preventDefault();
+        openCommandPalette();
+
+      }
+
+      if (event.key === "Escape") {
+
+        closeCommandPalette();
+        closeVideo();
+
+      }
+
+      if (
+        event.key.toLowerCase() === "r" &&
+        document.activeElement.tagName !== "INPUT"
+      ) {
+
+        randomChaos();
+
+      }
+
+      if (
+        event.key.toLowerCase() === "c" &&
+        document.activeElement.tagName !== "INPUT"
+      ) {
+
+        activateChaos();
+
+      }
+
+      konami.push(event.key);
+
+      if (konami.length > konamiCode.length) {
+        konami.shift();
+      }
+
+      if (
+        JSON.stringify(konami) ===
+        JSON.stringify(konamiCode)
+      ) {
+
+        activateChaos();
+
+        toast(
+          "SECRET CODE ACTIVATED 👀",
+          "You found the forbidden button."
+        );
+
+        confetti();
+
+      }
+
+    });
+
+    /* =========================
+       CHAOS MODE
+    ========================== */
+
+    function activateChaos() {
+
+      document.body.classList.add("chaos-mode");
+      document.documentElement.classList.add("glitch-mode");
+
+      toast(
+        "⚠ CHAOS MODE",
+        "You have made a terrible decision."
+      );
+
+      confetti();
+
+      addXP(250);
+
+      setTimeout(() => {
+
+        document.body.classList.remove("chaos-mode");
+        document.documentElement.classList.remove("glitch-mode");
+
+      }, 4500);
+
+    }
+
+    $("#chaosBtn")
+      .addEventListener(
+        "click",
+        activateChaos
+      );
+
+    /* =========================
+       FAKE CHAT
+    ========================== */
+
+    const chatMessages = [
+
+      ["AimBotEnjoyer", "BROOOOO 😭"],
+      ["JJFan", "THAT WAS CLEAN"],
+      ["PixelGoblin", "NO WAY"],
+      ["ChaosEnjoyer", "LET HIM COOK 🔥"],
+      ["ControllerDestroyer", "MY CONTROLLER IS GONE"],
+      ["GGNoRe", "ABSOLUTE CINEMA"],
+      ["DefinitelyNotAI", "what am I watching"],
+      ["SpeedRunner", "CLIP IT CLIP IT CLIP IT"]
+
+    ];
+
+    setInterval(() => {
+
+      const chat = $("#chat");
+
+      const message =
+        chatMessages[
+          Math.floor(
+            Math.random() *
+            chatMessages.length
+          )
+        ];
+
+      const el =
+        document.createElement("div");
+
+      el.className = "message";
+
+      el.innerHTML =
+        `<b>${escapeHTML(message[0])}:</b>
+         ${escapeHTML(message[1])}`;
+
+      chat.appendChild(el);
+
+      while (chat.children.length > 6) {
+        chat.removeChild(chat.firstChild);
+      }
+
+    }, 3500);
+
+    /* =========================
+       TOAST
+    ========================== */
+
+    function toast(title, message) {
+
+      const container =
+        $("#toast-container");
+
+      const el =
+        document.createElement("div");
+
+      el.className = "toast";
+
+      el.innerHTML = `
+        <strong>${escapeHTML(title)}</strong>
+        <p>${escapeHTML(message)}</p>
+      `;
+
+      container.appendChild(el);
+
+      setTimeout(() => {
+
+        el.style.opacity = "0";
+        el.style.transform = "translateX(30px)";
+
+        setTimeout(() => {
+          el.remove();
+        }, 300);
+
+      }, 3200);
+
+    }
+
+    /* =========================
+       CONFETTI
+    ========================== */
+
+    function confetti() {
+
+      const symbols = [
+        "✦",
+        "✧",
+        "◆",
+        "★",
+        "●"
+      ];
+
+      for (let i = 0; i < 45; i++) {
+
+        const piece =
+          document.createElement("div");
+
+        piece.textContent =
+          symbols[
+            Math.floor(
+              Math.random() *
+              symbols.length
+            )
+          ];
+
+        piece.style.position = "fixed";
+        piece.style.left =
+          Math.random() * 100 + "vw";
+        piece.style.top = "-30px";
+        piece.style.zIndex = "6000";
+        piece.style.pointerEvents = "none";
+        piece.style.fontSize =
+          Math.random() * 18 + 10 + "px";
+        piece.style.color =
+          `hsl(${Math.random() * 360} 90% 70%)`;
+
+        document.body.appendChild(piece);
+
+        const duration =
+          Math.random() * 1800 + 1500;
+
+        piece.animate(
+          [
+            {
+              transform:
+                `translateY(0) rotate(0deg)`,
+              opacity: 1
+            },
+            {
+              transform:
+                `translateY(110vh)
+                 translateX(${(Math.random()-.5)*300}px)
+                 rotate(${Math.random()*720}deg)`,
+              opacity: 0
+            }
+          ],
+          {
+            duration,
+            easing: "cubic-bezier(.2,.8,.2,1)"
+          }
+        );
+
+        setTimeout(
+          () => piece.remove(),
+          duration
+        );
+
+      }
+
+    }
+
+    /* =========================
+       FAKE COMMUNITY LINKS
+    ========================== */
+
+    function fakeLink(event, name) {
+
+      event.preventDefault();
+
+      toast(
+        `${name.toUpperCase()}`,
+        `${name} link ready — replace this href with your real link.`
+      );
+
+      addXP(20);
+
+    }
+
+    /* =========================
+       ESCAPE HTML
+    ========================== */
+
+    function escapeHTML(value) {
+
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+    }
+
+    /* =========================
+       SCROLL REVEAL
+    ========================== */
+
+    const revealObserver =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(entry => {
+
+            if (!entry.isIntersecting) return;
+
+            entry.target.animate(
+              [
+                {
+                  opacity: 0,
+                  transform: "translateY(25px)"
+                },
+                {
+                  opacity: 1,
+                  transform: "translateY(0)"
+                }
+              ],
+              {
+                duration: 700,
+                easing: "cubic-bezier(.2,.8,.2,1)",
+                fill: "forwards"
+              }
+            );
+
+            revealObserver.unobserve(
+              entry.target
+            );
+
+          });
+
+        },
+        {
+          threshold: .12
+        }
+      );
+
+    $$(
+      ".stat, .achievement, .community-card, .video-card"
+    ).forEach(el =>
+      revealObserver.observe(el)
+    );
+
+    /* =========================
+       WELCOME
+    ========================== */
+
+    setTimeout(() => {
+
+      toast(
+        "WELCOME TO JJ PLAYZ 👾",
+        "Press / for the command palette."
+      );
+
+    }, 1400);
+
+    /* =========================
+       FEATURED ROTATION
+    ========================== */
+
+    const featuredTitles = [
+
+      [
+        "THE MOMENT EVERYTHING WENT WRONG.",
+        "One match. Zero brain cells. Infinite entertainment."
+      ],
+
+      [
+        "I DEFINITELY MEANT TO DO THAT.",
+        "Calculated. Planned. Absolutely not accidental."
+      ],
+
+      [
+        "THIS SHOULD NOT HAVE WORKED.",
+        "Sometimes the universe simply chooses chaos."
+      ],
+
+      [
+        "ZERO BRAIN CELLS. MAXIMUM RESULTS.",
+        "The strategy was questionable. The result was beautiful."
+      ]
+
+    ];
+
+    let featuredIndex = 0;
+
+    setInterval(() => {
+
+      featuredIndex =
+        (featuredIndex + 1) %
+        featuredTitles.length;
+
+      $("#featuredTitle").textContent =
+        featuredTitles[featuredIndex][0];
+
+      $("#featuredDescription").textContent =
+        featuredTitles[featuredIndex][1];
+
+    }, 5000);
+
+  </script>
+
 </body>
 </html>
+```
